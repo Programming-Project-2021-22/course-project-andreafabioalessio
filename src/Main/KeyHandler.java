@@ -19,16 +19,16 @@ public class KeyHandler implements KeyListener {
 
         int code = e.getKeyCode();
 
-        if (code == KeyEvent.VK_W){ // se premi w
+        if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP){ // se premi w
             upPressed = true;
         }
-        if (code == KeyEvent.VK_A){ // se premi a
+        if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT){ // se premi a
             leftPressed = true;
         }
-        if (code == KeyEvent.VK_S){ // se premi s
+        if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN){ // se premi s
             downPressed = true;
         }
-        if (code == KeyEvent.VK_D){ // se premi d
+        if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT){ // se premi d
             rightPressed = true;
         }
     }
@@ -38,16 +38,16 @@ public class KeyHandler implements KeyListener {
 
         int code = e.getKeyCode();
 
-        if (code == KeyEvent.VK_W){ // se premi w
+        if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP){ // se premi w
             upPressed = false;
         }
-        if (code == KeyEvent.VK_A){ // se premi a
+        if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT){ // se premi a
             leftPressed = false;
         }
-        if (code == KeyEvent.VK_S){ // se premi s
+        if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN){ // se premi s
             downPressed = false;
         }
-        if (code == KeyEvent.VK_D){ // se premi d
+        if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT){ // se premi d
             rightPressed = false;
         }
     }
