@@ -1,5 +1,7 @@
 package Main;
 
+import entity.Player;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -8,7 +10,7 @@ public class GamePanel extends JPanel implements Runnable{
     final int originalTileSize = 32; // grandezza in pixel di ogni tile
     final int scale = 3; // scaling del tile
 
-    final int tileSize = originalTileSize * scale;
+    public int tileSize = originalTileSize * scale;
     final int maxScreenCol = 16; // Ratio = 4:3
     final int maxScreenRow = 12;
     final int screenWidth = tileSize * maxScreenCol; // 1536 pixel
@@ -20,6 +22,8 @@ public class GamePanel extends JPanel implements Runnable{
     KeyHandler keyH = new KeyHandler();
     Thread gameThread; // serve a creare il game loop di tempo.
                        // un thread serve a creare la UI (quindi il gioco) e un alro pr eseguire il codice
+
+    Player player = new Player(this,keyH);
 
     // settare posizione default
     int playerX = 100;
@@ -71,15 +75,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void update(){ //update la posizione del giocatore
 
-        if(keyH.upPressed){
-            playerY -= playerSpeed;
-        }else if(keyH.downPressed){
-            playerY += playerSpeed;
-        }else if(keyH.leftPressed){
-            playerX -= playerSpeed;
-        }else if(keyH.rightPressed){
-            playerX += playerSpeed;
-        }
+        player.update();
 
     }
 
@@ -87,11 +83,9 @@ public class GamePanel extends JPanel implements Runnable{
 
         super.paintComponent(g); // super significa la classe parent di questa classe. in questo caso JPanel
 
-        Graphics g2 = (Graphics2D)g; // più funzioni
+        Graphics2D g2 = (Graphics2D)g; // più funzioni
 
-        g2.setColor(Color.white);
-
-        g2.fillRect(playerX,playerY, tileSize, tileSize);
+        player.draw(g2);
 
         g2.dispose(); // salvare un pò di memoria
 
