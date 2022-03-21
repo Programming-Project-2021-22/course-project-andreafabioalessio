@@ -74,9 +74,8 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public void update(){ //update la posizione del giocatore
-
+        // questo comando viene effettuato 60 volte al secondo grazie al loop del gioco
         player.update();
-
     }
 
     public void paintComponent(Graphics g){ //Graphics è una classe default di java per disegnare oggetti sullo schermo
