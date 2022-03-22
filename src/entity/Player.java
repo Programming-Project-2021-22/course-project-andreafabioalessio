@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 
 public class Player extends Entity{
 
@@ -25,9 +26,13 @@ public class Player extends Entity{
 
     public void setDefaultValues(){
         x = 300;
-        y = 300;
+
         speed = 4;
+
+        gravity = 1;
         direction = "right";
+        floorHeight = 576 - 64;
+        y = floorHeight;
     }
 
     public void getPlayerImage(){
@@ -92,7 +97,8 @@ public class Player extends Entity{
 
             if(keyH.upPressed){
                 direction = "up";
-                //y -= speed;
+                //y -= jumpstrenght;
+                //jumpstrenght -= weight;
             }else if(keyH.downPressed){
                 direction = "down";
                 //y += speed;
@@ -131,9 +137,6 @@ public class Player extends Entity{
     }
 
     public void draw(Graphics2D g2){
-
-        //g2.setColor(Color.white);
-        //g2.fillRect(x, y, gp.tileSize, gp.tileSize);
 
         BufferedImage image = null;
 
@@ -186,15 +189,34 @@ public class Player extends Entity{
                 }
                 break;
             case "up":
-                image = left0;
+
+                if (Objects.equals(direction, "right")){
+                    image = right1;
+                }else{
+                    image = left1;
+                }
+                
+                y -= jumpstrenght;
+                jumpstrenght -= gravity;
+                System.out.println(jumpstrenght);
+                System.out.println(y);
+                if (y >= floorHeight){
+                    y = floorHeight;
+                }
+
+                //jump();
                 break;
             case "down":
-                image = left0;
+                //image = left0;
                 break;
 
         }
         // mostrare l'immagine
         g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+
+    }
+
+    public void jump(){
 
     }
 }
