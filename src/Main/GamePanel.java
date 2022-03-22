@@ -23,7 +23,7 @@ public class GamePanel extends JPanel implements Runnable{
     Thread gameThread; // serve a creare il game loop di tempo.
                        // un thread serve a creare la UI (quindi il gioco) e un alro pr eseguire il codice
 
-    Player player = new Player(this,keyH,2);
+    Player player = new Player(this,keyH,3);
 
     // settare posizione default
     int playerX = 100;
@@ -33,7 +33,7 @@ public class GamePanel extends JPanel implements Runnable{
     public GamePanel(){
 
         this.setPreferredSize(new Dimension(screenWidth,screenHeight));
-        this.setBackground(Color.white);
+        this.setBackground(Color.darkGray);
         this.setDoubleBuffered(true); // il rendering avviene più efficientemente
         this.addKeyListener(keyH);
         this.setFocusable(true);

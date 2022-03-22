@@ -26,7 +26,7 @@ public class Player extends Entity{
     public void setDefaultValues(){
         x = 300;
         y = 300;
-        speed = 2;
+        speed = 4;
         direction = "right";
     }
 
@@ -62,8 +62,21 @@ public class Player extends Entity{
                 right4 = ImageIO.read(getClass().getResourceAsStream("/player/green_right_4.png"));
                 right5 = ImageIO.read(getClass().getResourceAsStream("/player/green_right_5.png"));
                 right6 = ImageIO.read(getClass().getResourceAsStream("/player/green_right_6.png"));
-
-
+            }else if (color == 3){
+                left0 = ImageIO.read(getClass().getResourceAsStream("/player/pink_left_0.png"));
+                left1 = ImageIO.read(getClass().getResourceAsStream("/player/pink_left_1.png"));
+                left2 = ImageIO.read(getClass().getResourceAsStream("/player/pink_left_2.png"));
+                left3 = ImageIO.read(getClass().getResourceAsStream("/player/pink_left_3.png"));
+                left4 = ImageIO.read(getClass().getResourceAsStream("/player/pink_left_4.png"));
+                left5 = ImageIO.read(getClass().getResourceAsStream("/player/pink_left_5.png"));
+                left6 = ImageIO.read(getClass().getResourceAsStream("/player/pink_left_6.png"));
+                right0 = ImageIO.read(getClass().getResourceAsStream("/player/pink_right_0.png"));
+                right1 = ImageIO.read(getClass().getResourceAsStream("/player/pink_right_1.png"));
+                right2 = ImageIO.read(getClass().getResourceAsStream("/player/pink_right_2.png"));
+                right3 = ImageIO.read(getClass().getResourceAsStream("/player/pink_right_3.png"));
+                right4 = ImageIO.read(getClass().getResourceAsStream("/player/pink_right_4.png"));
+                right5 = ImageIO.read(getClass().getResourceAsStream("/player/pink_right_5.png"));
+                right6 = ImageIO.read(getClass().getResourceAsStream("/player/pink_right_6.png"));
             }
 
 
@@ -93,7 +106,7 @@ public class Player extends Entity{
 
             //ciclo di sprite
             spriteCounter++;
-            if(spriteCounter > 12){
+            if(spriteCounter > 7){
                 if (spriteNum == 0){
                     spriteNum = 1;
                 }else if(spriteNum == 1){
