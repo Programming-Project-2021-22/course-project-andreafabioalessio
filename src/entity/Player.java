@@ -20,7 +20,7 @@ public class Player extends Entity {
         //currentImage = entitySkin.animate();
 
         x += xAcc*entitySpeed;
-        y += yAcc*weight;
+        y += yAcc;
         currentImage = entitySkin.center(1);
         movement();
 
@@ -35,7 +35,7 @@ public class Player extends Entity {
 
             } else if (KeyHandler.downPressed) {
 
-                yAcc = 1;
+                yAcc = 1*weight;
 
             } else if (KeyHandler.leftPressed) {
 
@@ -54,6 +54,7 @@ public class Player extends Entity {
             }
             else{
                 xAcc = 0;
+                yAcc = 0;
                 entitySkin.center(1);
             }
 
