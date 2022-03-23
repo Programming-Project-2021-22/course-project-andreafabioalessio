@@ -45,6 +45,9 @@ public class Skin {
             image = images[6];
         }
 
+        spriteNum++;
+        spriteNum = spriteNum%images.length;
+
         return image;
     }
 

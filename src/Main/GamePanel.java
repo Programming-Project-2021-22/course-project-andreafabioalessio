@@ -3,6 +3,7 @@ package Main;
 import entity.Player;
 import entity.Skin;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -24,21 +25,25 @@ public class GamePanel extends JPanel implements Runnable{
     public BufferedImage[] center = new BufferedImage[2];
 
     public void getPlayerImage(){
+        try {
+            center[0] = ImageIO.read(getClass().getResourceAsStream("/player/red_left_0.png"));
+            left[0] = ImageIO.read(getClass().getResourceAsStream("/player/red_left_1.png"));
+            left[1] = ImageIO.read(getClass().getResourceAsStream("/player/red_left_2.png"));
+            left[2] = ImageIO.read(getClass().getResourceAsStream("/player/red_left_3.png"));
+            left[3] = ImageIO.read(getClass().getResourceAsStream("/player/red_left_4.png"));
+            left[4] = ImageIO.read(getClass().getResourceAsStream("/player/red_left_5.png"));
+            left[5] = ImageIO.read(getClass().getResourceAsStream("/player/red_left_6.png"));
+            center[1] = ImageIO.read(getClass().getResourceAsStream("/player/red_right_0.png"));
+            right[0] = ImageIO.read(getClass().getResourceAsStream("/player/red_right_1.png"));
+            right[1] = ImageIO.read(getClass().getResourceAsStream("/player/red_right_2.png"));
+            right[2] = ImageIO.read(getClass().getResourceAsStream("/player/red_right_3.png"));
+            right[3] = ImageIO.read(getClass().getResourceAsStream("/player/red_right_4.png"));
+            right[4] = ImageIO.read(getClass().getResourceAsStream("/player/red_right_5.png"));
+            right[5] = ImageIO.read(getClass().getResourceAsStream("/player/red_right_6.png"));
+        }catch (IOException ioe){
+            ioe.printStackTrace();
+        }
 
-        center[0] = ImageIO.read(getClass().getResourceAsStream("/player/red_left_0.png"));
-        left[0] = ImageIO.read(getClass().getResourceAsStream("/player/red_left_1.png"));
-        left[1] = ImageIO.read(getClass().getResourceAsStream("/player/red_left_2.png"));
-        left[2] = ImageIO.read(getClass().getResourceAsStream("/player/red_left_3.png"));
-        left[3] = ImageIO.read(getClass().getResourceAsStream("/player/red_left_4.png"));
-        left[4] = ImageIO.read(getClass().getResourceAsStream("/player/red_left_5.png"));
-        left[5] = ImageIO.read(getClass().getResourceAsStream("/player/red_left_6.png"));
-        center[1] = ImageIO.read(getClass().getResourceAsStream("/player/red_right_0.png"));
-        right[0] = ImageIO.read(getClass().getResourceAsStream("/player/red_right_1.png"));
-        right[1] = ImageIO.read(getClass().getResourceAsStream("/player/red_right_2.png"));
-        right[2] = ImageIO.read(getClass().getResourceAsStream("/player/red_right_3.png"));
-        right[3] = ImageIO.read(getClass().getResourceAsStream("/player/red_right_4.png"));
-        right[4] = ImageIO.read(getClass().getResourceAsStream("/player/red_right_5.png"));
-        right[5] = ImageIO.read(getClass().getResourceAsStream("/player/red_right_6.png"));
     }
 
     // FPS
@@ -113,7 +118,7 @@ public class GamePanel extends JPanel implements Runnable{
 
         Graphics2D g2 = (Graphics2D)g; // più funzioni
 
-        player.draw(g2);
+        g2.drawImage(player.getCurrenImage(), player.getX(), player.getY(), tileSize, tileSize, null);
 
         g2.dispose(); // salvare un pò di memoria
 
