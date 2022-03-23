@@ -1,9 +1,12 @@
 package Main;
 
 import entity.Player;
+import entity.Skin;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class GamePanel extends JPanel implements Runnable{
 
@@ -16,6 +19,28 @@ public class GamePanel extends JPanel implements Runnable{
     public final int screenWidth = tileSize * maxScreenCol; // 1536 pixel
     public static int screenHeight = tileSize * maxScreenRow; // 1248 pixel
 
+    public BufferedImage[] left = new BufferedImage[6];
+    public BufferedImage[] right = new BufferedImage[6];
+    public BufferedImage[] center = new BufferedImage[2];
+
+    public void getPlayerImage(){
+
+        center[0] = ImageIO.read(getClass().getResourceAsStream("/player/red_left_0.png"));
+        left[0] = ImageIO.read(getClass().getResourceAsStream("/player/red_left_1.png"));
+        left[1] = ImageIO.read(getClass().getResourceAsStream("/player/red_left_2.png"));
+        left[2] = ImageIO.read(getClass().getResourceAsStream("/player/red_left_3.png"));
+        left[3] = ImageIO.read(getClass().getResourceAsStream("/player/red_left_4.png"));
+        left[4] = ImageIO.read(getClass().getResourceAsStream("/player/red_left_5.png"));
+        left[5] = ImageIO.read(getClass().getResourceAsStream("/player/red_left_6.png"));
+        center[1] = ImageIO.read(getClass().getResourceAsStream("/player/red_right_0.png"));
+        right[0] = ImageIO.read(getClass().getResourceAsStream("/player/red_right_1.png"));
+        right[1] = ImageIO.read(getClass().getResourceAsStream("/player/red_right_2.png"));
+        right[2] = ImageIO.read(getClass().getResourceAsStream("/player/red_right_3.png"));
+        right[3] = ImageIO.read(getClass().getResourceAsStream("/player/red_right_4.png"));
+        right[4] = ImageIO.read(getClass().getResourceAsStream("/player/red_right_5.png"));
+        right[5] = ImageIO.read(getClass().getResourceAsStream("/player/red_right_6.png"));
+    }
+
     // FPS
     int fps = 60;
 
@@ -24,7 +49,10 @@ public class GamePanel extends JPanel implements Runnable{
                        // un thread serve a creare la UI (quindi il gioco) e un alro pr eseguire il codice
 
 //to fix
-    //Player player = new Player(this,keyH,3);
+    Skin skin = new Skin(left,right,center);
+    Player player = new Player(300,300,4,10,0,skin);
+
+
 
 
     public GamePanel(){

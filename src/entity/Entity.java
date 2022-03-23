@@ -54,11 +54,9 @@ public class Entity {
 
     //MOVEMENT METHODS
 
-    public void left(){
-        direction = -1;
 
 
-    }
+
     public void right(){
          direction = 1;
     }

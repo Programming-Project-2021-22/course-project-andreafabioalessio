@@ -6,23 +6,66 @@ public class Skin {
     //variables
 
     //TO FIX
-    public BufferedImage left0, left1, left2, left3, left4, left5, left6, right0, right1, right2, right3, right4, right5, right6;
-    public int spriteCounter = 0;
+    public BufferedImage[] center;
+    public BufferedImage[] left;
+    public BufferedImage[] right;
+    public BufferedImage image = null;
     public int spriteNum = 1;
 
     //constructor
-    public Skin() {
+    public Skin(BufferedImage[] left, BufferedImage[] right, BufferedImage[] center) {
+
+        this.center = center;
+        this.left = left;
+        this.right = right;
 
     }
 
+    public BufferedImage movement(BufferedImage[] images){
 
-    //move right animation
+        if (spriteNum == 0){
+            image = images[0];
+        }
+        if (spriteNum == 1){
+            image = images[1];
+        }
+        if (spriteNum == 2){
+            image = images[2];
+        }
+        if (spriteNum == 3){
+            image = images[3];
+        }
+        if (spriteNum == 4){
+            image = images[4];
+        }
+        if (spriteNum == 5){
+            image = images[5];
+        }
+        if (spriteNum == 6){
+            image = images[6];
+        }
 
-    //move left animation
+        return image;
+    }
 
-    //center animation
+    public BufferedImage center(int direction){
+        if (direction == -1){
+            image = center[0];
+        }else{
+            image = center[1];
+        }
+        return image;
+    }
 
-    //jump animation
+
+    public BufferedImage jump(int direction){
+        if (direction == -1){
+            image = left[1];  //frame 1 is always a jump frame
+        }else{
+            image = right[1];
+        }
+        return image;
+    }
 
 
 
