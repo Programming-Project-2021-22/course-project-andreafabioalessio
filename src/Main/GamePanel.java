@@ -7,14 +7,14 @@ import java.awt.*;
 
 public class GamePanel extends JPanel implements Runnable{
 
-    final int originalTileSize = 16; // grandezza in pixel di ogni tile
-    final int scale = 3; // scaling del tile
+    final static int originalTileSize = 16; // grandezza in pixel di ogni tile
+    final static int scale = 3; // scaling del tile
 
-    public int tileSize = originalTileSize * scale;
+    public static int tileSize = originalTileSize * scale;
     final int maxScreenCol = 16; // Ratio = 4:3
-    final int maxScreenRow = 12;
-    final int screenWidth = tileSize * maxScreenCol; // 1536 pixel
-    final int screenHeight = tileSize * maxScreenRow; // 1248 pixel
+    final static int maxScreenRow = 12;
+    public final int screenWidth = tileSize * maxScreenCol; // 1536 pixel
+    public static int screenHeight = tileSize * maxScreenRow; // 1248 pixel
 
     // FPS
     int fps = 60;
@@ -23,7 +23,8 @@ public class GamePanel extends JPanel implements Runnable{
     Thread gameThread; // serve a creare il game loop di tempo.
                        // un thread serve a creare la UI (quindi il gioco) e un alro pr eseguire il codice
 
-    Player player = new Player(this,keyH,3);
+//to fix
+    //Player player = new Player(this,keyH,3);
 
 
     public GamePanel(){
@@ -34,6 +35,10 @@ public class GamePanel extends JPanel implements Runnable{
         this.addKeyListener(keyH);
         this.setFocusable(true);
 
+    }
+
+    public static int getScreenHeight(){
+        return screenHeight;
     }
 
     public void startGameThread(){ // creazione di un thread

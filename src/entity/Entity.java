@@ -1,20 +1,73 @@
 package entity;
 
 import java.awt.image.BufferedImage;
-
-// parent class
+// parent class => Whatever entity moves
 //Qui si instanziano i diversi utenti, npc, ecc
 public class Entity {
 
-    public int x, y;
-    public int speed;
-    public int jumpstrenght;
-    public int gravity;
-    public int floorHeight;
+    protected int x, y, xAcc, yAcc;
+    protected Skin entitySkin;
+    protected int entitySpeed;
+    protected int weight;
+    protected int jumpStrenght;
+    protected int direction; //direction should be used only to choose which image will be shown, not to establish physics => -1 = sx; 0= center; 1=dx
 
-    public BufferedImage left0, left1, left2, left3, left4, left5, left6, right0, right1, right2, right3, right4, right5, right6;
-    public String direction;
 
-    public int spriteCounter = 0;
-    public int spriteNum = 1;
+    //Constructor
+    public Entity(int x, int y,int speed, int jumpStrenght, int weight, Skin skin) {
+
+        this.x = x;
+        this.y = y;
+        this.entitySpeed = speed;
+        this.xAcc = 0;
+        this.yAcc = 0;
+        this.direction = 0;
+        this.jumpStrenght = jumpStrenght;
+        this.weight = weight;
+        this.entitySkin = skin;
+
+    }
+
+
+    //Getters
+    public int getX(){return x;}
+    public int getY(){return y;}
+    public int getXAcc(){return xAcc;}
+    public int getYAcc(){return yAcc;}
+    public int getEntitySpeed(){return entitySpeed;};
+    public int getWeight(){return weight;}
+    public int getJumpStrenght(){return jumpStrenght;}
+    public int getDirection(){return direction;}
+    public Skin getSkin(){return entitySkin;}
+    //Setters
+    public void setX(int newX){ x = newX;}
+    public void setY(int newY){ y = newY;}
+    public void setXAcc(int newXAcc){ xAcc = newXAcc;}
+    public void setYAcc(int newYAcc){ yAcc = newYAcc;}
+    public void setEntitySpeed(int newEntitySpeed){ entitySpeed = newEntitySpeed;}
+    public void setWeight(int newWeight){ weight = newWeight;}
+    public void setJumpStrenght(int newJumpStrenght){ jumpStrenght = newJumpStrenght;}
+    public void setDirection(int newDirection){ direction = newDirection;}
+    public void setSkin(Skin newSkin){ entitySkin = newSkin;}
+
+
+
+    //MOVEMENT METHODS
+
+    public void left(){
+        direction = -1;
+
+
+    }
+    public void right(){
+         direction = 1;
+    }
+    public void stop(){
+        direction = 0;
+    }
+    public void jump(){
+
+    }
+    public void die(){}
+
 }
