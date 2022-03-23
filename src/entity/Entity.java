@@ -1,6 +1,5 @@
 package entity;
 
-import java.awt.image.BufferedImage;
 // parent class => Whatever entity moves
 //Qui si instanziano i diversi utenti, npc, ecc
 public class Entity {
