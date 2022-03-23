@@ -1,9 +1,13 @@
 package Main;
 
 import entity.Player;
+import entity.PlayerSkin;
+import entity.Skin;
+
 
 import javax.swing.*;
 import java.awt.*;
+
 
 public class GamePanel extends JPanel implements Runnable{
 
@@ -16,6 +20,12 @@ public class GamePanel extends JPanel implements Runnable{
     public final int screenWidth = tileSize * maxScreenCol; // 1536 pixel
     public static int screenHeight = tileSize * maxScreenRow; // 1248 pixel
 
+
+    public void getPlayerImage(){
+
+
+    }
+
     // FPS
     int fps = 60;
 
@@ -24,7 +34,10 @@ public class GamePanel extends JPanel implements Runnable{
                        // un thread serve a creare la UI (quindi il gioco) e un alro pr eseguire il codice
 
 //to fix
-    //Player player = new Player(this,keyH,3);
+    PlayerSkin skin = new PlayerSkin();
+    Player player = new Player(300,300,4,10,0,skin);
+
+
 
 
     public GamePanel(){
@@ -85,7 +98,7 @@ public class GamePanel extends JPanel implements Runnable{
 
         Graphics2D g2 = (Graphics2D)g; // più funzioni
 
-        player.draw(g2);
+        g2.drawImage(player.getCurrentImage(), player.getX(), player.getY(), tileSize, tileSize, null);
 
         g2.dispose(); // salvare un pò di memoria
 

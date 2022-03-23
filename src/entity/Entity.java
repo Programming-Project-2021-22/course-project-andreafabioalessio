@@ -1,9 +1,12 @@
 package entity;
 
+import java.awt.image.BufferedImage;
+
 // parent class => Whatever entity moves
 //Qui si instanziano i diversi utenti, npc, ecc
 public class Entity {
 
+    protected BufferedImage currentImage;
     protected int x, y, xAcc, yAcc;
     protected Skin entitySkin;
     protected int entitySpeed;
@@ -38,6 +41,7 @@ public class Entity {
     public int getJumpStrenght(){return jumpStrenght;}
     public int getDirection(){return direction;}
     public Skin getSkin(){return entitySkin;}
+    public BufferedImage getCurrentImage(){return currentImage;}
     //Setters
     public void setX(int newX){ x = newX;}
     public void setY(int newY){ y = newY;}
@@ -48,16 +52,15 @@ public class Entity {
     public void setJumpStrenght(int newJumpStrenght){ jumpStrenght = newJumpStrenght;}
     public void setDirection(int newDirection){ direction = newDirection;}
     public void setSkin(Skin newSkin){ entitySkin = newSkin;}
+    public void setCurrenImage(BufferedImage newImage){currentImage = newImage;}
 
 
 
     //MOVEMENT METHODS
 
-    public void left(){
-        direction = -1;
 
 
-    }
+
     public void right(){
          direction = 1;
     }
