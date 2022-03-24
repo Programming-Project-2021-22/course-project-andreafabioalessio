@@ -69,6 +69,9 @@ public class Entity {
     }
     public void jump(){
 
+        yAcc = -jumpStrenght;
+        jumpStrenght -= weight;
+
     }
     public void die(){}
 

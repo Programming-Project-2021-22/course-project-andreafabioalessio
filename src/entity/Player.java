@@ -23,6 +23,7 @@ public class Player extends Entity {
 
         x += xAcc*entitySpeed;
         y += yAcc;
+
         if (centDirection == 1){
             currentImage = entitySkin.center(1);
             //System.out.println("destra");
@@ -40,7 +41,13 @@ public class Player extends Entity {
 
             if (KeyHandler.upPressed) {
 
-                yAcc = -1;
+                jump();
+
+                if (centDirection == 1){
+                    currentImage = entitySkin.jump(1);
+                }else{
+                    currentImage = entitySkin.jump(-1);
+                }
 
             } else if (KeyHandler.downPressed) {
 

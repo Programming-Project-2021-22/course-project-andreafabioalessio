@@ -46,7 +46,7 @@ public void setSpriteNum(int spriteNum) { this.spriteNum = spriteNum;}
             spriteCounter = 0;
         }
 
-        //System.out.println(spriteNum);
+        System.out.println(spriteNum);
         return images[spriteNum];
     }
 
@@ -62,9 +62,9 @@ public void setSpriteNum(int spriteNum) { this.spriteNum = spriteNum;}
 
     public BufferedImage jump(int direction){
         if (direction == -1){
-            image = left[1];  //frame 1 is always a jump frame
-        }else{
-            image = right[1];
+            image = left[0];  //frame 1 is always a jump frame
+        }else if (direction == 1){
+            image = right[0];
         }
         return image;
     }

@@ -22,7 +22,7 @@ public class KeyHandler implements KeyListener {
 
         int code = e.getKeyCode();
 
-        if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP){ // se premi w
+        if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP || code == KeyEvent.VK_SPACE){ // se premi w
             upPressed = true;
         }
         if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT){ // se premi a
