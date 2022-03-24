@@ -11,6 +11,10 @@ public class Skin {
     public BufferedImage[] right;
     public BufferedImage image = null;
     public int spriteNum = 1;
+    public int spriteCounter = 0;
+    public int spriteFPS = 11;
+
+
 
     //constructor
     public Skin() {
@@ -35,10 +39,14 @@ public void setSpriteNum(int spriteNum) { this.spriteNum = spriteNum;}
 
     public BufferedImage animate(BufferedImage[] images){
 
+        spriteCounter++;
+        if (spriteCounter > 7){
+            spriteNum++;
+            spriteNum = spriteNum%images.length;
+            spriteCounter = 0;
+        }
 
-        spriteNum++;
-        spriteNum = spriteNum%images.length;
-
+        //System.out.println(spriteNum);
         return images[spriteNum];
     }
 

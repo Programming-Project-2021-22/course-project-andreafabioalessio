@@ -7,6 +7,8 @@ import java.awt.event.KeyListener;
 public class Player extends Entity {
 
     KeyHandler movement = new KeyHandler();
+    public int centDirection = 1;
+
 
     public Player(int x, int y, int speed, int jumpStrenght, int weight, Skin skin) {
         super(x, y, speed, jumpStrenght, weight, skin);
@@ -21,7 +23,14 @@ public class Player extends Entity {
 
         x += xAcc*entitySpeed;
         y += yAcc;
-        currentImage = entitySkin.center(1);
+        if (centDirection == 1){
+            currentImage = entitySkin.center(1);
+            //System.out.println("destra");
+        }else{
+            currentImage = entitySkin.center(-1);
+            //System.out.println("sinistra");
+        }
+
         movement();
 
     }
@@ -38,25 +47,29 @@ public class Player extends Entity {
                 yAcc = 1*weight;
 
             } else if (KeyHandler.leftPressed) {
-
+                centDirection = -1;
                 xAcc = -1;
                 direction = -1;
-                System.out.println("left");
+                //System.out.println("left");
                 currentImage = entitySkin.leftAnimation();
 
             } else if (KeyHandler.rightPressed) {
-
+                centDirection = 1;
                 xAcc = 1;
                 direction = 1;
-                System.out.println("right");
+                //System.out.println("right");
                 currentImage = entitySkin.rightAnimation();
 
             }
             else{
                 xAcc = 0;
                 yAcc = 0;
-                entitySkin.center(1);
+
             }
 
+    }
+
+    public int getSpeed(){
+        return entitySpeed;
     }
 }
