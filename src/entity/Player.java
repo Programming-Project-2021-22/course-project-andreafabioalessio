@@ -24,8 +24,6 @@ public class Player extends Entity {
         updatePosition();
         updateHitBox();
         movement();
-
-
     }
 
     public void draw(Graphics2D g2){
@@ -38,7 +36,7 @@ public class Player extends Entity {
         y += yAcc;
         if (jumping || falling){
             yAcc += weight;
-            //System.out.println("sto cadendo");
+            System.out.println("sto cadendo");
         }
     }
 
@@ -55,6 +53,7 @@ public class Player extends Entity {
             if (KeyHandler.upPressed) {
                 //setJumping(true);
                 //jump();
+                System.out.println("salto");
                 if (centDirection == 1){
                     currentImage = entitySkin.jump(1);
                 }else{

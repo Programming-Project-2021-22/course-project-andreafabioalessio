@@ -35,7 +35,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 //to fix
     PlayerSkin skin = new PlayerSkin();
-    Player player = new Player(this,100,300,4,14,1,skin);
+    Player player = new Player(this,100,300,4,14,0,skin);
 
 
 
