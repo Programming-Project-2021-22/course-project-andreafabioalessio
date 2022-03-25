@@ -13,7 +13,7 @@ public class Player extends Entity {
     public Player(int x, int y, int speed, int jumpStrenght, int weight, Skin skin) {
         super(x, y, speed, jumpStrenght, weight, skin);
         this.xAcc = 0;
-        this.yAcc = 0;
+        this.yAcc = 1;
         this.direction = 1;
     }
 
@@ -23,6 +23,11 @@ public class Player extends Entity {
 
         x += xAcc*entitySpeed;
         y += yAcc;
+
+        if (jumping || falling){
+            yAcc += weight;
+            System.out.println("sto cadendo");
+        }
 
         if (centDirection == 1){
             currentImage = entitySkin.center(1);
@@ -41,7 +46,9 @@ public class Player extends Entity {
 
             if (KeyHandler.upPressed) {
 
-                jump();
+
+                //setJumping(true);
+                //jump();
 
                 if (centDirection == 1){
                     currentImage = entitySkin.jump(1);
@@ -70,7 +77,7 @@ public class Player extends Entity {
             }
             else{
                 xAcc = 0;
-                yAcc = 0;
+                //yAcc = 0;
 
             }
 

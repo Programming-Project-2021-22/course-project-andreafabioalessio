@@ -12,6 +12,8 @@ public class Entity {
     protected int entitySpeed;
     protected int weight;
     protected int jumpStrenght;
+    protected boolean falling = true;
+    protected boolean jumping = false;
     protected int direction; //direction should be used only to choose which image will be shown, not to establish physics => -1 = sx; 0= center; 1=dx
 
 
@@ -32,6 +34,8 @@ public class Entity {
 
 
     //Getters
+    public boolean getFalling(){return falling;}
+    public boolean getJumping(){return jumping;}
     public int getX(){return x;}
     public int getY(){return y;}
     public int getXAcc(){return xAcc;}
@@ -43,6 +47,8 @@ public class Entity {
     public Skin getSkin(){return entitySkin;}
     public BufferedImage getCurrentImage(){return currentImage;}
     //Setters
+    public void setFalling(boolean isfalling){falling = isfalling;}
+    public void setJumping(boolean isjumping){jumping = isjumping;}
     public void setX(int newX){ x = newX;}
     public void setY(int newY){ y = newY;}
     public void setXAcc(int newXAcc){ xAcc = newXAcc;}

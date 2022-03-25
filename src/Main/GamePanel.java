@@ -35,7 +35,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 //to fix
     PlayerSkin skin = new PlayerSkin();
-    Player player = new Player(300,300,4,14,1,skin);
+    Player player = new Player(100,300,4,14,1,skin);
 
 
 
@@ -99,6 +99,8 @@ public class GamePanel extends JPanel implements Runnable{
         Graphics2D g2 = (Graphics2D)g; // più funzioni
 
         g2.drawImage(player.getCurrentImage(), player.getX(), player.getY(), tileSize, tileSize, null);
+
+        g2.drawRect(100,500,tileSize,tileSize);
 
         g2.dispose(); // salvare un pò di memoria
 
