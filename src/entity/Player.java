@@ -10,10 +10,9 @@ public class Player extends Entity {
 
     KeyHandler movement = new KeyHandler();
     public int centDirection = 1;
-    GamePanel gp;
 
     public Player(GamePanel gp, int x, int y, int speed, int jumpStrenght, int weight, Skin skin) {
-        super(x, y, speed, jumpStrenght, weight, skin);
+        super(gp, x, y, speed, jumpStrenght, weight, skin);
         this.gp = gp;
         this.xAcc = 0;
         this.yAcc = 1;
@@ -51,9 +50,9 @@ public class Player extends Entity {
         }
 
             if (KeyHandler.upPressed) {
-                //setJumping(true);
-                //jump();
-                System.out.println("salto");
+                setJumping(true);
+
+                System.out.println(getJumping());
                 if (centDirection == 1){
                     currentImage = entitySkin.jump(1);
                 }else{
@@ -62,12 +61,22 @@ public class Player extends Entity {
             } else if (KeyHandler.downPressed) {
                 yAcc = 1*weight;
             } else if (KeyHandler.leftPressed) {
+//                if (jumping || falling){
+//                    currentImage = entitySkin.jump(-1);
+//                }else{
+//                    currentImage = entitySkin.leftAnimation();
+//                }
                 centDirection = -1;
                 xAcc = -1;
                 direction = -1;
                 //System.out.println("left");
                 currentImage = entitySkin.leftAnimation();
             } else if (KeyHandler.rightPressed) {
+//                if (jumping || falling){
+//                    currentImage = entitySkin.jump(1);
+//                }else{
+//                    currentImage = entitySkin.rightAnimation();
+//                }
                 centDirection = 1;
                 xAcc = 1;
                 direction = 1;
@@ -76,7 +85,7 @@ public class Player extends Entity {
             }
             else{
                 xAcc = 0;
-                //yAcc = 0;
+
             }
     }
 

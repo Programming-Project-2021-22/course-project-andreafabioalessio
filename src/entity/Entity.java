@@ -1,5 +1,7 @@
 package entity;
 
+import Main.GamePanel;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -7,6 +9,7 @@ import java.awt.image.BufferedImage;
 //Qui si instanziano i diversi utenti, npc, ecc
 public class Entity {
 
+    protected GamePanel gp;
     protected BufferedImage currentImage;
     protected int x, y, xAcc, yAcc;
     protected Skin entitySkin;
@@ -20,7 +23,7 @@ public class Entity {
 
 
     //Constructor
-    public Entity(int x, int y,int speed, int jumpStrenght, int weight, Skin skin) {
+    public Entity(GamePanel gp, int x, int y,int speed, int jumpStrenght, int weight, Skin skin) {
 
         this.x = x;
         this.y = y;
@@ -44,7 +47,7 @@ public class Entity {
 
     private void createHitBox() {
 
-        hitbox = new Rectangle(x,y,48,48);
+        hitbox = new Rectangle(x,y,gp.tileSize,gp.tileSize);
 
     }
 
@@ -98,12 +101,7 @@ public class Entity {
     public void stop(){
         direction = 0;
     }
-    public void jump(){
-
-        yAcc = -jumpStrenght;
-        jumpStrenght -= weight;
-
-    }
+    public void jump(){}
     public void die(){}
 
 }
