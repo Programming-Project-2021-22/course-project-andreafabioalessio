@@ -1,5 +1,6 @@
 package entity;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 // parent class => Whatever entity moves
@@ -14,6 +15,7 @@ public class Entity {
     protected int jumpStrenght;
     protected boolean falling = true;
     protected boolean jumping = false;
+    protected Rectangle hitbox;
     protected int direction; //direction should be used only to choose which image will be shown, not to establish physics => -1 = sx; 0= center; 1=dx
 
 
@@ -29,7 +31,30 @@ public class Entity {
         this.jumpStrenght = jumpStrenght;
         this.weight = weight;
         this.entitySkin = skin;
+        createHitBox();
 
+    }
+
+    protected void drawHitBox(Graphics2D g2){
+        // For debugging purposes
+        g2.setColor(Color.black);
+        g2.drawRect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
+
+    }
+
+    private void createHitBox() {
+
+        hitbox = new Rectangle(x,y,48,48);
+
+    }
+
+    protected void updateHitBox(){
+        hitbox.x = x;
+        hitbox.y = y;
+    }
+
+    public Rectangle getHitbox(){
+        return hitbox;
     }
 
 
@@ -41,7 +66,7 @@ public class Entity {
     public int getXAcc(){return xAcc;}
     public int getYAcc(){return yAcc;}
     public int getEntitySpeed(){return entitySpeed;};
-    public int getWeight(){return weight;}
+    public float getWeight(){return weight;}
     public int getJumpStrenght(){return jumpStrenght;}
     public int getDirection(){return direction;}
     public Skin getSkin(){return entitySkin;}

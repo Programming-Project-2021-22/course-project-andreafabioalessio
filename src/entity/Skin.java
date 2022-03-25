@@ -22,8 +22,7 @@ public class Skin {
 
 
 //Getters & Setters
-public void setSpriteNum(int spriteNum) { this.spriteNum = spriteNum;}
-
+    public void setSpriteNum(int spriteNum) { this.spriteNum = spriteNum;}
 
 
     public BufferedImage leftAnimation(){
@@ -45,8 +44,6 @@ public void setSpriteNum(int spriteNum) { this.spriteNum = spriteNum;}
             spriteNum = spriteNum%images.length;
             spriteCounter = 0;
         }
-
-        System.out.println(spriteNum);
         return images[spriteNum];
     }
 

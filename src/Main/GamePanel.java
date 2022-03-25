@@ -35,7 +35,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 //to fix
     PlayerSkin skin = new PlayerSkin();
-    Player player = new Player(100,300,4,14,1,skin);
+    Player player = new Player(this,100,300,4,14,1,skin);
 
 
 
@@ -43,7 +43,7 @@ public class GamePanel extends JPanel implements Runnable{
     public GamePanel(){
 
         this.setPreferredSize(new Dimension(screenWidth,screenHeight));
-        this.setBackground(Color.darkGray);
+        this.setBackground(Color.white);
         this.setDoubleBuffered(true); // il rendering avviene più efficientemente
         this.addKeyListener(keyH);
         this.setFocusable(true);
@@ -98,7 +98,7 @@ public class GamePanel extends JPanel implements Runnable{
 
         Graphics2D g2 = (Graphics2D)g; // più funzioni
 
-        g2.drawImage(player.getCurrentImage(), player.getX(), player.getY(), tileSize, tileSize, null);
+        player.draw(g2);
 
         g2.drawRect(100,500,tileSize,tileSize);
 
