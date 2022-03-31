@@ -1,11 +1,15 @@
 package entity;
 
+import Main.GamePanel;
+
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 // parent class => Whatever entity moves
 //Qui si instanziano i diversi utenti, npc, ecc
 public class Entity {
 
+    protected GamePanel gp;
     protected BufferedImage currentImage;
     protected int x, y, xAcc, yAcc;
     protected Skin entitySkin;
@@ -14,11 +18,12 @@ public class Entity {
     protected int jumpStrenght;
     protected boolean falling = false;
     protected boolean jumping = false;
+    protected Rectangle hitbox;
     protected int direction; //direction should be used only to choose which image will be shown, not to establish physics => -1 = sx; 0= center; 1=dx
 
 
     //Constructor
-    public Entity(int x, int y,int speed, int jumpStrenght, int weight, Skin skin) {
+    public Entity(GamePanel gp, int x, int y,int speed, int jumpStrenght, int weight, Skin skin) {
 
         this.x = x;
         this.y = y;
@@ -29,7 +34,30 @@ public class Entity {
         this.jumpStrenght = jumpStrenght;
         this.weight = weight;
         this.entitySkin = skin;
+        createHitBox();
 
+    }
+
+    protected void drawHitBox(Graphics2D g2){
+        // For debugging purposes
+        g2.setColor(Color.black);
+        g2.drawRect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
+
+    }
+
+    private void createHitBox() {
+
+        hitbox = new Rectangle(x,y,gp.tileSize,gp.tileSize);
+
+    }
+
+    protected void updateHitBox(){
+        hitbox.x = x;
+        hitbox.y = y;
+    }
+
+    public Rectangle getHitbox(){
+        return hitbox;
     }
 
 
@@ -41,7 +69,7 @@ public class Entity {
     public int getXAcc(){return xAcc;}
     public int getYAcc(){return yAcc;}
     public int getEntitySpeed(){return entitySpeed;};
-    public int getWeight(){return weight;}
+    public float getWeight(){return weight;}
     public int getJumpStrenght(){return jumpStrenght;}
     public int getDirection(){return direction;}
     public Skin getSkin(){return entitySkin;}
@@ -65,15 +93,6 @@ public class Entity {
     //MOVEMENT METHODS
 
 
-    public void checkGravity(){
-        if (jumping || falling){
-            setYAcc(getYAcc()+getWeight());
-            System.out.println("sto cadendo");
-        }else{
-            setYAcc(0);
-        }
-    }
-
     public void right(){
          direction = 1;
     }
@@ -81,8 +100,7 @@ public class Entity {
         direction = 0;
     }
     public void jump(){
-
-        yAcc = -jumpStrenght;
+        yAcc -= jumpStrenght;
         jumpStrenght -= weight;
 
     }
