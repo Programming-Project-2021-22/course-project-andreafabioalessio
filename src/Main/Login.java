@@ -4,9 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Objects;
 
-import static Main.Signup.userArray;
+import static Main.Startup.userArray;
 
 public class Login extends JPanel {
 
@@ -64,8 +63,10 @@ public class Login extends JPanel {
                 found = true;
                 if (passwordEntered.equalsIgnoreCase(userCheck.getPassword())) { //checks the password
                     System.out.println("Login successful");
+                    return;
                 } else {
                     System.out.println("Wrong password");
+                    return;
                 }
             }
             else {

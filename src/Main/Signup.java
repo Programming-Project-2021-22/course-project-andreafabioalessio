@@ -1,18 +1,17 @@
 package Main;
 
 import javax.swing.*;
-import javax.swing.plaf.BorderUIResource;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
-import java.util.Objects;
 import java.util.Scanner;
+
+import static Main.Startup.userArray;
 
 public class Signup extends JPanel {
 
     JTextField usernameTField, passwordTField;
-    static User [] userArray = new User[0];
     Button createButton;
     String username = "", password = "";
     FileWriter fw;
@@ -100,7 +99,7 @@ public class Signup extends JPanel {
         temp[temp.length - 1] = d;
         userArray = temp;
         addToFile(d);
-        System.out.println(arrayToString(userArray));
+        //System.out.println(arrayToString(userArray));
     }
 
     public void addToFile(User d) {
@@ -116,15 +115,7 @@ public class Signup extends JPanel {
         pw.close();
     }
 
-    public String arrayToString(User [] userArray){
-        String users = "List of users:\n";
-        for (User u : userArray){
-            users += toString(u);
-        }
-        return users;
-    }
-
     public String toString(User u){
-        return u.getUsername() + ";" + u.getPassword() + ";\n";
+        return u.getUsername() + ";" + u.getPassword() + ";" + u.getLevel() + ";:\n";
     }
 }

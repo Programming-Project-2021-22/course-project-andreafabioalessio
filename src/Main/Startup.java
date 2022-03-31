@@ -4,11 +4,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Startup extends JPanel {
 
     Button loginButton = new Button("Login");
     Button signupButton = new Button ("Sign up");
+    static User [] userArray = new User[0];
+    Scanner userLineScan = null;
+    Scanner userTokenScan = null;
 
     public Startup(){
 
@@ -22,6 +29,8 @@ public class Startup extends JPanel {
         buttons.add(signupButton);
         buttons.setLayout(new BoxLayout(buttons, BoxLayout.Y_AXIS));
         buttons.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        fillArray();
 
         signupButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -67,4 +76,45 @@ public class Startup extends JPanel {
         signupWindow.setVisible(true);
     }
 
+    public void fillArray(){
+
+        ArrayList<User> temp = new ArrayList<User>();
+
+        {
+            try {
+                userLineScan = new Scanner(new File("src/UsersList.txt"));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        userLineScan.useDelimiter(":");
+
+        while (userLineScan.hasNext()){
+            String userLine = userLineScan.next();
+            userTokenScan = new Scanner(userLine);
+            userTokenScan.useDelimiter(";");
+
+            String u = userTokenScan.next();
+            String p = userTokenScan.next();
+            int l = Integer.parseInt(userTokenScan.next());
+            //System.out.println(userLine + " " + u + " " + p + " " + l);
+            User user = new User(u, p, l);
+            temp.add(user);
+        }
+        userArray = new User[temp.size()];
+        for (int i = 0; i < temp.size(); i++){
+            userArray[i] = temp.get(i);
+        }
+        System.out.println(arrayToString(userArray));
+    }
+    public String arrayToString(User [] userArray){
+        String users = "List of users:\n";
+        for (User u : userArray){
+            users += toString(u);
+        }
+        return users;
+    }
+    public String toString(User u){
+        return u.getUsername() + ";" + u.getPassword() + ";" + u.getLevel() + ";:\n";
+    }
 }

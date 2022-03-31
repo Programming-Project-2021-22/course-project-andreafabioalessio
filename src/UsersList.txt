@@ -1,7 +1,7 @@
-Alessio;ciao;
-Marco;latte;
-Nicola;biscotto;
-Davide;penna;
-Giovanni;rana;
-Ilaria;rino;
-Andrea;computer;
+Alessio;ciao;1;:
+Marco;latte;1;:
+Nicola;biscotto;1;:
+Davide;penna;1;:
+Giovanni;rana;1;:
+Ilaria;rino;1;:
+Andrea;computer;1;:
