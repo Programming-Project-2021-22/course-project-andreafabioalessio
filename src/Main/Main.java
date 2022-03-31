@@ -12,7 +12,8 @@ public class Main {
         window.setTitle("Gioco Among Us");
 
         GamePanel panel = new GamePanel();
-        window.add(panel);
+        Startup s = new Startup();
+        window.add(s);
 
         window.pack();
 
