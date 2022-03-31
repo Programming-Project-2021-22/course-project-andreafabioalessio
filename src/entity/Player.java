@@ -24,11 +24,15 @@ public class Player extends Entity {
         x += xAcc*entitySpeed;
         y += yAcc;
 
-        if (jumping || falling){
-            yAcc += weight;
-            System.out.println("sto cadendo");
-        }
+        checkGravity();
 
+        setCentDirection();
+
+        movement();
+
+    }
+
+    public void setCentDirection(){
         if (centDirection == 1){
             currentImage = entitySkin.center(1);
             //System.out.println("destra");
@@ -36,19 +40,17 @@ public class Player extends Entity {
             currentImage = entitySkin.center(-1);
             //System.out.println("sinistra");
         }
-
-        movement();
-
     }
+
 
     public void movement() {
 
 
             if (KeyHandler.upPressed) {
 
-
-                //setJumping(true);
-                //jump();
+                yAcc = 1;
+                setJumping(true);
+                jump();
 
                 if (centDirection == 1){
                     currentImage = entitySkin.jump(1);

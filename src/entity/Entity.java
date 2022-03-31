@@ -12,7 +12,7 @@ public class Entity {
     protected int entitySpeed;
     protected int weight;
     protected int jumpStrenght;
-    protected boolean falling = true;
+    protected boolean falling = false;
     protected boolean jumping = false;
     protected int direction; //direction should be used only to choose which image will be shown, not to establish physics => -1 = sx; 0= center; 1=dx
 
@@ -65,7 +65,14 @@ public class Entity {
     //MOVEMENT METHODS
 
 
-
+    public void checkGravity(){
+        if (jumping || falling){
+            setYAcc(getYAcc()+getWeight());
+            System.out.println("sto cadendo");
+        }else{
+            setYAcc(0);
+        }
+    }
 
     public void right(){
          direction = 1;
