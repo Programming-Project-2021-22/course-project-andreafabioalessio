@@ -2,8 +2,6 @@ package Main;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -23,7 +21,6 @@ public class Startup extends JPanel {
         this.setBackground(Color.white);
 
         JPanel buttons = new JPanel();
-        buttons.add(Box.createRigidArea(new Dimension(0,150)));
         buttons.add(loginButton);
         buttons.add(Box.createRigidArea(new Dimension(0,20)));
         buttons.add(signupButton);
@@ -32,20 +29,17 @@ public class Startup extends JPanel {
 
         fillArray();
 
-        signupButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                openSignUpWindow();
-            }
-        });
+        signupButton.addActionListener(e -> openSignUpWindow());
 
-        loginButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                openLoginWindow();
-            }
-        });
+        loginButton.addActionListener(e -> openLoginWindow());
 
-        add(buttons);
+        GridBagConstraints c = new GridBagConstraints();
+        setLayout(new GridBagLayout());
+        c.gridx = 1;
+        c.gridy = 1;
+        add(buttons, c);
     }
+
     public void openLoginWindow(){
 
         JFrame loginWindow = new JFrame();
@@ -79,7 +73,6 @@ public class Startup extends JPanel {
     public void fillArray(){
 
         ArrayList<User> temp = new ArrayList<User>();
-
         {
             try {
                 userLineScan = new Scanner(new File("src/UsersList.txt"));
@@ -97,7 +90,6 @@ public class Startup extends JPanel {
             String u = userTokenScan.next();
             String p = userTokenScan.next();
             int l = Integer.parseInt(userTokenScan.next());
-            //System.out.println(userLine + " " + u + " " + p + " " + l);
             User user = new User(u, p, l);
             temp.add(user);
         }
@@ -107,6 +99,7 @@ public class Startup extends JPanel {
         }
         System.out.println(arrayToString(userArray));
     }
+
     public String arrayToString(User [] userArray){
         String users = "List of users:\n";
         for (User u : userArray){
@@ -114,6 +107,7 @@ public class Startup extends JPanel {
         }
         return users;
     }
+
     public String toString(User u){
         return u.getUsername() + ";" + u.getPassword() + ";" + u.getLevel() + ";:\n";
     }

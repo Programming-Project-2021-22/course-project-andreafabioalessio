@@ -1,5 +1,8 @@
 package Main;
 
+import Exeptions.InvalidUsernameError;
+import Exeptions.WrongPasswordError;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -11,6 +14,7 @@ public class Login extends JPanel {
 
     JTextField usernameTField, passwordTField;
     Button loginButton;
+    JLabel errorLabel;
 
     public Login() {
 
@@ -35,8 +39,14 @@ public class Login extends JPanel {
 
         loginButton = new Button ("Login");
 
+        errorLabel = new JLabel("");
+        JPanel errorPanel = new JPanel();
+
+        errorPanel.add(errorLabel);
+        errorPanel.setMaximumSize(new Dimension(180, 50));
+        errorPanel.setMinimumSize(new Dimension(180, 50));
+
         JPanel panel = new JPanel();
-        panel.add(Box.createRigidArea(new Dimension(0,120)));
         panel.add(usernamePanel);
         panel.add(Box.createRigidArea(new Dimension(0,20)));
         panel.add(passwordPanel);
@@ -49,7 +59,21 @@ public class Login extends JPanel {
                checkUserInArray();
             }
         });
-        add(panel);
+
+        GridBagConstraints c = new GridBagConstraints();
+        setLayout(new GridBagLayout());
+
+        c.gridx = 1;
+        c.gridy = 1;
+        add(panel, c);
+
+        c.gridx = 1;
+        c.gridy = 2;
+        add(Box.createRigidArea(new Dimension(0, 20)), c);
+
+        c.gridx = 1;
+        c.gridy = 3;
+        add(errorPanel, c);
     }
 
     public void checkUserInArray(){
@@ -59,22 +83,42 @@ public class Login extends JPanel {
 
         for (int i = 0; i < userArray.length; ){
             User userCheck = userArray[i];
-            if (usernameEntered.equalsIgnoreCase(userCheck.getUsername())) {//checks if given username matches one in the array
+            if (usernameEntered.equalsIgnoreCase(formatUsername(userCheck.getUsername()))) {//checks if given username matches one in the array
                 found = true;
-                if (passwordEntered.equalsIgnoreCase(userCheck.getPassword())) { //checks the password
+                if (passwordEntered.equalsIgnoreCase(formatUsername(userCheck.getPassword()))) { //checks the password
                     System.out.println("Login successful");
+                    errorLabel.setText("Login successful");
+                    errorLabel.setForeground(Color.green);
                     return;
                 } else {
-                    System.out.println("Wrong password");
+                    try {
+                        throw new WrongPasswordError("Wrong password.");
+                    } catch (WrongPasswordError e) {
+                        e.printStackTrace();
+                    }
+                    errorLabel.setText("Wrong password.");
+                    errorLabel.setForeground(Color.red);
                     return;
                 }
             }
             else {
+                System.out.println("Entered: " + usernameEntered + " " + passwordEntered + "\n" +
+                        "In array: " + formatUsername(userCheck.getUsername()) + " " + formatUsername(userCheck.getPassword()));
                 i++; //checks next user in the array
             }
         }
         if (!found){
-            System.out.println("User not found, please sign up first");
+            try {
+                throw new InvalidUsernameError("Invalid username,\nplease sign up first");
+            } catch (InvalidUsernameError e) {
+                e.printStackTrace();
+            }
+            errorLabel.setText("Invalid username, please sign up first");
+            errorLabel.setForeground(Color.red);
         }
+    }
+
+    public String formatUsername(String s){
+        return s.replace("\n", "").replace(" ", "");
     }
 }

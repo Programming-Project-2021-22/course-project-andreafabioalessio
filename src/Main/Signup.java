@@ -1,5 +1,7 @@
 package Main;
 
+import Exeptions.InvalidUsernameError;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -40,13 +42,21 @@ public class Signup extends JPanel {
         createButton = new Button ("Create profile");
 
         JPanel panel = new JPanel();
-        panel.add(Box.createRigidArea(new Dimension(0,120)));
         panel.add(usernamePanel);
         panel.add(Box.createRigidArea(new Dimension(0,20)));
         panel.add(passwordPanel);
         panel.add(Box.createRigidArea(new Dimension(0,20)));
         panel.add(createButton);
+
+        JLabel errorLabel = new JLabel("");
+        JPanel errorPanel = new JPanel();
+
+        errorPanel.add(errorLabel);
+        errorPanel.setMaximumSize(new Dimension(180, 50));
+        errorPanel.setMinimumSize(new Dimension(180, 50));
+        panel.add(errorPanel);
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
 
         createButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -58,11 +68,32 @@ public class Signup extends JPanel {
                     createUser(username, password);
                 }
                 else{
-                    System.out.println("Username already exists.\nPlease select another one or login!");
+                    //JOptionPane.showMessageDialog(panel, "Username already exists", "error", JOptionPane.ERROR_MESSAGE);
+                    try {
+                        throw new InvalidUsernameError("Username already exists. Please select another one or login!");
+
+                    } catch (InvalidUsernameError ex) {
+                        ex.printStackTrace();
+                    }
+                    errorLabel.setText("Username already exists.");
+                    errorLabel.setForeground(Color.red);
                 }
             }
         });
-        add(panel);
+        GridBagConstraints c = new GridBagConstraints();
+        setLayout(new GridBagLayout());
+
+        c.gridx = 1;
+        c.gridy = 1;
+        add(panel, c);
+
+        c.gridx = 1;
+        c.gridy = 2;
+        add(Box.createRigidArea(new Dimension(0, 20)), c);
+
+        c.gridx = 1;
+        c.gridy = 3;
+        add(errorPanel, c);
     }
 
     public boolean checkUser (String us, String pa){
@@ -111,11 +142,12 @@ public class Signup extends JPanel {
             }
         }
         PrintWriter pw = new PrintWriter(fw);
+        pw.append("\n");
         pw.append(toString(d));
         pw.close();
     }
 
     public String toString(User u){
-        return u.getUsername() + ";" + u.getPassword() + ";" + u.getLevel() + ";:\n";
+        return u.getUsername() + ";" + u.getPassword() + ";" + u.getLevel() + ";:";
     }
 }
