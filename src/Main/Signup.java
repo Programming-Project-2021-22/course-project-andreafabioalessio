@@ -1,14 +1,12 @@
 package Main;
 
 import Exeptions.InvalidUsernameError;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.Scanner;
-
 import static Main.Startup.userArray;
 
 public class Signup extends JPanel {

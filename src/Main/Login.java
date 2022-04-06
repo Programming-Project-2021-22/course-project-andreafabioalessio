@@ -2,12 +2,10 @@ package Main;
 
 import Exeptions.InvalidUsernameError;
 import Exeptions.WrongPasswordError;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import static Main.Startup.userArray;
 
 public class Login extends JPanel {
@@ -88,7 +86,7 @@ public class Login extends JPanel {
                 if (passwordEntered.equalsIgnoreCase(formatUsername(userCheck.getPassword()))) { //checks the password
                     System.out.println("Login successful");
                     errorLabel.setText("Login successful");
-                    errorLabel.setForeground(Color.green);
+                    errorLabel.setForeground(new Color(0, 220, 30));
                     return;
                 } else {
                     try {
@@ -109,7 +107,7 @@ public class Login extends JPanel {
         }
         if (!found){
             try {
-                throw new InvalidUsernameError("Invalid username,\nplease sign up first");
+                throw new InvalidUsernameError("Invalid username, please sign up first");
             } catch (InvalidUsernameError e) {
                 e.printStackTrace();
             }

@@ -3,7 +3,6 @@ package Main;
 import javax.swing.*;
 
 public class Main {
-
     public static void main(String[] args) {
 
         JFrame window = new JFrame();
@@ -21,7 +20,5 @@ public class Main {
         window.setVisible(true);
 
         panel.startGameThread();
-
     }
-
 }
