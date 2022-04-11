@@ -22,7 +22,6 @@ public class Player extends Entity {
     public void update(){
         updatePosition();
         updateHitBox();
-        movement();
     }
 
     public void draw(Graphics2D g2){
@@ -42,6 +41,7 @@ public class Player extends Entity {
         movement();
 
     }
+
     public void checkGravity(){
         if (jumping || falling){
             yAcc += weight;

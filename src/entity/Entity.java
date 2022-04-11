@@ -96,14 +96,16 @@ public class Entity {
     public void right(){
          direction = 1;
     }
+
     public void stop(){
         direction = 0;
     }
+
     public void jump(){
         yAcc -= jumpStrenght;
         jumpStrenght -= weight;
-
     }
+
     public void die(){}
 
 }
