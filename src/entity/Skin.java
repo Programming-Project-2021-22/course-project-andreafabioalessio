@@ -12,7 +12,7 @@ public class Skin {
     public BufferedImage image = null;
     public int spriteNum = 1;
     public int spriteCounter = 0;
-    public int spriteFPS = 11;
+    public int spriteFPS = 7;
 
 
 
@@ -36,7 +36,7 @@ public class Skin {
     public BufferedImage animate(BufferedImage[] images){
 
         spriteCounter++;
-        if (spriteCounter > 11){
+        if (spriteCounter > spriteFPS){
             spriteNum++;
             spriteNum = spriteNum%images.length;
             spriteCounter = 0;

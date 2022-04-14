@@ -7,13 +7,13 @@ import java.awt.image.BufferedImage;
 
 // parent class => Whatever entity moves
 //Qui si instanziano i diversi utenti, npc, ecc
-public class Entity {
+public abstract class Entity {
 
     protected GamePanel gp;
     protected BufferedImage currentImage;
     protected int x, y, xAcc, yAcc;
     protected Skin entitySkin;
-    protected int entitySpeed;
+    public int entitySpeed;
     protected int weight;
     protected int jumpStrenght;
     protected boolean falling = false;
@@ -23,7 +23,7 @@ public class Entity {
 
 
     //Constructor
-    public Entity(GamePanel gp, int x, int y,int speed, int jumpStrenght, int weight, Skin skin) {
+    public Entity(int x, int y,int speed, int jumpStrenght, int weight, Skin skin) {
 
         this.x = x;
         this.y = y;
@@ -38,16 +38,16 @@ public class Entity {
 
     }
 
-    protected void drawHitBox(Graphics2D g2){
+    protected void drawHitBox(Graphics g){
         // For debugging purposes
-        g2.setColor(Color.black);
-        g2.drawRect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
+        g.setColor(Color.black);
+        g.drawRect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
 
     }
 
     private void createHitBox() {
 
-        hitbox = new Rectangle(x,y,gp.tileSize,gp.tileSize);
+       hitbox = new Rectangle(x,y,48,48);
 
     }
 
