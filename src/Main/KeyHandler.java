@@ -7,11 +7,7 @@ public class KeyHandler implements KeyListener {
 
     public static boolean upPressed, downPressed, leftPressed, rightPressed;
 
-    private GamePanel gamePanel;
 
-   // public KeyHandler(GamePanel gamePanel){
-    //    this.gamePanel = gamePanel;
-    //}
 
     @Override
     public void keyTyped(KeyEvent e) {

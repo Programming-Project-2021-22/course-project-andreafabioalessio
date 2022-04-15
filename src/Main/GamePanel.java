@@ -23,7 +23,7 @@ public class GamePanel extends JPanel{
         this.setBackground(Color.white);
         this.setDoubleBuffered(true); // il rendering avviene più efficientemente
         addKeyListener(new KeyHandler());
-        //this.setFocusable(true);
+        this.setFocusable(true);
 
     }
 
