@@ -1,78 +1,86 @@
 package Main;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Startup extends JPanel {
 
-    Button loginButton = new Button("Login");
-    Button signupButton = new Button ("Sign up");
     static User [] userArray = new User[0];
-    Scanner userLineScan = null;
-    Scanner userTokenScan = null;
+    private Scanner userLineScan = null;
+    private Image image;
 
-    public Startup(){
-
-        this.setPreferredSize(new Dimension(400, 400));
-        this.setBackground(Color.white);
-
-        JPanel buttons = new JPanel();
-        buttons.add(loginButton);
-        buttons.add(Box.createRigidArea(new Dimension(0,20)));
-        buttons.add(signupButton);
-        buttons.setLayout(new BoxLayout(buttons, BoxLayout.Y_AXIS));
-        buttons.setAlignmentX(Component.CENTER_ALIGNMENT);
-
+    public Startup(JFrame window){
         fillArray();
 
-        signupButton.addActionListener(e -> openSignUpWindow());
+        this.setPreferredSize(new Dimension(600, 400));
+        this.setBackground(Color.white);
 
-        loginButton.addActionListener(e -> openLoginWindow());
+        Dimension loginButtonDimension = new Dimension(168, 50);
+        Dimension signupButtonDimension = new Dimension(201, 50);
+
+        ImageIcon loginIcon = new ImageIcon("src/Images/login-button-resized2.png", "login button icon");
+        JButton loginButton = new JButton(loginIcon);
+        loginButton.setMinimumSize(loginButtonDimension);
+        loginButton.setMaximumSize(loginButtonDimension);
+        loginButton.setPreferredSize(loginButtonDimension);
+        loginButton.setContentAreaFilled(false);
+        loginButton.setBorderPainted(false);
+
+        ImageIcon signupIcon = new ImageIcon("src/Images/signup-button-resized2.png", "signup button icon");
+        JButton signupButton = new JButton(signupIcon);
+        signupButton.setMinimumSize(signupButtonDimension);
+        signupButton.setMaximumSize(signupButtonDimension);
+        signupButton.setPreferredSize(signupButtonDimension);
+        signupButton.setContentAreaFilled(false);
+        signupButton.setBorderPainted(false);
+
+        ImageIcon background = new ImageIcon("src/Images/background.jpg");
+        Image img = background.getImage().getScaledInstance(600, 400, Image.SCALE_SMOOTH);
+        background = new ImageIcon(img);
+        JLabel back = new JLabel(background);
+        back.setLayout(new BorderLayout());
+        back.setBounds(0,0,600,400);
+
+        signupButton.addActionListener(e -> openSignUpWindow(window));
+        loginButton.addActionListener(e -> openLoginWindow(window));
 
         GridBagConstraints c = new GridBagConstraints();
         setLayout(new GridBagLayout());
         c.gridx = 1;
         c.gridy = 1;
-        add(buttons, c);
+        add(loginButton, c);
+        c.gridy = 2;
+        add(Box.createRigidArea(new Dimension(0,30)), c);
+        c.gridy = 3;
+        add(signupButton, c);
     }
 
-    public void openLoginWindow(){
-
-        JFrame loginWindow = new JFrame();
-        loginWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        loginWindow.setResizable(false);
-        loginWindow.setTitle("Login");
-
-        Login l = new Login();
-        loginWindow.add(l);
-
-        loginWindow.pack();
-        loginWindow.setLocationRelativeTo(null);
-        loginWindow.setVisible(true);
+    public void openLoginWindow(JFrame window){
+        Login l = new Login(window);
+        window.getContentPane().removeAll();
+        window.setTitle("Login");
+        window.setContentPane(l);
+        window.revalidate();
+        window.repaint();
     }
 
-    public void openSignUpWindow(){
-
-        JFrame signupWindow = new JFrame();
-        signupWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        signupWindow.setResizable(false);
-        signupWindow.setTitle("Sign up");
-
-        Signup s = new Signup();
-        signupWindow.add(s);
-
-        signupWindow.pack();
-        signupWindow.setLocationRelativeTo(null);
-        signupWindow.setVisible(true);
+    public void openSignUpWindow(JFrame window){
+        Signup s = new Signup(window);
+        window.getContentPane().removeAll();
+        window.setTitle("Sign Up");
+        window.setContentPane(s);
+        window.revalidate();
+        window.repaint();
     }
 
     public void fillArray(){
-
-        ArrayList<User> temp = new ArrayList<User>();
+        ArrayList<User> temp = new ArrayList<>();
         {
             try {
                 userLineScan = new Scanner(new File("src/UsersList.txt"));
@@ -84,7 +92,7 @@ public class Startup extends JPanel {
 
         while (userLineScan.hasNext()){
             String userLine = userLineScan.next();
-            userTokenScan = new Scanner(userLine);
+            Scanner userTokenScan = new Scanner(userLine);
             userTokenScan.useDelimiter(";");
 
             String u = userTokenScan.next();
@@ -110,5 +118,17 @@ public class Startup extends JPanel {
 
     public String toString(User u){
         return u.getUsername() + ";" + u.getPassword() + ";" + u.getLevel() + ";:\n";
+    }
+
+    @Override
+    public void paintComponent(Graphics g){
+        try {
+            image = ImageIO.read(new File("src/Images/background-resized.jpg"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        super.paintComponent(g);
+
+        g.drawImage(image, 0, 0, null);
     }
 }

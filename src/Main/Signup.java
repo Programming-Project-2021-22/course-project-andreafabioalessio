@@ -1,83 +1,106 @@
 package Main;
 
 import Exeptions.InvalidUsernameError;
+import Exeptions.InvalidPasswordError;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.Scanner;
 import static Main.Startup.userArray;
 
 public class Signup extends JPanel {
 
-    JTextField usernameTField, passwordTField;
-    Button createButton;
-    String username = "", password = "";
-    FileWriter fw;
-    Scanner userCheckerScan;
+    private final JTextField usernameTField;
+    private final JPasswordField passwordTField;
+    private final JLabel errorLabel;
+    private String username = "", password = "";
+    private FileWriter fw;
+    private Scanner userCheckerScan;
+    private Image image;
 
-    public Signup(){
+    public Signup(JFrame window){
         this.setPreferredSize(new Dimension(400, 400));
         this.setBackground(Color.WHITE);
 
-        JLabel usernameLabel = new JLabel("Insert username: ");
+        JLabel usernameLabel = new JLabel("Insert username:");
         usernameTField = new JTextField(15);
         JPanel usernamePanel = new JPanel();
         usernameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         usernamePanel.add(usernameLabel);
         usernamePanel.add(usernameTField);
         usernamePanel.setLayout(new BoxLayout(usernamePanel, BoxLayout.Y_AXIS));
+        usernamePanel.setBackground(new Color(0, 0, 0, 0));
 
-        JLabel passwordLabel = new JLabel("Password: ");
-        passwordTField = new JTextField(15);
+        JLabel passwordLabel = new JLabel("Password:");
+        passwordTField = new JPasswordField(15);
+
+        JLabel showPasswordLabel = new JLabel("Show Password");
+        showPasswordLabel.setForeground(new Color(255, 255, 255));
+        JCheckBox showPassword = new JCheckBox();
+        showPassword.setBackground(new Color(0, 0, 0, 0));
+
+        showPasswordLabel.setFont(new Font("Dialog", Font.BOLD, 8));
+
+        showPassword.addActionListener(e-> {passwordTField.setEchoChar(
+                showPassword.isSelected() ? '\u0000' : '\u2022');});
+
+        JPanel showPasswordPanel = new JPanel();
+        showPasswordPanel.add(showPasswordLabel);
+        showPasswordPanel.add(showPassword);
+        showPasswordPanel.setBackground(new Color(0, 0, 0, 0));
+
         JPanel passwordPanel = new JPanel();
         passwordLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         passwordPanel.add(passwordLabel);
         passwordPanel.add(passwordTField);
+        passwordPanel.add(showPasswordPanel);
         passwordPanel.setLayout(new BoxLayout(passwordPanel, BoxLayout.Y_AXIS));
+        passwordPanel.setBackground(new Color(0, 0, 0, 0));
 
-        createButton = new Button ("Create profile");
+        ImageIcon signupIcon = new ImageIcon("src/Images/signup-button-resized.png", "signup button icon");
+        JButton createButton = new JButton(signupIcon);
+        createButton.setMinimumSize(new Dimension(75, 24));
+        createButton.setMaximumSize(new Dimension(75, 24));
+        createButton.setPreferredSize(new Dimension(75, 24));
+        createButton.setContentAreaFilled(false);
+        createButton.setBorderPainted(false);
+        createButton.addActionListener(e -> createButtonPress());
 
-        JPanel panel = new JPanel();
-        panel.add(usernamePanel);
-        panel.add(Box.createRigidArea(new Dimension(0,20)));
-        panel.add(passwordPanel);
-        panel.add(Box.createRigidArea(new Dimension(0,20)));
-        panel.add(createButton);
+        ImageIcon backIcon = new ImageIcon("src/Images/back-button-resized.png", "back button icon");
+        JButton backButton = new JButton(backIcon);
+        backButton.setMinimumSize(new Dimension(75, 24));
+        backButton.setMaximumSize(new Dimension(75, 24));
+        backButton.setPreferredSize(new Dimension(75, 24));
+        backButton.setContentAreaFilled(false);
+        backButton.setBorderPainted(false);
+        backButton.addActionListener(e -> goBackToMenu(window));
 
-        JLabel errorLabel = new JLabel("");
+        errorLabel = new JLabel();
         JPanel errorPanel = new JPanel();
-
         errorPanel.add(errorLabel);
         errorPanel.setMaximumSize(new Dimension(180, 50));
         errorPanel.setMinimumSize(new Dimension(180, 50));
-        panel.add(errorPanel);
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        errorPanel.setBackground(new Color(0, 0, 0, 0));
 
+        GridBagConstraints panelConstraints = new GridBagConstraints();
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridBagLayout());
+        panelConstraints.gridx = 1;
+        panelConstraints.gridy = 1;
+        panel.add(usernamePanel, panelConstraints);
+        panelConstraints.gridy = 2;
+        panel.add(Box.createRigidArea(new Dimension(0, 20)), panelConstraints);
+        panelConstraints.gridy = 3;
+        panel.add(passwordPanel, panelConstraints);
+        panelConstraints.gridy = 4;
+        panel.add(createButton, panelConstraints);
+        panelConstraints.gridy = 5;
+        panel.add(Box.createRigidArea(new Dimension(0,20)), panelConstraints);
+        panelConstraints.gridy = 6;
+        panel.add(backButton, panelConstraints);
+        panel.setBackground(new Color(0, 0, 0, 0));
 
-        createButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-
-                username = usernameTField.getText();
-                password = passwordTField.getText();
-
-                if (!checkUser(username, password)){
-                    createUser(username, password);
-                }
-                else{
-                    //JOptionPane.showMessageDialog(panel, "Username already exists", "error", JOptionPane.ERROR_MESSAGE);
-                    try {
-                        throw new InvalidUsernameError("Username already exists. Please select another one or login!");
-
-                    } catch (InvalidUsernameError ex) {
-                        ex.printStackTrace();
-                    }
-                    errorLabel.setText("Username already exists.");
-                    errorLabel.setForeground(Color.red);
-                }
-            }
-        });
         GridBagConstraints c = new GridBagConstraints();
         setLayout(new GridBagLayout());
 
@@ -94,7 +117,50 @@ public class Signup extends JPanel {
         add(errorPanel, c);
     }
 
-    public boolean checkUser (String us, String pa){
+    private void goBackToMenu(JFrame window) {
+        Startup s = new Startup(window);
+        window.getContentPane().removeAll();
+        window.setTitle("Menù");
+        window.setContentPane(s);
+        window.revalidate();
+        window.repaint();
+    }
+
+    private void createButtonPress(){
+        username = usernameTField.getText();
+        password = String.valueOf(passwordTField.getPassword());
+
+        if (!checkUser(username)){
+            if (checkPassword(password)){
+                createUser(username, password);
+                errorLabel.setText("User successfully created");
+                errorLabel.setForeground(new Color(0, 220, 30));
+                //+Login
+            }
+            else{
+                try {
+                    throw new InvalidPasswordError("Password field can not be empty");
+                } catch (InvalidPasswordError ex) {
+                    ex.printStackTrace();
+                }
+                errorLabel.setText("Please insert a valid password");
+                errorLabel.setForeground(Color.red);
+            }
+        }
+        else{
+            try {
+                throw new InvalidUsernameError("Username already exists");
+            } catch (InvalidUsernameError ex) {
+                ex.printStackTrace();
+            }
+            errorLabel.setText("<html><div style = 'text-align: center;'>" +
+                    "Username already exists.<br/>Please select another one or login" +
+                    "</div></html>");
+            errorLabel.setForeground(Color.red);
+        }
+    }
+
+    public boolean checkUser(String us){
         String existingUsername;
         boolean exists = false;
         {
@@ -111,14 +177,15 @@ public class Signup extends JPanel {
 
             exists = existingUsername.compareToIgnoreCase(us) == 0;
             System.out.println(existingUsername + "|" + us + "|" + exists);
-           if (exists)
-               return true;
         }
         return exists;
     }
 
-    public void createUser(String us, String pa){
+    public boolean checkPassword (String pa){
+        return !pa.equalsIgnoreCase("");
+    }
 
+    public void createUser(String us, String pa){
         User d = new User (us, pa, 1);
         User [] temp = new User[userArray.length + 1];
         for (int i = 0; i < userArray.length; i++){
@@ -128,7 +195,6 @@ public class Signup extends JPanel {
         temp[temp.length - 1] = d;
         userArray = temp;
         addToFile(d);
-        //System.out.println(arrayToString(userArray));
     }
 
     public void addToFile(User d) {
@@ -147,5 +213,16 @@ public class Signup extends JPanel {
 
     public String toString(User u){
         return u.getUsername() + ";" + u.getPassword() + ";" + u.getLevel() + ";:";
+    }
+
+    public void paintComponent(Graphics g){
+        try {
+            image = ImageIO.read(new File("src/Images/background-resized.jpg"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        super.paintComponent(g);
+
+        g.drawImage(image, 0, 0, null);
     }
 }
