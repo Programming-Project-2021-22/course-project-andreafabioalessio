@@ -115,7 +115,7 @@ public class Login extends JPanel {
         add(errorPanel, c);
     }
 
-    public void goBackToMenu(JFrame window) {
+    private void goBackToMenu(JFrame window) {
         Startup s = new Startup(window);
         window.getContentPane().removeAll();
         window.setTitle("Menù");
@@ -124,7 +124,7 @@ public class Login extends JPanel {
         window.repaint();
     }
 
-    public void checkUserInArray(){
+    private void checkUserInArray(){
         boolean found = false;
         String usernameEntered = usernameTField.getText();
         String passwordEntered = String.valueOf(passwordTField.getPassword());
@@ -169,7 +169,7 @@ public class Login extends JPanel {
         }
     }
 
-    public String formatUsername(String s){
+    private String formatUsername(String s){
         return s.replace("\n", "").replace(" ", "");
     }
 

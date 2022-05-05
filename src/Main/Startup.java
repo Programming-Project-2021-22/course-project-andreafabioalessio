@@ -16,7 +16,7 @@ public class Startup extends JPanel {
     private Image image;
 
     public Startup(JFrame window){
-        fillArray();
+        fillArray(); //reads users from UserList.txt and fills an array with users
 
         this.setPreferredSize(new Dimension(600, 400));
         this.setBackground(Color.white);
@@ -61,7 +61,7 @@ public class Startup extends JPanel {
         add(signupButton, c);
     }
 
-    public void openLoginWindow(JFrame window){
+    private void openLoginWindow(JFrame window){
         Login l = new Login(window);
         window.getContentPane().removeAll();
         window.setTitle("Login");
@@ -70,7 +70,7 @@ public class Startup extends JPanel {
         window.repaint();
     }
 
-    public void openSignUpWindow(JFrame window){
+    private void openSignUpWindow(JFrame window){
         Signup s = new Signup(window);
         window.getContentPane().removeAll();
         window.setTitle("Sign Up");
@@ -79,7 +79,7 @@ public class Startup extends JPanel {
         window.repaint();
     }
 
-    public void fillArray(){
+    private void fillArray(){
         ArrayList<User> temp = new ArrayList<>();
         {
             try {
@@ -108,7 +108,7 @@ public class Startup extends JPanel {
         System.out.println(arrayToString(userArray));
     }
 
-    public String arrayToString(User [] userArray){
+    private String arrayToString(User [] userArray){
         String users = "List of users:\n";
         for (User u : userArray){
             users += toString(u);
@@ -116,7 +116,7 @@ public class Startup extends JPanel {
         return users;
     }
 
-    public String toString(User u){
+    private String toString(User u){
         return u.getUsername() + ";" + u.getPassword() + ";" + u.getLevel() + ";:\n";
     }
 

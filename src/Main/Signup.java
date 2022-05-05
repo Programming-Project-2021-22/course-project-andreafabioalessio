@@ -160,7 +160,7 @@ public class Signup extends JPanel {
         }
     }
 
-    public boolean checkUser(String us){
+    private boolean checkUser(String us){
         String existingUsername;
         boolean exists = false;
         {
@@ -181,11 +181,11 @@ public class Signup extends JPanel {
         return exists;
     }
 
-    public boolean checkPassword (String pa){
+    private boolean checkPassword (String pa){
         return !pa.equalsIgnoreCase("");
     }
 
-    public void createUser(String us, String pa){
+    private void createUser(String us, String pa){
         User d = new User (us, pa, 1);
         User [] temp = new User[userArray.length + 1];
         for (int i = 0; i < userArray.length; i++){
@@ -197,7 +197,7 @@ public class Signup extends JPanel {
         addToFile(d);
     }
 
-    public void addToFile(User d) {
+    private void addToFile(User d) {
         {
             try {
                 fw = new FileWriter("src/UsersList.txt", true);
@@ -211,7 +211,7 @@ public class Signup extends JPanel {
         pw.close();
     }
 
-    public String toString(User u){
+    private String toString(User u){
         return u.getUsername() + ";" + u.getPassword() + ";" + u.getLevel() + ";:";
     }
 
