@@ -1,6 +1,7 @@
 package Main;
 import entity.Player;
 import entity.PlayerSkin;
+import level.levelHandler;
 
 import java.awt.*;
 
@@ -11,6 +12,7 @@ public class Game implements Runnable{
     private GamePanel gamePanel;
     private Thread gameThread;
     private Player player;
+    private levelHandler levelHandler;
 
     public final static int originalTileSize = 16; // grandezza in pixel di ogni tile
     public final static int scale = 3; // scaling del tile
@@ -35,7 +37,8 @@ public class Game implements Runnable{
 
     private void getClasses() {
         PlayerSkin skin = new PlayerSkin();
-        player = new Player(100,300,6,25,1,skin);
+        player = new Player(100,300,6,20,1,skin);
+        levelHandler = new levelHandler(this);
     }
 
     private void startGameLoop() {
@@ -45,9 +48,11 @@ public class Game implements Runnable{
 
     public void update(){
         player.update();
+        levelHandler.update();
     }
 
     public void render(Graphics g){
+        levelHandler.draw(g);
         player.draw(g);
     }
 
