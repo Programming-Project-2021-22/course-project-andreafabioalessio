@@ -10,8 +10,8 @@ import java.io.InputStream;
 
 public class LoadSave {
 
-    public static final String LEVEL_ATLAS = "outside_sprites.png";
-    public static final String LEVEL_ONE_DATA = "level_data_1.png";
+    public static final String LEVEL_ATLAS = "outside_sprites_1png.png";
+    public static final String LEVEL_DATA_1 = "level_data_1.png";
 
     public static BufferedImage GetSpriteAtlas(String fileName) {
         BufferedImage img = null;
@@ -33,7 +33,7 @@ public class LoadSave {
 
     public static int[][] GetLevelData() {
         int[][] lvlData = new int[Game.screenHeight][Game.screenWidth];
-        BufferedImage img = GetSpriteAtlas(LEVEL_ONE_DATA);
+        BufferedImage img = GetSpriteAtlas(LEVEL_DATA_1);
 
         for (int j = 0; j < img.getHeight(); j++)
             for (int i = 0; i < img.getWidth(); i++) {
