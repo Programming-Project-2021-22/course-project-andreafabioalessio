@@ -2,8 +2,9 @@ package level;
 
 import Main.Game;
 
-import java.awt.*;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+
 
 public class levelHandler {
 
@@ -28,8 +29,8 @@ public class levelHandler {
     }
 
     public void draw(Graphics g) {
-        for (int j = 0; j < Game.screenHeight; j++)
-            for (int i = 0; i < Game.screenWidth; i++) {
+        for (int j = 0; j < Game.maxScreenRow; j++)
+            for (int i = 0; i < Game.maxScreenCol; i++) {
                 int index = levelOne.getSpriteIndex(i, j);
                 g.drawImage(levelSprite[index], i*Game.tileSize, j*Game.tileSize, Game.tileSize, Game.tileSize, null);
             }

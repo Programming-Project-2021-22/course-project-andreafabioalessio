@@ -32,7 +32,7 @@ public class LevelLoad {
     }
 
     public static int[][] GetLevelData() {
-        int[][] lvlData = new int[Game.screenHeight][Game.screenWidth];
+        int[][] lvlData = new int[Game.maxScreenRow][Game.maxScreenCol];
         BufferedImage img = GetSpriteAtlas(LEVEL_DATA_1);
 
         for (int j = 0; j < img.getHeight(); j++)

@@ -3,7 +3,7 @@ import entity.Player;
 import entity.PlayerSkin;
 import level.levelHandler;
 
-import java.awt.*;
+import java.awt.Graphics;
 
 
 public class Game implements Runnable{
@@ -13,17 +13,18 @@ public class Game implements Runnable{
     private Thread gameThread;
     private Player player;
     private levelHandler levelHandler;
+    private final int FPS = 60;
 
     public final static int originalTileSize = 16; // grandezza in pixel di ogni tile
     public final static int scale = 3; // scaling del tile
 
-    public final static int tileSize = originalTileSize * scale;
     public final static int maxScreenCol = 16; // Ratio = 4:3
     public final static int maxScreenRow = 12;
+    public final static int tileSize = originalTileSize * scale;
     public final static int screenWidth = tileSize * maxScreenCol; // 1536 pixel
     public final static int screenHeight = tileSize * maxScreenRow; // 1248 pixel
 
-    private final int FPS = 60;
+
 
     public Game(){
         getClasses();
