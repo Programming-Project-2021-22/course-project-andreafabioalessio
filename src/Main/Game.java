@@ -37,9 +37,10 @@ public class Game implements Runnable{
     }
 
     private void getClasses() {
+        levelHandler = new levelHandler(this);
         PlayerSkin skin = new PlayerSkin();
         player = new Player(100,300,6,20,1,skin);
-        levelHandler = new levelHandler(this);
+        player.loadLvlData(levelHandler.getLevel().getLvlData());
     }
 
     private void startGameLoop() {
@@ -82,5 +83,8 @@ public class Game implements Runnable{
                 delta--;
             }
         }
+    }
+    public Player getPlayer(){
+        return player;
     }
 }

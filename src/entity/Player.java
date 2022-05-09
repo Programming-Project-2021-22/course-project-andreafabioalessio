@@ -1,4 +1,5 @@
 package entity;
+import Main.Game;
 import Main.GamePanel;
 import Main.KeyHandler;
 
@@ -6,10 +7,15 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import static utilz.HelpMethods.CanMoveHere;
+
 public class Player extends Entity {
 
     KeyHandler movement = new KeyHandler();
+    private Game game;
     public int centDirection = 1;
+    private int [][] lvlData;
+    private boolean moving = false;
 
     public Player(int x, int y, int speed, int jumpStrenght, int weight, Skin skin) {
         super(x, y, speed, jumpStrenght, weight, skin);
@@ -24,21 +30,14 @@ public class Player extends Entity {
     }
 
     public void draw(Graphics g){
-        g.drawImage(getCurrentImage(), getX(), getY(), 48, 48 , null);
+        g.drawImage(getCurrentImage(), getX(), getY(), Game.tileSize, Game.tileSize , null);
         drawHitBox(g);
     }
 
     public void updatePosition(){
-
-        x += xAcc*entitySpeed;
-        y += yAcc;
-
         checkGravity();
-
         setCentDirection();
-
         movement();
-
     }
 
     public void checkGravity(){
@@ -51,67 +50,68 @@ public class Player extends Entity {
     }
 
     public void setCentDirection(){
-        if (centDirection == 1){
+        if (direction == 1){
             currentImage = entitySkin.center(1);
             //System.out.println("destra");
         }else{
             currentImage = entitySkin.center(-1);
             //System.out.println("sinistra");
         }
+    }
 
+    public void loadLvlData(int[][] lvlData){
+        this.lvlData = lvlData;
     }
 
     public void movement() {
 
-            if (KeyHandler.upPressed) {
+        float xSpeed = 0, ySpeed = 0;
 
+            if (KeyHandler.upPressed) {
                 setJumping(true);
                 yAcc = 1;
+                ySpeed = -entitySpeed;
                 jump();
-                if (centDirection == 1){
+                if (direction == 1){
                     currentImage = entitySkin.jump(1);
                 }else{
                     currentImage = entitySkin.jump(-1);
                 }
-
             } else if (KeyHandler.downPressed) {
-
-                yAcc = 1*weight;
-
+                ySpeed = entitySpeed;
+               // yAcc = 1*weight;
             } else if (KeyHandler.leftPressed) {
-
-                centDirection = -1;
                 xAcc = -1;
+                xSpeed = -entitySpeed;
                 direction = -1;
-
                 if (jumping || falling){
                     currentImage = entitySkin.jump(-1);
                 }else{
                     currentImage = entitySkin.leftAnimation();
                 }
 
-                //System.out.println("left");
-
             } else if (KeyHandler.rightPressed) {
-
-                centDirection = 1;
                 xAcc = 1;
                 direction = 1;
-
+                xSpeed = entitySpeed;
                 if (jumping || falling){
                     currentImage = entitySkin.jump(1);
                 }else{
                     currentImage = entitySkin.rightAnimation();
                 }
-
-                //System.out.println("right");
-
             }
             else{
                 xAcc = 0;
 
             }
+
+        if (CanMoveHere(x + xSpeed, y + ySpeed, Game.tileSize, Game.tileSize, lvlData)){
+            x += xAcc*entitySpeed;
+            y += yAcc;
+        }
+
     }
+
 
 
 

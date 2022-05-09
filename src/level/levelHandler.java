@@ -40,4 +40,8 @@ public class levelHandler {
 
     }
 
+    public Level getLevel(){
+        return levelOne;
+    }
+
 }
