@@ -1,4 +1,4 @@
-package utilz;
+package level;
 
 import Main.Game;
 
@@ -8,14 +8,14 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class LoadSave {
+public class LevelLoad {
 
     public static final String LEVEL_ATLAS = "outside_sprites_1png.png";
     public static final String LEVEL_DATA_1 = "level_data_1.png";
 
     public static BufferedImage GetSpriteAtlas(String fileName) {
         BufferedImage img = null;
-        InputStream is = LoadSave.class.getResourceAsStream("/level/" + fileName);
+        InputStream is = LevelLoad.class.getResourceAsStream("/level/" + fileName);
         try {
             img = ImageIO.read(is);
 
