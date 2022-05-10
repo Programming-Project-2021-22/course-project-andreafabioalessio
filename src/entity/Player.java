@@ -42,9 +42,12 @@ public class Player extends Entity {
     }
 
     public void checkGravity() {
+        yAcc -= weight;
         if (jumping || falling) {
             yAcc += weight;
-            System.out.println("sto cadendo");
+
+            if(yAcc > 10){yAcc = 10;}
+            //System.out.println("sto cadendo");
         } else {
             yAcc = 0;
         }
