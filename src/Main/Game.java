@@ -26,7 +26,7 @@ public class Game implements Runnable{
 
 
 
-    public Game(){
+    public Game(){ 
         getClasses();
 
         gamePanel = new GamePanel(this);
@@ -39,7 +39,7 @@ public class Game implements Runnable{
     private void getClasses() {
         levelHandler = new levelHandler(this);
         PlayerSkin skin = new PlayerSkin();
-        player = new Player(100,300,6,20,1,skin);
+        player = new Player(100,300,4,20,1,skin);
         player.loadLvlData(levelHandler.getLevel().getLvlData());
     }
 

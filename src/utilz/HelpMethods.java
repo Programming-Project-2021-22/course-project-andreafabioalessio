@@ -15,10 +15,13 @@ public class HelpMethods {
 
 
     private static boolean IsSolid(float x, float y, int[][] lvlData) {
+
+        //if the player exits the screen return true
         if (x < 0 || x >= Game.screenWidth)
             return true;
         if (y < 0 || y >= Game.screenHeight)
             return true;
+
 
         float xIndex = x / Game.tileSize;
         float yIndex = y / Game.tileSize;

@@ -6,25 +6,60 @@ import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
-// parent class => Whatever entity moves
-//Qui si instanziano i diversi utenti, npc, ecc
+import static utilz.HelpMethods.CanMoveHere;
+
+
+/*
+CLASS SUMMARY
+
+It's the parent class for every moving entity, including: the player, hostile entities and NPCs, etc...
+
+- UPDATE: it must update everything
+
+- MOVEMENT: It must handle the position of the entity [x,y], 
+            the Acceleration of the entity[xAcc,yAcc] meaning how much [x,y] are increasing.
+            the [x] movement is influenced by [entitySpeed]
+            the [y] movement is influenced by [weight]
+            the jump is influenced by [jumpStrength]
+            it must handle the death of the entity
+
+
+- SKIN:     it must handle the skin of the entity[entitySkin]
+            the movement influences the direction [direction] expressed as an int => -1 = sx; 0= center; 1=dx
+            based on the direction, the image shown [currentImage] must change.
+
+
+- Hitbox:   it must handle the hitbox of the entity [hitbox]
+*/
+
+
+
 public abstract class Entity {
 
-    protected GamePanel gp;
     protected BufferedImage currentImage;
     protected int x, y, xAcc, yAcc;
     protected Skin entitySkin;
     public int entitySpeed;
     protected int weight;
-    protected int jumpStrenght;
+    protected int jumpStrength;
+
+    //old
     protected boolean falling = false;
     protected boolean jumping = false;
+
+
     protected Rectangle2D.Float hitbox;
-    protected int direction; //direction should be used only to choose which image will be shown, not to establish physics => -1 = sx; 0= center; 1=dx
+    public int[][] lvlData;
+    public int scale = 3;
+    public int tileSize = 16 * scale;
+    public float xOffset;
+    public float yOffset;
+    protected int direction; //WARNING:direction should be used only to choose which image will be shown, 
+                             //        not to establish physics => -1 = sx; 0= center; 1=dx
 
 
     //Constructor
-    public Entity(int x, int y, int speed, int jumpStrenght, int weight, Skin skin) {
+    public Entity(int x, int y, int speed, int jumpStrength, int weight, Skin skin) {
 
         this.x = x;
         this.y = y;
@@ -32,14 +67,130 @@ public abstract class Entity {
         this.xAcc = 0;
         this.yAcc = 0;
         this.direction = 0;
-        this.jumpStrenght = jumpStrenght;
+        this.jumpStrength = jumpStrength;
         this.weight = weight;
         this.entitySkin = skin;
+        this.xOffset = 4 * scale;
+        this.yOffset = 4 * scale;
 
     }
 
+    //UPDATE METHODS
+    public void update(){
+        checkGravity();
+        setCentDirection();
+
+        updateHitBox();
+        x += xAcc * entitySpeed;
+        y += yAcc;
+    }
+
+    public void draw(Graphics g) {
+        g.drawImage(getCurrentImage(), (int) (hitbox.x - xOffset), (int) (hitbox.y - yOffset), tileSize, tileSize, null);
+        //drawHitBox(g);
+    }
+
+    public void loadLvlData(int[][] lvlData) {
+        this.lvlData = lvlData;
+    }
+
+
+
+    //MOVEMENT METHODS
+
+    public void still(){
+        xAcc = 0;
+    }
+
+    public void left(){
+        direction = -1;
+
+        if(checkHitboxCollision(x, 0 )) {
+            xAcc = -entitySpeed;
+        }else {
+            //xAcc = 0;
+
+            //testprint
+            System.out.println("left collision");
+        }
+            if (jumping || falling) {
+                currentImage = entitySkin.jump(-1);
+            } else {
+                currentImage = entitySkin.leftAnimation();
+            }
+
+    }
+
+
+    public void right() {
+        direction = 1;
+
+        xAcc = entitySpeed;
+            if (jumping || falling) {
+                currentImage = entitySkin.jump(1);
+            } else {
+                currentImage = entitySkin.rightAnimation();
+            }
+    }
+
+    public void jump() {
+        yAcc -= jumpStrength;
+
+         setJumping(true);
+            yAcc = 1;
+            if (direction == 1) {
+                currentImage = entitySkin.jump(1);
+            } else {
+                currentImage = entitySkin.jump(-1);
+            }
+
+
+
+    }
+
+    public void die() {
+    }
+
+    public void checkGravity() {
+        yAcc -= weight;
+        if (jumping || falling) {
+            yAcc += weight;
+
+            if(yAcc > 10){yAcc = 10;}
+            //System.out.println("sto cadendo");
+        } else {
+            yAcc = 0;
+        }
+    }
+
+    //If the intended movement expressed in x and y cause a collision with a block, return false. Else: return true.
+    //TO FIX
+    public boolean checkHitboxCollision(int x, int y){
+
+        return (CanMoveHere(x, y, hitbox.width, hitbox.height, lvlData));
+
+    }
+
+
+
+    //SKIN METHODS
+
+    public void setCentDirection() {
+        if (direction == 1) {
+            currentImage = entitySkin.center(1);
+            //System.out.println("destra");
+        } else {
+            currentImage = entitySkin.center(-1);
+            //System.out.println("sinistra");
+        }
+    }
+
+
+
+    //HITBOX METHODS
+
+    //method used while testing to show the player hitbox: show the hitbox as a rectangle
     protected void drawHitBox(Graphics g) {
-        // For debugging purposes
         g.setColor(Color.black);
         g.drawRect((int) hitbox.x, (int) hitbox.y, (int) hitbox.width, (int) hitbox.height);
 
@@ -58,6 +209,9 @@ public abstract class Entity {
         return hitbox;
     }
 
+
+
+    //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     //Getters
     public boolean getFalling() {
@@ -88,14 +242,13 @@ public abstract class Entity {
         return entitySpeed;
     }
 
-    ;
 
     public float getWeight() {
         return weight;
     }
 
-    public int getJumpStrenght() {
-        return jumpStrenght;
+    public int getJumpStrength() {
+        return jumpStrength;
     }
 
     public int getDirection() {
@@ -143,8 +296,8 @@ public abstract class Entity {
         weight = newWeight;
     }
 
-    public void setJumpStrenght(int newJumpStrenght) {
-        jumpStrenght = newJumpStrenght;
+    public void setJumpStrength(int newJumpStrength) {
+        jumpStrength = newJumpStrength;
     }
 
     public void setDirection(int newDirection) {
@@ -160,23 +313,6 @@ public abstract class Entity {
     }
 
 
-    //MOVEMENT METHODS
-
-
-    public void right() {
-        direction = 1;
-    }
-
-    public void stop() {
-        direction = 0;
-    }
-
-    public void jump() {
-        yAcc -= jumpStrenght;
-
-    }
-
-    public void die() {
-    }
+    
 
 }
