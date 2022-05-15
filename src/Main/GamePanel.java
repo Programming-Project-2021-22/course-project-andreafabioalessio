@@ -12,6 +12,14 @@ import static Main.Game.screenHeight;
 import static Main.Game.screenWidth;
 
 
+/*
+
+CLASS SUMMARY
+
+
+class status: currently ok
+ */
+
 public class GamePanel extends JPanel{
 
     private Game game;
@@ -31,6 +39,7 @@ public class GamePanel extends JPanel{
         Dimension size = new Dimension(screenWidth, screenHeight);
         setPreferredSize(size);
     }
+
 
     public void paintComponent(Graphics g){ //Graphics è una classe default di java per disegnare oggetti sullo schermo
 

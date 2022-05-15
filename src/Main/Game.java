@@ -5,6 +5,12 @@ import level.levelHandler;
 
 import java.awt.Graphics;
 
+/*
+
+CLASS SUMMARY
+
+class status: currently ok, but comments need to be added and the structure might be quite confused
+ */
 
 public class Game implements Runnable{
 

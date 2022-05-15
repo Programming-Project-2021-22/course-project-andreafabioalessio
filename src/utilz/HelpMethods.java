@@ -2,6 +2,18 @@ package utilz;
 
 import Main.Game;
 
+
+/*
+
+CLASS SUMMARY
+
+    This class might implement the CanMoveHere() method in a way that using
+    as parameters  (intended x movent, intended y movement, hitbox width, hitbox height, int[][] level Data), the
+    method returns false if the intended movement causes a collision.
+
+
+class status: not sure if it works, there might be some structure problems, but currently ok
+ */
 public class HelpMethods {
 
     public static boolean CanMoveHere(float x, float y, float width, float height, int[][] lvlData) {

@@ -5,6 +5,12 @@ import Main.Game;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+/*
+
+CLASS SUMMARY
+
+class status: idk
+ */
 
 public class levelHandler {
 

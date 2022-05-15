@@ -2,6 +2,13 @@ package entity;
 
 import java.awt.image.BufferedImage;
 
+/*
+
+CLASS SUMMARY
+
+
+class status: currently ok,but a way to implement entity death might be added
+ */
 public class Skin {
     //variables
 

@@ -1,14 +1,22 @@
 package entity;
 
-import Main.Game;
-import Main.GamePanel;
 import Main.KeyHandler;
 
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
-import static utilz.HelpMethods.CanMoveHere;
+/*
+
+CLASS SUMMARY
+
+The player class extends the entity class.
+    -   It must handle the movement of the player by linking the keyhandler to the entity movement methods
+    -   It must override the update() entity method.
+
+    - TO DO: It must handle the player death in order to restart the game.
+
+
+class status: currently ok, but for the player death
+ */
+
 
 public class Player extends Entity {
 
@@ -33,16 +41,7 @@ public class Player extends Entity {
         y += yAcc;
     }
 
-    public void draw(Graphics g) {
-        g.drawImage(getCurrentImage(), (int) (hitbox.x - xOffset), (int) (hitbox.y - yOffset), Game.tileSize, Game.tileSize, null);
 
-        //TO SHOW THE PLAYER HITBOX:
-        drawHitBox(g);
-    }
-
-    public void loadLvlData(int[][] lvlData) {
-        this.lvlData = lvlData;
-    }
 
     public void playerMovement() {
 
@@ -60,13 +59,6 @@ public class Player extends Entity {
         } else {
             still();
         }
-
-        /*
-        if (CanMoveHere(hitbox.x + entitySpeed, hitbox.y + yAcc, hitbox.width, hitbox.height, lvlData)) {
-            x += xAcc * entitySpeed;
-            y += yAcc;
-        }
-        */
 
     }
 

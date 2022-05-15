@@ -1,5 +1,6 @@
 package entity;
 
+import Main.Game;
 import Main.GamePanel;
 
 import java.awt.*;
@@ -29,7 +30,13 @@ It's the parent class for every moving entity, including: the player, hostile en
             based on the direction, the image shown [currentImage] must change.
 
 
-- Hitbox:   it must handle the hitbox of the entity [hitbox]
+- Hitbox:   it must handle the hitbox of the entity [hitbox].
+            The left-right collision works in a way that if the left() or right() methods are called and there is a left / right
+            collision, the method does not increase [xAcc] / [yAcc]
+
+
+
+class status: collision and gravity need to be fixed
 */
 
 
@@ -71,7 +78,7 @@ public abstract class Entity {
         this.weight = weight;
         this.entitySkin = skin;
         this.xOffset = 4 * scale;
-        this.yOffset = 4 * scale;
+        this.yOffset = 0;
 
     }
 
@@ -81,13 +88,15 @@ public abstract class Entity {
         setCentDirection();
 
         updateHitBox();
-        x += xAcc * entitySpeed;
+        x += xAcc;
         y += yAcc;
     }
 
     public void draw(Graphics g) {
         g.drawImage(getCurrentImage(), (int) (hitbox.x - xOffset), (int) (hitbox.y - yOffset), tileSize, tileSize, null);
-        //drawHitBox(g);
+
+        //TESTING: draw the entity hitbox
+        drawHitBox(g);
     }
 
     public void loadLvlData(int[][] lvlData) {
@@ -105,19 +114,22 @@ public abstract class Entity {
     public void left(){
         direction = -1;
 
-        if(checkHitboxCollision(x, 0 )) {
+        if(checkHitboxCollision(x - entitySpeed, 0 )) {
             xAcc = -entitySpeed;
-        }else {
-            //xAcc = 0;
 
-            //testprint
-            System.out.println("left collision");
-        }
+            //animation based on jumping
             if (jumping || falling) {
                 currentImage = entitySkin.jump(-1);
             } else {
                 currentImage = entitySkin.leftAnimation();
             }
+        }else {
+            xAcc = 0;
+
+            //testprint
+            System.out.println("left collision");
+        }
+
 
     }
 
@@ -125,12 +137,22 @@ public abstract class Entity {
     public void right() {
         direction = 1;
 
-        xAcc = entitySpeed;
+        if(checkHitboxCollision(x + entitySpeed, 0 )) {
+            xAcc = entitySpeed;
+
+            //animation based on jumping
             if (jumping || falling) {
                 currentImage = entitySkin.jump(1);
             } else {
                 currentImage = entitySkin.rightAnimation();
             }
+        }else {
+            xAcc = 0;
+
+            //testprint
+            System.out.println("right collision");
+        }
+
     }
 
     public void jump() {
@@ -144,10 +166,9 @@ public abstract class Entity {
                 currentImage = entitySkin.jump(-1);
             }
 
-
-
     }
 
+    //TO DO
     public void die() {
     }
 
@@ -167,7 +188,7 @@ public abstract class Entity {
     //TO FIX
     public boolean checkHitboxCollision(int x, int y){
 
-        return (CanMoveHere(x, y, hitbox.width, hitbox.height, lvlData));
+        return (CanMoveHere(x, y, hitbox.x - xOffset, hitbox.height - yOffset, lvlData));
 
     }
 
@@ -205,15 +226,14 @@ public abstract class Entity {
         hitbox.y = y;
     }
 
-    public Rectangle2D.Float getHitbox() {
-        return hitbox;
-    }
-
-
 
     //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     //Getters
+
+    public Rectangle2D.Float getHitbox() {
+        return hitbox;
+    }
     public boolean getFalling() {
         return falling;
     }

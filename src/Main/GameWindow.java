@@ -2,6 +2,13 @@ package Main;
 
 import javax.swing.*;
 
+/*
+
+CLASS SUMMARY
+
+class status: currently ok
+ */
+
 public class GameWindow {
 
     private JFrame jframe;
