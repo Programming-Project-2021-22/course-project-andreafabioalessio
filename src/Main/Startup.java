@@ -13,7 +13,7 @@ public class Startup extends JPanel {
 
     static User [] userArray = new User[0];
     private Scanner userLineScan = null;
-    private Image image;
+    private Image background;
 
     public Startup(JFrame window){
         fillArray(); //reads users from UserList.txt and fills an array with users
@@ -62,7 +62,7 @@ public class Startup extends JPanel {
     }
 
     private void openLoginWindow(JFrame window){
-        Login l = new Login(window);
+        Login l = new Login(window, userArray);
         window.getContentPane().removeAll();
         window.setTitle("Login");
         window.setContentPane(l);
@@ -71,7 +71,7 @@ public class Startup extends JPanel {
     }
 
     private void openSignUpWindow(JFrame window){
-        Signup s = new Signup(window);
+        Signup s = new Signup(window, userArray);
         window.getContentPane().removeAll();
         window.setTitle("Sign Up");
         window.setContentPane(s);
@@ -123,12 +123,12 @@ public class Startup extends JPanel {
     @Override
     public void paintComponent(Graphics g){
         try {
-            image = ImageIO.read(new File("res/Images/Start-screen-background-resized.png"));
+            background = ImageIO.read(new File("res/Images/Start-screen-background-resized.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
         super.paintComponent(g);
 
-        g.drawImage(image, 0, 0, null);
+        g.drawImage(background, 0, 0, null);
     }
 }

@@ -7,21 +7,23 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import java.util.Scanner;
-import static Main.Startup.userArray;
 
 public class Signup extends JPanel {
 
     private final JTextField usernameTField;
     private final JPasswordField passwordTField;
     private final JLabel errorLabel;
-    private String username = "", password = "";
     private FileWriter fw;
     private Scanner userCheckerScan;
-    private Image image;
+    private Image background;
+    private User user;
+    private User[] userArray;
 
-    public Signup(JFrame window){
+    public Signup(JFrame window, User[] userArray){
         this.setPreferredSize(new Dimension(400, 400));
         this.setBackground(Color.WHITE);
+
+        this.userArray = userArray;
 
         usernameTField = new JTextField(13);
         usernameTField.setForeground(new Color(205, 58, 218));
@@ -60,7 +62,13 @@ public class Signup extends JPanel {
         createButton.setPreferredSize(new Dimension(75, 24));
         createButton.setContentAreaFilled(false);
         createButton.setBorderPainted(false);
-        createButton.addActionListener(e -> createButtonPress());
+        createButton.addActionListener(e -> {
+            try {
+                createButtonPress(window);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
 
         ImageIcon backIcon = new ImageIcon("res/Images/back-button-resized.png", "back button icon");
         JButton backButton = new JButton(backIcon);
@@ -72,6 +80,7 @@ public class Signup extends JPanel {
         backButton.addActionListener(e -> goBackToMenu(window));
 
         errorLabel = new JLabel();
+        errorLabel.setForeground(Color.red);
         Panel errorPanel = new Panel();
         errorPanel.setLayout(new GridBagLayout());
         errorPanel.setMaximumSize(new Dimension(600, 50));
@@ -138,16 +147,25 @@ public class Signup extends JPanel {
         window.repaint();
     }
 
-    private void createButtonPress(){
-        username = usernameTField.getText();
-        password = String.valueOf(passwordTField.getPassword());
+    private void getUser (User[] userArray, JFrame window) throws IOException {
+        String usernameEntered = usernameTField.getText();
+
+        for (User u : userArray) {
+            if(u.getUsername().equalsIgnoreCase(usernameEntered)){
+                user = u;
+                openMenu(window);
+            }
+        }
+    }
+
+    private void createButtonPress(JFrame window) throws IOException {
+        String username = usernameTField.getText();
+        String password = String.valueOf(passwordTField.getPassword());
 
         if (!checkUser(username)){
             if (checkPassword(password)){
                 createUser(username, password);
-                errorLabel.setText("User successfully created");
-                errorLabel.setForeground(new Color(0, 220, 30));
-                //+Login
+                getUser(userArray, window);
             }
             else{
                 try {
@@ -156,7 +174,6 @@ public class Signup extends JPanel {
                     ex.printStackTrace();
                 }
                 errorLabel.setText("Please insert a valid password");
-                errorLabel.setForeground(Color.red);
             }
         }
         else{
@@ -168,7 +185,6 @@ public class Signup extends JPanel {
             errorLabel.setText("<html><div style = 'text-align: center;'>" +
                     "Username already exists.<br/>Please select another one or login" +
                     "</div></html>");
-            errorLabel.setForeground(Color.red);
         }
     }
 
@@ -219,23 +235,32 @@ public class Signup extends JPanel {
         }
         PrintWriter pw = new PrintWriter(fw);
         pw.append("\n");
-        pw.append(toString(d));
+        pw.append(userToString(d));
         pw.close();
     }
 
-    private String toString(User u){
+    private void openMenu(JFrame window) throws IOException {
+        Menu m = new Menu(window, user);
+        window.getContentPane().removeAll();
+        window.setTitle("Login");
+        window.setContentPane(m);
+        window.revalidate();
+        window.repaint();
+    }
+
+    private String userToString(User u){
         return u.getUsername() + ";" + u.getPassword() + ";" + u.getLevel() + ";:";
     }
 
     @Override
     public void paintComponent(Graphics g){
         try {
-            image = ImageIO.read(new File("res/Images/LoginSignup-screen-background-resized.png"));
+            background = ImageIO.read(new File("res/Images/LoginSignup-screen-background-resized.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
         super.paintComponent(g);
 
-        g.drawImage(image, 0, 0, null);
+        g.drawImage(background, 0, 0, null);
     }
 }

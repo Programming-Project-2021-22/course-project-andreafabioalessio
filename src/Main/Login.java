@@ -8,18 +8,20 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-import static Main.Startup.userArray;
-
 public class Login extends JPanel {
 
-    private Image image;
+    private Image background;
     private final JTextField usernameTField;
     private final JPasswordField passwordTField;
     private final JLabel errorLabel;
+    private User user;
+    private final User[] userArray;
 
-    public Login(JFrame window) {
+    public Login(JFrame window, User[] userArray) {
         this.setPreferredSize(new Dimension(400, 400));
         this.setBackground(Color.WHITE);
+
+        this.userArray = userArray;
 
         usernameTField = new JTextField(13);
         usernameTField.setForeground(new Color(205, 58, 218));
@@ -58,7 +60,13 @@ public class Login extends JPanel {
         loginButton.setPreferredSize(new Dimension(75, 24));
         loginButton.setContentAreaFilled(false);
         loginButton.setBorderPainted(false);
-        loginButton.addActionListener(e -> checkUserInArray());
+        loginButton.addActionListener(e -> {
+            try {
+                checkUserInArray(window);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
 
         ImageIcon backIcon = new ImageIcon("res/Images/back-button-resized.png", "back button icon");
         JButton backButton = new JButton(backIcon);
@@ -70,6 +78,7 @@ public class Login extends JPanel {
         backButton.addActionListener(e -> goBackToMenu(window));
 
         errorLabel = new JLabel();
+        errorLabel.setForeground(Color.red);
         Panel errorPanel = new Panel();
         errorPanel.setLayout(new GridBagLayout());
         errorPanel.setMaximumSize(new Dimension(600, 50));
@@ -101,7 +110,7 @@ public class Login extends JPanel {
         //Positioning of the password text field (210px from the left of panel and 90px down from bottom of the usernameTField)
         panelLayout.putConstraint(SpringLayout.WEST, passwordTField, 210, SpringLayout.NORTH, panel);
         panelLayout.putConstraint(SpringLayout.NORTH, passwordTField, 90, SpringLayout.SOUTH, usernameTField);
-        //Positioning of the show password label (255px from left of panel and 5px down from passwordTField)
+        //Positioning of the show password label (255px from left of panel and 15px down from passwordTField)
         panelLayout.putConstraint(SpringLayout.WEST, showPasswordLabel, 255, SpringLayout.NORTH, panel);
         panelLayout.putConstraint(SpringLayout.NORTH, showPasswordLabel, 15, SpringLayout.SOUTH, passwordTField);
         //Positioning of the show password checkbox (320px from left of panel and same height as the showPasswordLabel)
@@ -136,30 +145,40 @@ public class Login extends JPanel {
         window.repaint();
     }
 
-    private void checkUserInArray(){
+    private void getUser (User[] userArray, JFrame window) throws IOException {
+        String usernameEntered = usernameTField.getText();
+
+        for (User u : userArray) {
+            if(formatUsername(u.getUsername()).equalsIgnoreCase(usernameEntered)){
+                user = u;
+                openMenu(window);
+            }
+        }
+    }
+
+    private void checkUserInArray(JFrame window) throws IOException {
         boolean found = false;
         String usernameEntered = usernameTField.getText();
         String passwordEntered = String.valueOf(passwordTField.getPassword());
 
         for (int i = 0; i < userArray.length; ){
             User userCheck = userArray[i];
+            //Checks if username entered exists in the array
             if (usernameEntered.equalsIgnoreCase(formatUsername(userCheck.getUsername()))) {//checks if given username matches one in the array
                 found = true;
+                //Checks if the password entered matches the correct one
                 if (passwordEntered.equalsIgnoreCase(formatUsername(userCheck.getPassword()))) { //checks the password
-                    errorLabel.setText("Login successful");
-                    errorLabel.setForeground(new Color(0, 220, 30));
-                    //+Load of level and actual login
-                    return;
-                } else {
+                    getUser(userArray, window);
+                }
+                else {
                     try {
                         throw new WrongPasswordError("Password does not match username");//username matches, password doesn't
                     } catch (WrongPasswordError e) {
                         e.printStackTrace();
                     }
                     errorLabel.setText("Wrong password");
-                    errorLabel.setForeground(Color.red);
-                    return;
                 }
+                return;
             }
             else {
                 System.out.println("Entered: " + usernameEntered + " " + passwordEntered + "\n" +
@@ -174,7 +193,6 @@ public class Login extends JPanel {
                 e.printStackTrace();
             }
             errorLabel.setText("Username not found, please sign up first.");
-            errorLabel.setForeground(Color.red);
         }
     }
 
@@ -182,15 +200,24 @@ public class Login extends JPanel {
         return s.replace("\n", "").replace(" ", "");
     }
 
+    private void openMenu(JFrame window) throws IOException {
+        Menu m = new Menu(window, user);
+        window.getContentPane().removeAll();
+        window.setTitle("Login");
+        window.setContentPane(m);
+        window.revalidate();
+        window.repaint();
+    }
+
     @Override
     public void paintComponent(Graphics g){
         try {
-            image = ImageIO.read(new File("res/Images/LoginSignup-screen-background-resized.png"));
+            background = ImageIO.read(new File("res/Images/LoginSignup-screen-background-resized.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
         super.paintComponent(g);
 
-        g.drawImage(image, 0, 0, null);
+        g.drawImage(background, 0, 0, null);
     }
 }
