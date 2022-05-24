@@ -99,6 +99,8 @@ public abstract class Entity {
         drawHitBox(g);
     }
 
+
+
     public void loadLvlData(int[][] lvlData) {
         this.lvlData = lvlData;
     }
@@ -107,14 +109,13 @@ public abstract class Entity {
 
     //MOVEMENT METHODS
 
-    public void still(){
-        xAcc = 0;
-    }
+    public void still() {xAcc = 0;}
+
 
     public void left(){
         direction = -1;
 
-        if(checkHitboxCollision(x - entitySpeed, 0 )) {
+        if(checkHitboxCollision( x-entitySpeed, y )) {
             xAcc = -entitySpeed;
 
             //animation based on jumping
@@ -129,15 +130,13 @@ public abstract class Entity {
             //testprint
             System.out.println("left collision");
         }
-
-
     }
 
 
     public void right() {
         direction = 1;
 
-        if(checkHitboxCollision(x + entitySpeed, 0 )) {
+        if(checkHitboxCollision(x +  entitySpeed, y )) {
             xAcc = entitySpeed;
 
             //animation based on jumping
@@ -188,7 +187,10 @@ public abstract class Entity {
     //TO FIX
     public boolean checkHitboxCollision(int x, int y){
 
-        return (CanMoveHere(x, y, hitbox.x - xOffset, hitbox.height - yOffset, lvlData));
+        //return (CanMoveHere(x, y, hitbox.x - xOffset, hitbox.height - yOffset, lvlData));
+
+        //test
+        return (CanMoveHere(x, y, hitbox.x, hitbox.height, lvlData));
 
     }
 
@@ -199,9 +201,11 @@ public abstract class Entity {
     public void setCentDirection() {
         if (direction == 1) {
             currentImage = entitySkin.center(1);
+            //test print
             //System.out.println("destra");
         } else {
             currentImage = entitySkin.center(-1);
+            //test print
             //System.out.println("sinistra");
         }
     }
@@ -227,9 +231,9 @@ public abstract class Entity {
     }
 
 
-    //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    //Getters
+    //Getters and Setters
 
     public Rectangle2D.Float getHitbox() {
         return hitbox;

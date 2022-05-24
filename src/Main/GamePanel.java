@@ -17,7 +17,7 @@ import static Main.Game.screenWidth;
 CLASS SUMMARY
 
 
-class status: currently ok
+class status: PANEL TO FIX
  */
 
 public class GamePanel extends JPanel{
@@ -35,9 +35,16 @@ public class GamePanel extends JPanel{
 
     }
 
+
+    //BUGGED: THE SIZE IS ACTUALLY BIGGER THAN WHAT EXPRESSED IN [screenWidth] & [screenHeight]
     private void setPanelSize(){
-        Dimension size = new Dimension(screenWidth, screenHeight);
+        Dimension size = new Dimension(screenWidth,screenHeight);
+
+
         setPreferredSize(size);
+
+        //testprint
+        System.out.println("panel initialized x: "+ screenWidth + " y: " + screenHeight);
     }
 
 
