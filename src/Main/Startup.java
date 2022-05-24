@@ -61,6 +61,7 @@ public class Startup extends JPanel {
         add(signupButton, c);
     }
 
+    //Opens login window
     private void openLoginWindow(JFrame window){
         Login l = new Login(window, userArray);
         window.getContentPane().removeAll();
@@ -70,6 +71,7 @@ public class Startup extends JPanel {
         window.repaint();
     }
 
+    //Opens signup window
     private void openSignUpWindow(JFrame window){
         Signup s = new Signup(window, userArray);
         window.getContentPane().removeAll();
@@ -79,6 +81,7 @@ public class Startup extends JPanel {
         window.repaint();
     }
 
+    //Fills an array with users created with data from the usersList file
     private void fillArray(){
         ArrayList<User> temp = new ArrayList<>();
         {
@@ -108,18 +111,21 @@ public class Startup extends JPanel {
         System.out.println(arrayToString(userArray));
     }
 
+    //Puts the array into a String format
     private String arrayToString(User [] userArray){
         String users = "List of users:\n";
         for (User u : userArray){
-            users += toString(u);
+            users += userToString(u);
         }
         return users;
     }
 
-    private String toString(User u){
-        return u.getUsername() + ";" + u.getPassword() + ";" + u.getLevel() + ";:\n";
+    //User to string method
+    private String userToString(User u){
+        return u.getUsername() + ";" + u.getPassword() + ";" + u.getLevel() + ";:";
     }
 
+    //Overridden paintComponent method that paints the background
     @Override
     public void paintComponent(Graphics g){
         try {

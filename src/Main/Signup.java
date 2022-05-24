@@ -16,7 +16,6 @@ public class Signup extends JPanel {
     private FileWriter fw;
     private Scanner userCheckerScan;
     private Image background;
-    private User user;
     private User[] userArray;
 
     public Signup(JFrame window, User[] userArray){
@@ -138,6 +137,7 @@ public class Signup extends JPanel {
         add(errorPanel, constraints);
     }
 
+    //Processes the press of the back button and goes back to Startup page
     private void goBackToMenu(JFrame window) {
         Startup s = new Startup(window);
         window.getContentPane().removeAll();
@@ -147,50 +147,55 @@ public class Signup extends JPanel {
         window.repaint();
     }
 
+    //Gets the user from the array and starts menu window
     private void getUser (User[] userArray, JFrame window) throws IOException {
         String usernameEntered = usernameTField.getText();
 
         for (User u : userArray) {
-            if(u.getUsername().equalsIgnoreCase(usernameEntered)){
-                user = u;
-                openMenu(window);
+            if(formatUsername(u.getUsername()).equalsIgnoreCase(usernameEntered)){
+                openMenu(window, u);
             }
         }
     }
 
+    //Processes the press of the signUpButton
     private void createButtonPress(JFrame window) throws IOException {
         String username = usernameTField.getText();
         String password = String.valueOf(passwordTField.getPassword());
 
+        if(!checkInputNotNull(username)){
+            errorLabel.setText("Please insert a valid username");
+
+            throw new InvalidUsernameError("Username field cannot be empty");
+        }
+        if(!checkInputNotNull(password)){
+            errorLabel.setText("Please insert a valid password");
+
+            throw new InvalidPasswordError("Password field cannot be empty");
+
+        }
+
         if (!checkUser(username)){
-            if (checkPassword(password)){
+            if (checkInputNotNull(password)){
                 createUser(username, password);
-                getUser(userArray, window);
-            }
-            else{
-                try {
-                    throw new InvalidPasswordError("Password field can not be empty");
-                } catch (InvalidPasswordError ex) {
-                    ex.printStackTrace();
-                }
-                errorLabel.setText("Please insert a valid password");
+                getUser(userArray, window);  //Gets user from array and starts menu window
             }
         }
         else{
-            try {
-                throw new InvalidUsernameError("Username already exists");
-            } catch (InvalidUsernameError ex) {
-                ex.printStackTrace();
-            }
+
             errorLabel.setText("<html><div style = 'text-align: center;'>" +
                     "Username already exists.<br/>Please select another one or login" +
                     "</div></html>");
+
+            throw new InvalidUsernameError("Username already exists");
         }
     }
 
+    //Checks if the Input username is not already taken
     private boolean checkUser(String us){
         String existingUsername;
         boolean exists = false;
+
         {
             try {
                 userCheckerScan = new Scanner(new File("src/UsersList.txt"));
@@ -198,21 +203,30 @@ public class Signup extends JPanel {
                 e.printStackTrace();
             }
         }
-        userCheckerScan.useDelimiter(";|\n");
+
+        userCheckerScan.useDelimiter("\n|;");
 
         while (userCheckerScan.hasNext() && !exists) {
             existingUsername = userCheckerScan.next();
 
             exists = existingUsername.compareToIgnoreCase(us) == 0;
-            System.out.println(existingUsername + "|" + us + "|" + exists);
+
+            System.out.println("Checking: " + existingUsername + "|" + us + "|" + exists);
+            //Scanner also scans password, level and :, call to next() 3 times to skip these comparisons,
+            // allowing usernames to match other user's passwords.
+            System.out.println("Skipping: " + userCheckerScan.next());
+            System.out.println("Skipping: " + userCheckerScan.next());
+            System.out.println("Skipping: " + userCheckerScan.next());
         }
         return exists;
     }
 
-    private boolean checkPassword (String pa){
-        return !pa.equalsIgnoreCase("");
+    //Checks that the input is not empty
+    private boolean checkInputNotNull (String s){
+        return !s.equalsIgnoreCase("");
     }
 
+    //Creates a User object with the given parameters
     private void createUser(String us, String pa){
         User d = new User (us, pa, 1);
         User [] temp = new User[userArray.length + 1];
@@ -225,6 +239,7 @@ public class Signup extends JPanel {
         addToFile(d);
     }
 
+    //Adds the user data to the file
     private void addToFile(User d) {
         {
             try {
@@ -239,8 +254,9 @@ public class Signup extends JPanel {
         pw.close();
     }
 
-    private void openMenu(JFrame window) throws IOException {
-        Menu m = new Menu(window, user);
+    //Opens the menu window
+    private void openMenu(JFrame window, User u) throws IOException {
+        Menu m = new Menu(window, u);
         window.getContentPane().removeAll();
         window.setTitle("Login");
         window.setContentPane(m);
@@ -248,10 +264,17 @@ public class Signup extends JPanel {
         window.repaint();
     }
 
+    //Formats user data for the userList file
     private String userToString(User u){
         return u.getUsername() + ";" + u.getPassword() + ";" + u.getLevel() + ";:";
     }
 
+    //Formats username eliminating unwanted tokens
+    private String formatUsername(String s){
+        return s.replace("\n", "").replace(" ", "");
+    }
+
+    //Overridden paintComponent method that paints the background
     @Override
     public void paintComponent(Graphics g){
         try {

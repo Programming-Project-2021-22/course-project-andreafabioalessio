@@ -14,7 +14,6 @@ public class Login extends JPanel {
     private final JTextField usernameTField;
     private final JPasswordField passwordTField;
     private final JLabel errorLabel;
-    private User user;
     private final User[] userArray;
 
     public Login(JFrame window, User[] userArray) {
@@ -136,6 +135,7 @@ public class Login extends JPanel {
         add(errorPanel, constraints);
     }
 
+    //Processes the press of the back button and goes back to Startup page
     private void goBackToMenu(JFrame window) {
         Startup s = new Startup(window);
         window.getContentPane().removeAll();
@@ -145,17 +145,18 @@ public class Login extends JPanel {
         window.repaint();
     }
 
+    //Gets the user from the array and starts menu window
     private void getUser (User[] userArray, JFrame window) throws IOException {
         String usernameEntered = usernameTField.getText();
 
         for (User u : userArray) {
             if(formatUsername(u.getUsername()).equalsIgnoreCase(usernameEntered)){
-                user = u;
-                openMenu(window);
+                openMenu(window, u);
             }
         }
     }
 
+    //Checks if a user with the same username entered exists or not
     private void checkUserInArray(JFrame window) throws IOException {
         boolean found = false;
         String usernameEntered = usernameTField.getText();
@@ -196,12 +197,14 @@ public class Login extends JPanel {
         }
     }
 
+    //Formats username eliminating unwanted tokens
     private String formatUsername(String s){
         return s.replace("\n", "").replace(" ", "");
     }
 
-    private void openMenu(JFrame window) throws IOException {
-        Menu m = new Menu(window, user);
+    //Opens the menu window
+    private void openMenu(JFrame window, User u) throws IOException {
+        Menu m = new Menu(window, u);
         window.getContentPane().removeAll();
         window.setTitle("Login");
         window.setContentPane(m);
@@ -209,6 +212,7 @@ public class Login extends JPanel {
         window.repaint();
     }
 
+    //Overridden paintComponent method that paints the background
     @Override
     public void paintComponent(Graphics g){
         try {

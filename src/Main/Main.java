@@ -16,10 +16,10 @@ public class Main{
         window.setResizable(false);
         window.setTitle("Menù");
 
-        window.add(m);
+        window.add(s);
         window.setSize(new Dimension(768,624));
-        window.setLocationRelativeTo(null);
         window.setVisible(true);
         window.pack();
+        window.setLocationRelativeTo(null);
     }
 }
