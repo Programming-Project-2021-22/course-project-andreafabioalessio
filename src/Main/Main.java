@@ -9,8 +9,8 @@ public class Main{
         JFrame window = new JFrame();
         Startup s = new Startup(window);
 
-        User a = new User("Alessio", "BBB", 1);
-        Menu m = new Menu(window, a);
+        User a = new User("NotARealUser", "BBB", 2);
+        //Menu m = new Menu(window, a);
 
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);

@@ -11,6 +11,9 @@ public class User {
         this.password = password;
         this.level = level;
     }
+    public String getUsername() {
+        return username;
+    }
 
     public String getPassword() {
         return password;
@@ -23,9 +26,4 @@ public class User {
     public void setLevel(int level) {
         this.level = level;
     }
-
-    public String getUsername() {
-        return username;
-    }
-
 }

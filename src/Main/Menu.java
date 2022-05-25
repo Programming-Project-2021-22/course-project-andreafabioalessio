@@ -6,8 +6,11 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.nio.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Locale;
 
 public class Menu extends JPanel {
 
@@ -18,7 +21,9 @@ public class Menu extends JPanel {
     private final Dimension dotSelected = new Dimension(30, 10);
     private final Dimension dotUnselected = new Dimension(10, 10);
 
-    public Menu (JFrame window, User user) throws IOException {
+    JButton removeMe;
+
+    public Menu (JFrame window, User user, User[] userArray) throws IOException {
         window.setTitle("Menù");
 
         this.setPreferredSize(new Dimension(768, 624));
@@ -105,6 +110,7 @@ public class Menu extends JPanel {
                 ex.printStackTrace();
             }
         });
+
         back.addActionListener(e -> {
             try {
                 processBackwardButtonPress();
@@ -122,7 +128,7 @@ public class Menu extends JPanel {
         select.setBorderPainted(false);
         select.setContentAreaFilled(false);
 
-        select.addActionListener(e -> loadLevel(window));
+        select.addActionListener(e -> loadLevel(window, user));
 
         JButton settingsButton = new JButton("Settings");
         settingsButton.addActionListener(e ->{
@@ -148,6 +154,22 @@ public class Menu extends JPanel {
         panel.add(dots);
         panel.add(settingsButton);
 
+        /////////////////////////////TO BE REMOVED/////////////////////////////
+        removeMe = new JButton("Can I play this level?");
+        removeMe.setPreferredSize(new Dimension(170, 40));
+        removeMe.setSize(new Dimension(20, 20));
+        panel.add(removeMe);
+        panelLayout.putConstraint(SpringLayout.WEST, removeMe, 289, SpringLayout.WEST, panel);
+        panelLayout.putConstraint(SpringLayout.NORTH, removeMe, 100, SpringLayout.NORTH, panel);
+        removeMe.addActionListener(e->{
+            try {
+                updateUserLevel(user, userArray);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+        ///////////////////////////////////////////////////////////////////////
+
         //User info upper right corner
         panelLayout.putConstraint(SpringLayout.EAST, userInfo, -10, SpringLayout.EAST, panel);
         panelLayout.putConstraint(SpringLayout.NORTH, userInfo, 15, SpringLayout.NORTH, panel);
@@ -169,6 +191,82 @@ public class Menu extends JPanel {
         panelLayout.putConstraint(SpringLayout.NORTH, settingsButton, 20, SpringLayout.NORTH, panel);
 
         add(panel);
+    }
+
+    //Updates the level of the player writing on the usersList file
+    private void updateUserLevel(User u, User[] userArray) throws IOException {
+        updateLevelInArray(u, userArray);
+
+        //Update in file
+        //Appends new user data in UsersList.txt
+        FileWriter fw = new FileWriter("src/UsersList.txt", true);
+
+        PrintWriter pw = new PrintWriter(fw);
+
+        String line = u.getUsername() + ";" + u.getPassword() + ";" + (u.getLevel()) + ";:";
+
+        pw.append("\n");
+        pw.append(line.trim());
+        pw.close();
+
+        //Copies all data besides old user data in myTempFile.txt
+        File usersList = new File("src/UsersList.txt");
+        File tempFile = new File("src/tempUsersList.txt");
+
+        BufferedReader reader = new BufferedReader(new FileReader(usersList));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+
+        String lineToRemove = u.getUsername() + ";" + u.getPassword() + ";" + (u.getLevel() - 1) + ";:";
+        String currentLine = reader.readLine();
+
+        while(currentLine != null) {
+            //If line matches the old user's data
+            if(currentLine.trim().equalsIgnoreCase(lineToRemove.trim())) {
+                System.out.println("MATCH: Deleting this line...");
+                currentLine = reader.readLine();
+            }
+            //Else we write the data
+            else{
+                writer.write(currentLine.trim());
+                System.out.println("Current line: " + currentLine);
+                currentLine = reader.readLine();
+                //if the next line is not null we go to a new line
+                if(currentLine != null) {
+                    writer.write("\n");
+                }
+            }
+        }
+
+        writer.close();
+        reader.close();
+
+        //Rewrites content of myTempFile to UsersList
+        reader = new BufferedReader(new FileReader(tempFile));
+        writer = new BufferedWriter(new FileWriter(usersList));
+
+        currentLine = reader.readLine();
+
+        while(currentLine != null){
+            writer.write(currentLine.trim());
+            currentLine = reader.readLine();
+            if(currentLine != null){
+                writer.write("\n");
+            }
+        }
+
+        writer.close();
+        reader.close();
+    }
+
+    private void updateLevelInArray(User u, User[] userArray){
+        //Update in array
+        for(User user : userArray){
+            if((user.getUsername().trim()).equals(u.getUsername().trim())){
+                System.out.println("User data: " + user.getUsername() + "; Lv: " + user.getLevel());
+                user.setLevel(user.getLevel() + 1);
+                System.out.println("New user data: " + user.getUsername() + "; Lv: " + user.getLevel());
+            }
+        }
     }
 
     //Updates the graphics of the dots and level cover
@@ -243,6 +341,7 @@ public class Menu extends JPanel {
         }
     }
 
+
     //Updates the value of numLevel
     private void processForwardButtonPress() throws IOException {
         if (numLevel < 4) {
@@ -270,9 +369,22 @@ public class Menu extends JPanel {
     //Opens the Settings window
     private void openSettings(){
         JFrame settings = new JFrame("Settings");
+
         Settings set = new Settings();
+        set.setPreferredSize(new Dimension(350, 350));
+
+        JButton resume = new JButton("Resume");
+        resume.setPreferredSize(new Dimension(90, 30));
+        resume.setMaximumSize(new Dimension(90, 30));
+
+        resume.addActionListener(e ->{
+            settings.dispose();
+        });
+
+        set.add(resume);
 
         settings.add(set);
+
         settings.setPreferredSize(new Dimension(350, 350));
         settings.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         settings.setResizable(false);
@@ -282,27 +394,44 @@ public class Menu extends JPanel {
     }
 
     //Loads the level corresponding to the numLevel value
-    private void loadLevel(JFrame window){
+    private void loadLevel(JFrame window, User u){
         switch (numLevel){
             case 1:
-                GamePanel g = new GamePanel();
-                window.getContentPane().removeAll();
-                window.setTitle("Let's Play");
-                window.setContentPane(g);
-                window.revalidate();
-                window.repaint();
-                break;
+                    level.setBackground(Color.yellow);
+                    removeMe.setBackground(Color.green);
+                    break;
 
             case 2:
-                level.setBackground(Color.red);
+                if(u.getLevel() < numLevel){
+                    level.setBackground(Color.red);
+                    removeMe.setBackground(Color.red);
+                }
+                else{
+                    level.setBackground(Color.blue);
+                    removeMe.setBackground(Color.green);
+                }
                 break;
 
             case 3:
-                level.setBackground(Color.cyan);
+                if(u.getLevel() < numLevel){
+                    level.setBackground(Color.red);
+                    removeMe.setBackground(Color.red);
+                }
+                else{
+                    level.setBackground(Color.pink);
+                    removeMe.setBackground(Color.green);
+                }
                 break;
 
             case 4:
-                level.setBackground(Color.yellow);
+                if(u.getLevel() < numLevel){
+                    level.setBackground(Color.red);
+                    removeMe.setBackground(Color.red);
+                }
+                else{
+                    level.setBackground(Color.green);
+                    removeMe.setBackground(Color.green);
+                }
                 break;
         }
     }

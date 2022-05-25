@@ -74,7 +74,7 @@ public class Login extends JPanel {
         backButton.setPreferredSize(new Dimension(75, 24));
         backButton.setContentAreaFilled(false);
         backButton.setBorderPainted(false);
-        backButton.addActionListener(e -> goBackToMenu(window));
+        backButton.addActionListener(e -> goBackToStartup(window));
 
         errorLabel = new JLabel();
         errorLabel.setForeground(Color.red);
@@ -136,7 +136,7 @@ public class Login extends JPanel {
     }
 
     //Processes the press of the back button and goes back to Startup page
-    private void goBackToMenu(JFrame window) {
+    private void goBackToStartup(JFrame window) {
         Startup s = new Startup(window);
         window.getContentPane().removeAll();
         window.setTitle("Menù");
@@ -150,8 +150,9 @@ public class Login extends JPanel {
         String usernameEntered = usernameTField.getText();
 
         for (User u : userArray) {
-            if(formatUsername(u.getUsername()).equalsIgnoreCase(usernameEntered)){
-                openMenu(window, u);
+            String username = u.getUsername();
+            if(username.equalsIgnoreCase(usernameEntered)){
+                openMenu(window, u, userArray);
             }
         }
     }
@@ -165,46 +166,40 @@ public class Login extends JPanel {
         for (int i = 0; i < userArray.length; ){
             User userCheck = userArray[i];
             //Checks if username entered exists in the array
-            if (usernameEntered.equalsIgnoreCase(formatUsername(userCheck.getUsername()))) {//checks if given username matches one in the array
+            if (usernameEntered.equalsIgnoreCase(userCheck.getUsername())) {
                 found = true;
-                //Checks if the password entered matches the correct one
-                if (passwordEntered.equalsIgnoreCase(formatUsername(userCheck.getPassword()))) { //checks the password
+
+                //Checks if the password entered matches the one registered
+                if (passwordEntered.equalsIgnoreCase(userCheck.getPassword())) {
                     getUser(userArray, window);
                 }
+
+                //Username matches, password doesn't
                 else {
-                    try {
-                        throw new WrongPasswordError("Password does not match username");//username matches, password doesn't
-                    } catch (WrongPasswordError e) {
-                        e.printStackTrace();
-                    }
                     errorLabel.setText("Wrong password");
+
+                    throw new WrongPasswordError("Password does not match username");
                 }
                 return;
             }
             else {
                 System.out.println("Entered: " + usernameEntered + " " + passwordEntered + "\n" +
-                        "In array: " + formatUsername(userCheck.getUsername()) + " " + formatUsername(userCheck.getPassword()));
+                        "In array: " + userCheck.getUsername() + " " + userCheck.getPassword() + "\n");
                 i++; //checks next user in the array
             }
         }
+
+        //Username not found
         if (!found){
-            try {
-                throw new InvalidUsernameError("Username not found in User List");//username not found case
-            } catch (InvalidUsernameError e) {
-                e.printStackTrace();
-            }
             errorLabel.setText("Username not found, please sign up first.");
+
+            throw new InvalidUsernameError("Username not found in User List");
         }
     }
 
-    //Formats username eliminating unwanted tokens
-    private String formatUsername(String s){
-        return s.replace("\n", "").replace(" ", "");
-    }
-
     //Opens the menu window
-    private void openMenu(JFrame window, User u) throws IOException {
-        Menu m = new Menu(window, u);
+    private void openMenu(JFrame window, User u, User[] userArray) throws IOException {
+        Menu m = new Menu(window, u, userArray);
         window.getContentPane().removeAll();
         window.setTitle("Login");
         window.setContentPane(m);

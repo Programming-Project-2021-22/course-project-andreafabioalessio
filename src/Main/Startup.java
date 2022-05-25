@@ -87,27 +87,35 @@ public class Startup extends JPanel {
         {
             try {
                 userLineScan = new Scanner(new File("src/UsersList.txt"));
+
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
         }
+
         userLineScan.useDelimiter(":");
 
         while (userLineScan.hasNext()){
-            String userLine = userLineScan.next();
+            String userLine = userLineScan.next().trim();
             Scanner userTokenScan = new Scanner(userLine);
             userTokenScan.useDelimiter(";");
 
-            String u = userTokenScan.next();
-            String p = userTokenScan.next();
+            System.out.println("Line scanned: " + userLine);
+
+            String u = userTokenScan.next().trim();
+            String p = userTokenScan.next().trim();
             int l = Integer.parseInt(userTokenScan.next());
             User user = new User(u, p, l);
             temp.add(user);
+            System.out.println("User: " + userToString(user));
         }
+
         userArray = new User[temp.size()];
+
         for (int i = 0; i < temp.size(); i++){
             userArray[i] = temp.get(i);
         }
+
         System.out.println(arrayToString(userArray));
     }
 
@@ -115,7 +123,7 @@ public class Startup extends JPanel {
     private String arrayToString(User [] userArray){
         String users = "List of users:\n";
         for (User u : userArray){
-            users += userToString(u);
+            users += userToString(u) + "\n";
         }
         return users;
     }

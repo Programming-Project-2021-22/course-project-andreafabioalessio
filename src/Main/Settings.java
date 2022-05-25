@@ -16,22 +16,12 @@ public class Settings extends JPanel {
         settingsLabel.setForeground(new Color(205, 58, 218));
 
         JButton idk = new JButton("I'm just a button");
-        JButton resume = new JButton("Resume");
-
-        resume.addActionListener(e ->{
-            resumeButtonPress();
-                });
 
         GridBagConstraints c = new GridBagConstraints();
         setLayout(new GridBagLayout());
+
         c.gridy = 0;
         add(settingsLabel, c);
-
-        c.gridy = 1;
-        add(Box.createRigidArea(new Dimension(50, 50)), c);
-
-        c.gridy = 2;
-        add(resume, c);
 
         c.gridy = 3;
         add(Box.createRigidArea(new Dimension(50,50)), c);
@@ -40,9 +30,7 @@ public class Settings extends JPanel {
         add(idk, c);
     }
 
-    private void resumeButtonPress() {
-    }
-
+    //Overridden paintComponent method that paints the background
     @Override
     public void paintComponent(Graphics g){
         try {
