@@ -2,9 +2,9 @@ package Main;
 
 public class User {
 
-    private String username;
-    private String password;
-    int level = 1;
+    private final String username;
+    private final String password;
+    private int level = 1;
 
     public User (String username, String password, int level){
         this.username = username;

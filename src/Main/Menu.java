@@ -3,19 +3,14 @@ package Main;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.nio.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Locale;
 
 public class Menu extends JPanel {
 
     private Image background;
     private final JPanel level;
+    private final Label userInfoLv = new Label();
     private int numLevel = 1;
     private final JPanel dot1, dot2, dot3, dot4, dots;
     private final Dimension dotSelected = new Dimension(30, 10);
@@ -23,7 +18,7 @@ public class Menu extends JPanel {
 
     JButton removeMe;
 
-    public Menu (JFrame window, User user, User[] userArray) throws IOException {
+    public Menu (JFrame window, User user) throws IOException {
         window.setTitle("Menù");
 
         this.setPreferredSize(new Dimension(768, 624));
@@ -31,8 +26,15 @@ public class Menu extends JPanel {
 
         Dimension levelPanelDimensions = new Dimension(500, 200);
 
-        JLabel userInfo = new JLabel("<html><div style = 'text-align: right;'>" + user.getUsername() +
-                "<br/>Lv:" + user.getLevel() + "</div></html>");
+        Label userInfoName = new Label(user.getUsername());
+        userInfoLv.setText("Lv: " + user.getLevel());
+        JPanel userInfo = new JPanel();
+        userInfo.setLayout(new BoxLayout(userInfo, BoxLayout.Y_AXIS));
+        userInfo.add(userInfoName);
+        userInfo.add(userInfoLv);
+        userInfoName.setAlignment(Label.RIGHT);
+        userInfoLv.setAlignment(Label.RIGHT);
+        userInfo.setBackground(new Color(0, 0, 0, 0));
         userInfo.setFont(new Font("Dialog", Font.PLAIN, 18));
         userInfo.setForeground(new Color(205, 58, 218));
 
@@ -73,35 +75,14 @@ public class Menu extends JPanel {
 
         ImageIcon forwardIcon = new ImageIcon("res/Images/forward-arrow.png");
         ImageIcon forwardIconHovered = new ImageIcon("res/Images/forward-arrow-hovered.png");
+        ImageIcon forwardIconPressed = new ImageIcon("res/Images/forward-arrow-pressed.png");
 
         JButton forward = new JButton(forwardIcon);
         forward.setBackground(new Color(0, 0, 0));
         forward.setBorderPainted(false);
-        //Changes the arrow when you hover on it
-        forward.addMouseListener(new MouseAdapter() {
-            public void mouseEntered(MouseEvent e) {
-                forward.setIcon(forwardIconHovered);
-            }
-            public void mouseExited(MouseEvent e) {
-                forward.setIcon(forwardIcon);
-            }
-        });
-
-        ImageIcon backIcon = new ImageIcon("res/Images/back-arrow.png");
-        ImageIcon backIconHovered = new ImageIcon("res/Images/back-arrow-hovered.png");
-
-        JButton back = new JButton(backIcon);
-        back.setBackground(new Color(0, 0, 0));
-        back.setBorderPainted(false);
-        //Changes the arrow when you hover on it
-        back.addMouseListener(new MouseAdapter() {
-            public void mouseEntered(MouseEvent evt) {
-                back.setIcon(backIconHovered);
-            }
-            public void mouseExited(MouseEvent evt) {
-                back.setIcon(backIcon);
-            }
-        });
+        //Changes arrow on hover and press
+        forward.setPressedIcon(forwardIconPressed);
+        forward.setRolloverIcon(forwardIconHovered);
 
         forward.addActionListener(e -> {
             try {
@@ -110,6 +91,17 @@ public class Menu extends JPanel {
                 ex.printStackTrace();
             }
         });
+
+        ImageIcon backIcon = new ImageIcon("res/Images/back-arrow.png");
+        ImageIcon backIconHovered = new ImageIcon("res/Images/back-arrow-hovered.png");
+        ImageIcon backIconPressed = new ImageIcon("res/Images/back-arrow-pressed.png");
+
+        JButton back = new JButton(backIcon);
+        back.setBackground(new Color(0, 0, 0));
+        back.setBorderPainted(false);
+        //Changes arrow on hover and press
+        back.setPressedIcon(backIconPressed);
+        back.setRolloverIcon(backIconHovered);
 
         back.addActionListener(e -> {
             try {
@@ -128,13 +120,12 @@ public class Menu extends JPanel {
         select.setBorderPainted(false);
         select.setContentAreaFilled(false);
 
-        select.addActionListener(e -> loadLevel(window, user));
+        select.addActionListener(e -> loadLevel(user));
 
         JButton settingsButton = new JButton("Settings");
         settingsButton.addActionListener(e ->{
             openSettings();
-            }
-        );
+            });
 
         JPanel panel = new JPanel();
         SpringLayout panelLayout = new SpringLayout();
@@ -163,7 +154,7 @@ public class Menu extends JPanel {
         panelLayout.putConstraint(SpringLayout.NORTH, removeMe, 100, SpringLayout.NORTH, panel);
         removeMe.addActionListener(e->{
             try {
-                updateUserLevel(user, userArray);
+                updateLevelInArray(user);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -193,17 +184,25 @@ public class Menu extends JPanel {
         add(panel);
     }
 
-    //Updates the level of the player writing on the usersList file
-    private void updateUserLevel(User u, User[] userArray) throws IOException {
-        updateLevelInArray(u, userArray);
+    //Updates the level of the player in the array
+    private void updateLevelInArray(User user) throws IOException {
 
-        //Update in file
+        if(user.getLevel() < 4){
+            System.out.println("User data: " + user.getUsername() + "; Lv: " + user.getLevel());
+            user.setLevel(user.getLevel() + 1);
+            System.out.println("New user data: " + user.getUsername() + "; Lv: " + user.getLevel());
+
+            updateUserLevelInFile(user);
+        }
+    }
+
+    //Updates the level of the player writing on the usersList file
+    private void updateUserLevelInFile(User user) throws IOException {
         //Appends new user data in UsersList.txt
         FileWriter fw = new FileWriter("src/UsersList.txt", true);
-
         PrintWriter pw = new PrintWriter(fw);
 
-        String line = u.getUsername() + ";" + u.getPassword() + ";" + (u.getLevel()) + ";:";
+        String line = user.getUsername() + ";" + user.getPassword() + ";" + user.getLevel() + ";:";
 
         pw.append("\n");
         pw.append(line.trim());
@@ -211,24 +210,24 @@ public class Menu extends JPanel {
 
         //Copies all data besides old user data in myTempFile.txt
         File usersList = new File("src/UsersList.txt");
-        File tempFile = new File("src/tempUsersList.txt");
+        File tempList = new File("src/tempUsersList.txt");
 
         BufferedReader reader = new BufferedReader(new FileReader(usersList));
-        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(tempList ));
 
-        String lineToRemove = u.getUsername() + ";" + u.getPassword() + ";" + (u.getLevel() - 1) + ";:";
+        String lineToRemove = user.getUsername() + ";" + user.getPassword() + ";" + (user.getLevel() - 1) + ";:";
         String currentLine = reader.readLine();
 
         while(currentLine != null) {
             //If line matches the old user's data
             if(currentLine.trim().equalsIgnoreCase(lineToRemove.trim())) {
-                System.out.println("MATCH: Deleting this line...");
+                System.out.println("MATCH: Deleting this line..." + "(" + currentLine + ")");
                 currentLine = reader.readLine();
             }
             //Else we write the data
             else{
                 writer.write(currentLine.trim());
-                System.out.println("Current line: " + currentLine);
+                System.out.println("Just wrote this line: " + currentLine);
                 currentLine = reader.readLine();
                 //if the next line is not null we go to a new line
                 if(currentLine != null) {
@@ -241,7 +240,7 @@ public class Menu extends JPanel {
         reader.close();
 
         //Rewrites content of myTempFile to UsersList
-        reader = new BufferedReader(new FileReader(tempFile));
+        reader = new BufferedReader(new FileReader(tempList));
         writer = new BufferedWriter(new FileWriter(usersList));
 
         currentLine = reader.readLine();
@@ -256,17 +255,14 @@ public class Menu extends JPanel {
 
         writer.close();
         reader.close();
+
+        updateUserInfoLabel(user);
     }
 
-    private void updateLevelInArray(User u, User[] userArray){
-        //Update in array
-        for(User user : userArray){
-            if((user.getUsername().trim()).equals(u.getUsername().trim())){
-                System.out.println("User data: " + user.getUsername() + "; Lv: " + user.getLevel());
-                user.setLevel(user.getLevel() + 1);
-                System.out.println("New user data: " + user.getUsername() + "; Lv: " + user.getLevel());
-            }
-        }
+    //Updates userInfo label
+    private void updateUserInfoLabel(User user){
+        userInfoLv.setText("Lv: " + user.getLevel()
+               );
     }
 
     //Updates the graphics of the dots and level cover
@@ -339,8 +335,8 @@ public class Menu extends JPanel {
                 dots.repaint();
             }
         }
-    }
 
+    }
 
     //Updates the value of numLevel
     private void processForwardButtonPress() throws IOException {
@@ -394,7 +390,7 @@ public class Menu extends JPanel {
     }
 
     //Loads the level corresponding to the numLevel value
-    private void loadLevel(JFrame window, User u){
+    private void loadLevel(User user){
         switch (numLevel){
             case 1:
                     level.setBackground(Color.yellow);
@@ -402,7 +398,7 @@ public class Menu extends JPanel {
                     break;
 
             case 2:
-                if(u.getLevel() < numLevel){
+                if(user.getLevel() < numLevel){
                     level.setBackground(Color.red);
                     removeMe.setBackground(Color.red);
                 }
@@ -413,7 +409,7 @@ public class Menu extends JPanel {
                 break;
 
             case 3:
-                if(u.getLevel() < numLevel){
+                if(user.getLevel() < numLevel){
                     level.setBackground(Color.red);
                     removeMe.setBackground(Color.red);
                 }
@@ -424,7 +420,7 @@ public class Menu extends JPanel {
                 break;
 
             case 4:
-                if(u.getLevel() < numLevel){
+                if(user.getLevel() < numLevel){
                     level.setBackground(Color.red);
                     removeMe.setBackground(Color.red);
                 }

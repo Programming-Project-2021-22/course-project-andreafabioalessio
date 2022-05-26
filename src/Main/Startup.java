@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class Startup extends JPanel {
 
-    static User [] userArray = new User[0];
+    private static User [] userArray = new User[0];
     private Scanner userLineScan = null;
     private Image background;
 
@@ -100,14 +100,11 @@ public class Startup extends JPanel {
             Scanner userTokenScan = new Scanner(userLine);
             userTokenScan.useDelimiter(";");
 
-            System.out.println("Line scanned: " + userLine);
-
             String u = userTokenScan.next().trim();
             String p = userTokenScan.next().trim();
-            int l = Integer.parseInt(userTokenScan.next());
+            int l = Integer.parseInt(userTokenScan.next().trim());
             User user = new User(u, p, l);
             temp.add(user);
-            System.out.println("User: " + userToString(user));
         }
 
         userArray = new User[temp.size()];
@@ -129,8 +126,8 @@ public class Startup extends JPanel {
     }
 
     //User to string method
-    private String userToString(User u){
-        return u.getUsername() + ";" + u.getPassword() + ";" + u.getLevel() + ";:";
+    private String userToString(User user){
+        return user.getUsername() + ";" + user.getPassword() + ";" + user.getLevel() + ";:";
     }
 
     //Overridden paintComponent method that paints the background

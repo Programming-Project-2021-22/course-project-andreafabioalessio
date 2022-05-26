@@ -14,13 +14,10 @@ public class Signup extends JPanel {
     private final JPasswordField passwordTField;
     private final JLabel errorLabel;
     private Image background;
-    private User[] userArray;
 
     public Signup(JFrame window, User[] userArray){
         this.setPreferredSize(new Dimension(400, 400));
         this.setBackground(Color.WHITE);
-
-        this.userArray = userArray;
 
         usernameTField = new JTextField(13);
         usernameTField.setForeground(new Color(205, 58, 218));
@@ -61,7 +58,7 @@ public class Signup extends JPanel {
         createButton.setBorderPainted(false);
         createButton.addActionListener(e -> {
             try {
-                createButtonPress(window);
+                createButtonPress(window, userArray);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -147,18 +144,18 @@ public class Signup extends JPanel {
 
     //Gets the user from the array and starts menu window
     private void getUser (User[] userArray, JFrame window) throws IOException {
-        String usernameEntered = usernameTField.getText();
+        String usernameEntered = usernameTField.getText().trim();
 
         for (User u : userArray) {
-            if((u.getUsername().trim()).equalsIgnoreCase(usernameEntered)){
-                openMenu(window, u, userArray);
+            if(usernameEntered.equalsIgnoreCase(u.getUsername().trim())){
+                openMenu(window, u);
             }
         }
     }
 
     //Processes the press of the signUpButton
-    private void createButtonPress(JFrame window) throws IOException {
-        String username = usernameTField.getText();
+    private void createButtonPress(JFrame window, User[] userArray) throws IOException {
+        String username = usernameTField.getText().trim();
         String password = String.valueOf(passwordTField.getPassword());
 
         //Checks that the username field is not empty
@@ -177,7 +174,7 @@ public class Signup extends JPanel {
 
         if (!checkUser(username)){
             if (checkInputNotNull(password)){
-                createUser(username, password);
+                createUser(username, password, userArray);
                 getUser(userArray, window);  //Gets user from array and starts menu window
             }
         }
@@ -192,7 +189,7 @@ public class Signup extends JPanel {
     }
 
     //Checks if the Input username is not already taken
-    private boolean checkUser(String us) throws FileNotFoundException {
+    private boolean checkUser(String s) throws FileNotFoundException {
         String existingUsername;
         boolean exists = false;
 
@@ -203,9 +200,9 @@ public class Signup extends JPanel {
         while (userCheckerScan.hasNext() && !exists) {
             existingUsername = userCheckerScan.next();
 
-            exists = existingUsername.compareToIgnoreCase(us) == 0;
+            exists = existingUsername.compareToIgnoreCase(s) == 0;
 
-            System.out.println("Checking: " + existingUsername + "|" + us + "|" + exists);
+            System.out.println("Checking: " + existingUsername + "|" + s + "|" + exists);
             //Scanner also scans password, level and :, call to next() 3 times to skip these comparisons,
             // allowing usernames to match other user's passwords.
             System.out.println("Skipping: " + userCheckerScan.next());
@@ -221,7 +218,7 @@ public class Signup extends JPanel {
     }
 
     //Creates a User object with the given parameters
-    private void createUser(String us, String pa) throws IOException {
+    private void createUser(String us, String pa, User[] userArray) throws IOException {
         User d = new User (us, pa, 1);
         User [] temp = new User[userArray.length + 1];
         for (int i = 0; i < userArray.length; i++){
@@ -234,19 +231,19 @@ public class Signup extends JPanel {
     }
 
     //Adds the user data to the file
-    private void addToFile(User d) throws IOException {
+    private void addToFile(User user) throws IOException {
 
         FileWriter fw = new FileWriter("src/UsersList.txt", true);
 
         PrintWriter pw = new PrintWriter(fw);
         pw.append("\n");
-        pw.append(userToString(d));
+        pw.append(userToString(user));
         pw.close();
     }
 
     //Opens the menu window
-    private void openMenu(JFrame window, User u, User[] userArray) throws IOException {
-        Menu m = new Menu(window, u, userArray);
+    private void openMenu(JFrame window, User user) throws IOException {
+        Menu m = new Menu(window, user);
         window.getContentPane().removeAll();
         window.setTitle("Login");
         window.setContentPane(m);
@@ -255,8 +252,8 @@ public class Signup extends JPanel {
     }
 
     //Formats user data for the userList file
-    private String userToString(User u){
-        return u.getUsername() + ";" + u.getPassword() + ";" + u.getLevel() + ";:";
+    private String userToString(User user){
+        return user.getUsername() + ";" + user.getPassword() + ";" + user.getLevel() + ";:";
     }
 
     //Overridden paintComponent method that paints the background
