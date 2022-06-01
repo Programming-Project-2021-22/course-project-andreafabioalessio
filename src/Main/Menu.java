@@ -1,5 +1,7 @@
 package Main;
 
+import Exeptions.LevelTooLowError;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -400,6 +402,7 @@ public class Menu extends JPanel {
                 if(user.getLevel() < numLevel){
                     level.setBackground(Color.red);
                     removeMe.setBackground(Color.red);
+                    throw new LevelTooLowError("Level locked, reach level " + numLevel + " to unlock it");
                 }
                 else{
                     level.setBackground(Color.green);
@@ -411,6 +414,7 @@ public class Menu extends JPanel {
                 if(user.getLevel() < numLevel){
                     level.setBackground(Color.red);
                     removeMe.setBackground(Color.red);
+                    throw new LevelTooLowError("Level locked, reach level " + numLevel + " to unlock it");
                 }
                 else{
                     level.setBackground(Color.cyan);
@@ -422,6 +426,7 @@ public class Menu extends JPanel {
                 if(user.getLevel() < numLevel){
                     level.setBackground(Color.red);
                     removeMe.setBackground(Color.red);
+                    throw new LevelTooLowError("Level locked, reach level " + numLevel + " to unlock it");
                 }
                 else{
                     level.setBackground(Color.yellow);

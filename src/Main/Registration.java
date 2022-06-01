@@ -39,5 +39,4 @@ public abstract class Registration extends JPanel {
         window.revalidate();
         window.repaint();
     }
-
 }
