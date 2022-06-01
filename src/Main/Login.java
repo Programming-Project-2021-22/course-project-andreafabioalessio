@@ -1,14 +1,14 @@
 package Main;
 
-import Exeptions.InvalidUsernameError;
-import Exeptions.WrongPasswordError;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import Exeptions.InvalidUsernameError;
+import Exeptions.WrongPasswordError;
 
-public class Login extends JPanel {
+public class Login extends Registration {
 
     private Image background;
     private final JTextField usernameTField;
@@ -58,7 +58,9 @@ public class Login extends JPanel {
         loginButton.setBorderPainted(false);
         loginButton.addActionListener(e -> {
             try {
-                checkUserInArray(window, userArray);
+                if(checkUserInArray(userArray, usernameTField.getText().trim())){
+                    getUser(userArray, window, usernameTField.getText().trim());
+                }
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -71,7 +73,7 @@ public class Login extends JPanel {
         backButton.setPreferredSize(new Dimension(75, 24));
         backButton.setContentAreaFilled(false);
         backButton.setBorderPainted(false);
-        backButton.addActionListener(e -> goBackToStartup(window));
+        backButton.addActionListener(e -> super.goBackToStartup(window));
 
         errorLabel = new JLabel();
         errorLabel.setForeground(Color.red);
@@ -132,75 +134,52 @@ public class Login extends JPanel {
         add(errorPanel, constraints);
     }
 
-    //Processes the press of the back button and goes back to Startup page
-    private void goBackToStartup(JFrame window) {
-        Startup s = new Startup(window);
-        window.getContentPane().removeAll();
-        window.setTitle("Menù");
-        window.setContentPane(s);
-        window.revalidate();
-        window.repaint();
-    }
-
-    //Gets the user from the array and starts menu window
-    private void getUser (User[] userArray, JFrame window) throws IOException {
-        String usernameEntered = usernameTField.getText().trim();
-
-        for (User u : userArray) {
-            if(usernameEntered.equalsIgnoreCase(u.getUsername().trim())){
-                openMenu(window, u);
-            }
-        }
-    }
-
+    //Abstract method implementation from the Registration class
     //Checks if a user with the same username entered exists or not
-    private void checkUserInArray(JFrame window, User[] userArray) throws IOException {
-        boolean found = false;
-        String usernameEntered = usernameTField.getText().trim();
+    @Override
+    protected boolean checkUserInArray(User[] userArray, String usernameEntered){
+        boolean usernameFound = false;
         String passwordEntered = String.valueOf(passwordTField.getPassword());
 
         for (int i = 0; i < userArray.length; ){
             User userCheck = userArray[i];
             //Checks if username entered exists in the array
             if (usernameEntered.equalsIgnoreCase(userCheck.getUsername())) {
-                found = true;
+                usernameFound = true;
 
                 //Checks if the password entered matches the one registered
                 if (passwordEntered.equalsIgnoreCase(userCheck.getPassword())) {
-                    getUser(userArray, window);
+                    return true;
                 }
 
                 //Username matches, password doesn't
                 else {
                     errorLabel.setText("Wrong password");
-
-                    throw new WrongPasswordError("Password does not match username");
+                    try {
+                        throw new WrongPasswordError("Password does not match username");
+                    } catch (WrongPasswordError e) {
+                        e.printStackTrace();
+                    }
+                    return false;
                 }
-                return;
             }
             else {
                 System.out.println("Entered: " + usernameEntered + " " + passwordEntered + "\n" +
-                        "In array: " + userCheck.getUsername() + " " + userCheck.getPassword() + "\n");
+                        "Checking in array: " + userCheck.getUsername() + " " + userCheck.getPassword() + "\n");
                 i++; //checks next user in the array
             }
         }
 
         //Username not found
-        if (!found){
+        if (!usernameFound){
             errorLabel.setText("Username not found, please sign up first.");
-
-            throw new InvalidUsernameError("Username not found in User List");
+            try {
+                throw new InvalidUsernameError("Username not found in User List");
+            } catch (InvalidUsernameError e) {
+                e.printStackTrace();
+            }
         }
-    }
-
-    //Opens the menu window
-    private void openMenu(JFrame window, User user) throws IOException {
-        Menu m = new Menu(window, user);
-        window.getContentPane().removeAll();
-        window.setTitle("Login");
-        window.setContentPane(m);
-        window.revalidate();
-        window.repaint();
+        return false;
     }
 
     //Overridden paintComponent method that paints the background

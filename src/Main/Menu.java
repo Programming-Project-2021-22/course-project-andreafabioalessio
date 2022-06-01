@@ -13,8 +13,6 @@ public class Menu extends JPanel {
     private final Label userInfoLv = new Label();
     private int numLevel = 1;
     private final JPanel dot1, dot2, dot3, dot4, dots;
-    private final Dimension dotSelected = new Dimension(30, 10);
-    private final Dimension dotUnselected = new Dimension(10, 10);
 
     JButton removeMe;
 
@@ -35,6 +33,7 @@ public class Menu extends JPanel {
         userInfoName.setAlignment(Label.RIGHT);
         userInfoLv.setAlignment(Label.RIGHT);
         userInfo.setBackground(new Color(0, 0, 0, 0));
+        userInfo.setBorder(BorderFactory.createBevelBorder(2));
         userInfo.setFont(new Font("Dialog", Font.PLAIN, 18));
         userInfo.setForeground(new Color(205, 58, 218));
 
@@ -71,7 +70,7 @@ public class Menu extends JPanel {
         dots.add(dot4, dotsConstraints);
         dots.setBackground(new Color(0, 0, 0));
 
-        updateGraphics();
+        updateLevelGraphics();
 
         ImageIcon forwardIcon = new ImageIcon("res/Images/forward-arrow.png");
         ImageIcon forwardIconHovered = new ImageIcon("res/Images/forward-arrow-hovered.png");
@@ -154,7 +153,7 @@ public class Menu extends JPanel {
         panelLayout.putConstraint(SpringLayout.NORTH, removeMe, 100, SpringLayout.NORTH, panel);
         removeMe.addActionListener(e->{
             try {
-                updateLevelInArray(user);
+                updateUserLevelInArray(user);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -185,7 +184,7 @@ public class Menu extends JPanel {
     }
 
     //Updates the level of the player in the array
-    private void updateLevelInArray(User user) throws IOException {
+    private void updateUserLevelInArray(User user) throws IOException {
 
         if(user.getLevel() < 4){
             System.out.println("User data: " + user.getUsername() + "; Lv: " + user.getLevel());
@@ -266,8 +265,10 @@ public class Menu extends JPanel {
     }
 
     //Updates the graphics of the dots and level cover
-    private void updateGraphics() throws IOException {
+    private void updateLevelGraphics() throws IOException {
         //Updates the level cover
+        Dimension dotSelected = new Dimension(30, 10);
+        Dimension dotUnselected = new Dimension(10, 10);
         String imagePath = "res/LevelCovers/Level-cover-" + numLevel + ".jpg";
         BufferedImage img = ImageIO.read(new File(imagePath));
         JLabel pic = new JLabel(new ImageIcon(img));
@@ -342,11 +343,11 @@ public class Menu extends JPanel {
     private void processForwardButtonPress() throws IOException {
         if (numLevel < 4) {
             numLevel++;
-            updateGraphics();
+            updateLevelGraphics();
         }
         else {
             numLevel = 1;
-            updateGraphics();
+            updateLevelGraphics();
         }
     }
 
@@ -354,11 +355,11 @@ public class Menu extends JPanel {
     private void processBackwardButtonPress() throws IOException {
         if(numLevel > 1){
             numLevel--;
-            updateGraphics();
+            updateLevelGraphics();
         }
         else{
             numLevel = 4;
-            updateGraphics();
+            updateLevelGraphics();
         }
     }
 
@@ -366,19 +367,17 @@ public class Menu extends JPanel {
     private void openSettings(){
         JFrame settings = new JFrame("Settings");
 
-        Settings set = new Settings();
-        set.setPreferredSize(new Dimension(350, 350));
-
-        JButton resume = new JButton("Resume");
-        resume.setPreferredSize(new Dimension(90, 30));
-        resume.setMaximumSize(new Dimension(90, 30));
+        JButton resume = new JButton("Close");
+        resume.setPreferredSize(new Dimension(120, 30));
+        resume.setMaximumSize(new Dimension(120, 30));
+        resume.setForeground(new Color(205, 58, 218));
 
         resume.addActionListener(e ->{
             settings.dispose();
         });
 
-        set.add(resume);
-
+        Settings set = new Settings(resume);
+        set.setPreferredSize(new Dimension(350, 350));
         settings.add(set);
 
         settings.setPreferredSize(new Dimension(350, 350));
@@ -393,7 +392,7 @@ public class Menu extends JPanel {
     private void loadLevel(User user){
         switch (numLevel){
             case 1:
-                    level.setBackground(Color.yellow);
+                    level.setBackground(Color.green);
                     removeMe.setBackground(Color.green);
                     break;
 
@@ -403,7 +402,7 @@ public class Menu extends JPanel {
                     removeMe.setBackground(Color.red);
                 }
                 else{
-                    level.setBackground(Color.blue);
+                    level.setBackground(Color.green);
                     removeMe.setBackground(Color.green);
                 }
                 break;
@@ -414,7 +413,7 @@ public class Menu extends JPanel {
                     removeMe.setBackground(Color.red);
                 }
                 else{
-                    level.setBackground(Color.pink);
+                    level.setBackground(Color.cyan);
                     removeMe.setBackground(Color.green);
                 }
                 break;
@@ -425,7 +424,7 @@ public class Menu extends JPanel {
                     removeMe.setBackground(Color.red);
                 }
                 else{
-                    level.setBackground(Color.green);
+                    level.setBackground(Color.yellow);
                     removeMe.setBackground(Color.green);
                 }
                 break;

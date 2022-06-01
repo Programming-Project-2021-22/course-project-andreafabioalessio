@@ -2,10 +2,9 @@ package Main;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 
 public class Main{
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args){
         JFrame window = new JFrame();
         Startup s = new Startup(window);
 

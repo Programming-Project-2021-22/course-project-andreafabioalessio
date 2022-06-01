@@ -11,9 +11,9 @@ import java.util.Scanner;
 
 public class Startup extends JPanel {
 
+    private Image background;
     private static User [] userArray = new User[0];
     private Scanner userLineScan = null;
-    private Image background;
 
     public Startup(JFrame window){
         fillArray(); //reads users from UserList.txt and fills an array with users

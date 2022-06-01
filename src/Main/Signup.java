@@ -1,19 +1,18 @@
 package Main;
 
-import Exeptions.InvalidUsernameError;
-import Exeptions.InvalidPasswordError;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
-import java.util.Scanner;
+import Exeptions.InvalidUsernameError;
+import Exeptions.InvalidPasswordError;
 
-public class Signup extends JPanel {
-
+public class Signup extends Registration {
+    
+    private Image background;
     private final JTextField usernameTField;
     private final JPasswordField passwordTField;
     private final JLabel errorLabel;
-    private Image background;
 
     public Signup(JFrame window, User[] userArray){
         this.setPreferredSize(new Dimension(400, 400));
@@ -71,7 +70,7 @@ public class Signup extends JPanel {
         backButton.setPreferredSize(new Dimension(75, 24));
         backButton.setContentAreaFilled(false);
         backButton.setBorderPainted(false);
-        backButton.addActionListener(e -> goBackToStartup(window));
+        backButton.addActionListener(e -> super.goBackToStartup(window));
 
         errorLabel = new JLabel();
         errorLabel.setForeground(Color.red);
@@ -132,50 +131,27 @@ public class Signup extends JPanel {
         add(errorPanel, constraints);
     }
 
-    //Processes the press of the back button and goes back to Startup page
-    private void goBackToStartup(JFrame window) {
-        Startup s = new Startup(window);
-        window.getContentPane().removeAll();
-        window.setTitle("Menù");
-        window.setContentPane(s);
-        window.revalidate();
-        window.repaint();
-    }
-
-    //Gets the user from the array and starts menu window
-    private void getUser (User[] userArray, JFrame window) throws IOException {
-        String usernameEntered = usernameTField.getText().trim();
-
-        for (User u : userArray) {
-            if(usernameEntered.equalsIgnoreCase(u.getUsername().trim())){
-                openMenu(window, u);
-            }
-        }
-    }
-
     //Processes the press of the signUpButton
     private void createButtonPress(JFrame window, User[] userArray) throws IOException {
-        String username = usernameTField.getText().trim();
-        String password = String.valueOf(passwordTField.getPassword());
+        String usernameEntered = usernameTField.getText().trim();
+        String passwordEntered = String.valueOf(passwordTField.getPassword());
 
         //Checks that the username field is not empty
-        if(!checkInputNotNull(username)){
+        if(!checkInputNotNull(usernameEntered)){
             errorLabel.setText("Please insert a valid username");
 
             throw new InvalidUsernameError("Username field cannot be empty");
         }
 
         //Checks that the password field is not empty
-        if(!checkInputNotNull(password)) {
+        if(!checkInputNotNull(passwordEntered)) {
             errorLabel.setText("Please insert a valid password");
 
             throw new InvalidPasswordError("Password field cannot be empty");
         }
-
-        if (!checkUser(username)){
-            if (checkInputNotNull(password)){
-                createUser(username, password, userArray);
-                getUser(userArray, window);  //Gets user from array and starts menu window
+        if (!checkUserInArray(userArray, usernameEntered)){
+            if (checkInputNotNull(passwordEntered)){
+                createUser(usernameEntered, passwordEntered, userArray, window);
             }
         }
         else{
@@ -188,28 +164,18 @@ public class Signup extends JPanel {
         }
     }
 
-    //Checks if the Input username is not already taken
-    private boolean checkUser(String s) throws FileNotFoundException {
-        String existingUsername;
-        boolean exists = false;
-
-        Scanner userCheckerScan = new Scanner(new File("src/UsersList.txt"));
-
-        userCheckerScan.useDelimiter("\n|;");
-
-        while (userCheckerScan.hasNext() && !exists) {
-            existingUsername = userCheckerScan.next();
-
-            exists = existingUsername.compareToIgnoreCase(s) == 0;
-
-            System.out.println("Checking: " + existingUsername + "|" + s + "|" + exists);
-            //Scanner also scans password, level and :, call to next() 3 times to skip these comparisons,
-            // allowing usernames to match other user's passwords.
-            System.out.println("Skipping: " + userCheckerScan.next());
-            System.out.println("Skipping: " + userCheckerScan.next());
-            System.out.println("Skipping: " + userCheckerScan.next());
+    //Abstract method implementation from the Registration class
+    //Checks if the input username is not already taken
+    @Override
+    protected boolean checkUserInArray(User[] userArray, String usernameEntered){
+        System.out.println("Checking if the username entered is not already taken:");
+        for(User u : userArray){
+            System.out.println("Username entered: " + usernameEntered + "; Username in array: " + u.getUsername() + ";");
+            if(usernameEntered.equalsIgnoreCase(u.getUsername())){
+                return true;
+            }
         }
-        return exists;
+        return false;
     }
 
     //Checks that the input is not empty
@@ -218,16 +184,17 @@ public class Signup extends JPanel {
     }
 
     //Creates a User object with the given parameters
-    private void createUser(String us, String pa, User[] userArray) throws IOException {
+    private void createUser(String us, String pa, User[] userArray, JFrame window) throws IOException {
         User d = new User (us, pa, 1);
-        User [] temp = new User[userArray.length + 1];
-        for (int i = 0; i < userArray.length; i++){
-            temp [i] = userArray[i];
-        }
+        addToFile(d);
+
+        User[] temp = new User[userArray.length + 1];
+        System.arraycopy(userArray, 0, temp, 0, userArray.length);
 
         temp[temp.length - 1] = d;
         userArray = temp;
-        addToFile(d);
+
+        super.getUser(userArray, window, usernameTField.getText().trim());  //Gets user from array and starts menu window
     }
 
     //Adds the user data to the file
@@ -239,16 +206,6 @@ public class Signup extends JPanel {
         pw.append("\n");
         pw.append(userToString(user));
         pw.close();
-    }
-
-    //Opens the menu window
-    private void openMenu(JFrame window, User user) throws IOException {
-        Menu m = new Menu(window, user);
-        window.getContentPane().removeAll();
-        window.setTitle("Login");
-        window.setContentPane(m);
-        window.revalidate();
-        window.repaint();
     }
 
     //Formats user data for the userList file
