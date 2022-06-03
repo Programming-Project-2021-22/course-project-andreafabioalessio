@@ -70,16 +70,16 @@ public class Menu extends JPanel {
         dots.add(Box.createRigidArea(new Dimension(40,0)));
         dotsConstraints.gridx = 6;
         dots.add(dot4, dotsConstraints);
-        dots.setBackground(new Color(0, 0, 0));
+        dots.setBackground(Color.BLACK);
 
         updateLevelGraphics();
 
-        ImageIcon forwardIcon = new ImageIcon("res/Images/forward-arrow.png");
-        ImageIcon forwardIconHovered = new ImageIcon("res/Images/forward-arrow-hovered.png");
-        ImageIcon forwardIconPressed = new ImageIcon("res/Images/forward-arrow-pressed.png");
+        ImageIcon forwardIcon = new ImageIcon("res/Images/New graphics/forward-arrow2.png");
+        ImageIcon forwardIconHovered = new ImageIcon("res/Images/New graphics/forward-arrow-hovered2.png");
+        ImageIcon forwardIconPressed = new ImageIcon("res/Images/New graphics/forward-arrow-pressed2.png");
 
         JButton forward = new JButton(forwardIcon);
-        forward.setBackground(new Color(0, 0, 0));
+        forward.setBackground(Color.BLACK);
         forward.setBorderPainted(false);
         //Changes arrow on hover and press
         forward.setPressedIcon(forwardIconPressed);
@@ -93,12 +93,12 @@ public class Menu extends JPanel {
             }
         });
 
-        ImageIcon backIcon = new ImageIcon("res/Images/back-arrow.png");
-        ImageIcon backIconHovered = new ImageIcon("res/Images/back-arrow-hovered.png");
-        ImageIcon backIconPressed = new ImageIcon("res/Images/back-arrow-pressed.png");
+        ImageIcon backIcon = new ImageIcon("res/Images/New graphics/back-arrow2.png");
+        ImageIcon backIconHovered = new ImageIcon("res/Images/New graphics/back-arrow-hovered2.png");
+        ImageIcon backIconPressed = new ImageIcon("res/Images/New graphics/back-arrow-pressed2.png");
 
         JButton back = new JButton(backIcon);
-        back.setBackground(new Color(0, 0, 0));
+        back.setBackground(Color.BLACK);
         back.setBorderPainted(false);
         //Changes arrow on hover and press
         back.setPressedIcon(backIconPressed);
@@ -123,7 +123,18 @@ public class Menu extends JPanel {
 
         select.addActionListener(e -> loadLevel(user));
 
-        JButton settingsButton = new JButton("Settings");
+        ImageIcon settingsIcon = new ImageIcon("res/Images/New graphics/settings-button2.png");
+        ImageIcon settingsIconHovered = new ImageIcon("res/Images/New graphics/settings-button-hovered2.png");
+
+        JButton settingsButton = new JButton(settingsIcon);
+        settingsButton.setRolloverIcon(settingsIconHovered);
+
+        Dimension settingsButtonDimension = new Dimension(50, 50);
+        settingsButton.setPreferredSize(settingsButtonDimension);
+        settingsButton.setContentAreaFilled(false);
+        settingsButton.setBorderPainted(false);
+        settingsButton.setBackground(Color.BLACK);
+
         settingsButton.addActionListener(e ->{
             openSettings();
             });
@@ -171,10 +182,10 @@ public class Menu extends JPanel {
         panelLayout.putConstraint(SpringLayout.NORTH, select, 202, SpringLayout.NORTH, panel);
         panelLayout.putConstraint(SpringLayout.WEST, select, 124, SpringLayout.WEST, panel);
         //Arrows placed vertically centered and on the sides of the level panel
-        panelLayout.putConstraint(SpringLayout.EAST, back, 0, SpringLayout.WEST, level);
-        panelLayout.putConstraint(SpringLayout.NORTH, back, 277, SpringLayout.NORTH, panel);
-        panelLayout.putConstraint(SpringLayout.WEST, forward, 0, SpringLayout.EAST, level);
-        panelLayout.putConstraint(SpringLayout.NORTH, forward, 277, SpringLayout.NORTH, panel);
+        panelLayout.putConstraint(SpringLayout.EAST, back, -20, SpringLayout.WEST, level);
+        panelLayout.putConstraint(SpringLayout.NORTH, back, 252, SpringLayout.NORTH, panel);
+        panelLayout.putConstraint(SpringLayout.WEST, forward, 20, SpringLayout.EAST, level);
+        panelLayout.putConstraint(SpringLayout.NORTH, forward, 252, SpringLayout.NORTH, panel);
         //Dots placed directly under the level panel and horizontally centered
         panelLayout.putConstraint(SpringLayout.NORTH, dots, 0, SpringLayout.SOUTH, level);
         panelLayout.putConstraint(SpringLayout.WEST, dots, 249, SpringLayout.WEST, panel);

@@ -21,19 +21,31 @@ public class Startup extends JPanel {
         this.setPreferredSize(new Dimension(768, 624));
         this.setBackground(Color.white);
 
-        Dimension loginButtonDimension = new Dimension(168, 50);
-        Dimension signupButtonDimension = new Dimension(201, 50);
+        Dimension loginButtonDimension = new Dimension(190, 75);
+        Dimension signupButtonDimension = new Dimension(236, 75);
 
-        ImageIcon loginIcon = new ImageIcon("res/Images/login-button-resized2.png", "login button icon");
+        ImageIcon loginIcon = new ImageIcon("res/Images/New graphics/login-button2.png", "login button icon");
+        ImageIcon loginIconHovered = new ImageIcon("res/Images/New graphics/login-button-hovered2.png", "login button icon");
+        ImageIcon loginIconPressed = new ImageIcon("res/Images/New graphics/login-button-pressed2.png", "login button icon");
+
         JButton loginButton = new JButton(loginIcon);
+        loginButton.setRolloverIcon(loginIconHovered);
+        loginButton.setPressedIcon(loginIconPressed);
+
         loginButton.setMinimumSize(loginButtonDimension);
         loginButton.setMaximumSize(loginButtonDimension);
         loginButton.setPreferredSize(loginButtonDimension);
         loginButton.setContentAreaFilled(false);
         loginButton.setBorderPainted(false);
 
-        ImageIcon signupIcon = new ImageIcon("res/Images/signup-button-resized2.png", "signup button icon");
+        ImageIcon signupIcon = new ImageIcon("res/Images/New graphics/signup-button2.png", "signup button icon");
+        ImageIcon signupIconHovered = new ImageIcon("res/Images/New graphics/signup-button-hovered2.png", "signup button icon");
+        ImageIcon signupIconPressed = new ImageIcon("res/Images/New graphics/signup-button-pressed2.png", "signup button icon");
+
         JButton signupButton = new JButton(signupIcon);
+        signupButton.setRolloverIcon(signupIconHovered);
+        signupButton.setPressedIcon(signupIconPressed);
+
         signupButton.setMinimumSize(signupButtonDimension);
         signupButton.setMaximumSize(signupButtonDimension);
         signupButton.setPreferredSize(signupButtonDimension);
@@ -54,10 +66,12 @@ public class Startup extends JPanel {
         setLayout(new GridBagLayout());
         c.gridx = 1;
         c.gridy = 1;
-        add(loginButton, c);
+        add(Box.createRigidArea(new Dimension(0,20)), c);
         c.gridy = 2;
-        add(Box.createRigidArea(new Dimension(0,30)), c);
+        add(loginButton, c);
         c.gridy = 3;
+        add(Box.createRigidArea(new Dimension(0,30)), c);
+        c.gridy = 4;
         add(signupButton, c);
     }
 

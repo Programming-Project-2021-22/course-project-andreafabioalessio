@@ -33,29 +33,29 @@ public class Signup extends Registration {
         JLabel showPasswordLabel = new JLabel("Show Password");
         showPasswordLabel.setForeground(new Color(255, 255, 255));
         JCheckBox showPassword = new JCheckBox();
-        showPassword.setContentAreaFilled(false);
+        showPassword.setBackground(Color.BLACK);
         showPassword.setBorderPainted(false);
-        showPassword.setOpaque(false);
-        showPassword.setBackground(new Color(0, 0, 0, 0));
 
         showPasswordLabel.setFont(new Font("Dialog", Font.BOLD, 8));
 
         showPassword.addActionListener(e-> {passwordTField.setEchoChar(
                 showPassword.isSelected() ? '\u0000' : '\u2022');});
 
-        JPanel showPasswordPanel = new JPanel();
-        showPasswordPanel.add(showPasswordLabel);
-        showPasswordPanel.add(showPassword);
-        showPasswordPanel.setBackground(new Color(0, 0, 0, 0));
+        ImageIcon signupIcon = new ImageIcon("res/Images/New graphics/signup-button3.png");
+        ImageIcon signupIconHovered = new ImageIcon("res/Images/New graphics/signup-button-hovered3.png");
+        ImageIcon signupIconPressed = new ImageIcon("res/Images/New graphics/signup-button-pressed3.png");
 
-        ImageIcon signupIcon = new ImageIcon("res/Images/signup-button-resized.png", "signup button icon");
-        JButton createButton = new JButton(signupIcon);
-        createButton.setMinimumSize(new Dimension(75, 24));
-        createButton.setMaximumSize(new Dimension(75, 24));
-        createButton.setPreferredSize(new Dimension(75, 24));
-        createButton.setContentAreaFilled(false);
-        createButton.setBorderPainted(false);
-        createButton.addActionListener(e -> {
+        JButton signupButton = new JButton(signupIcon);
+        signupButton.setRolloverIcon(signupIconHovered);
+        signupButton.setPressedIcon(signupIconPressed);
+
+        signupButton.setMinimumSize(new Dimension(126, 40));
+        signupButton.setMaximumSize(new Dimension(126, 40));
+        signupButton.setPreferredSize(new Dimension(126, 40));
+        signupButton.setBackground(Color.BLACK);
+        signupButton.setBorderPainted(false);
+
+        signupButton.addActionListener(e -> {
             try {
                 createButtonPress(window, userArray);
             } catch (IOException ex) {
@@ -72,8 +72,28 @@ public class Signup extends Registration {
         backButton.setBorderPainted(false);
         backButton.addActionListener(e -> super.goBackToStartup(window));
 
+        ImageIcon infoIcon = new ImageIcon("res/Images/New graphics/infobutton-icon2.png");
+        ImageIcon infoIconHovered = new ImageIcon("res/Images/New graphics/infobutton-icon-hovered2.png");
+
+        JButton passwordInfo = new JButton(infoIcon);
+        passwordInfo.setPreferredSize(new Dimension(25, 25));
+        passwordInfo.setBackground(Color.BLACK);
+        passwordInfo.setBorderPainted(false);
+        passwordInfo.setRolloverIcon(infoIconHovered);
+
+        passwordInfo.addActionListener(e->
+                JOptionPane.showMessageDialog(window,
+                        "Password format:" +
+                                "\n- Between 4 and 10 characters;" +
+                                "\n- At least one letter character;" +
+                                "\n- Can have numbers;" +
+                                "\n- Can not have special characters.",
+                        "Password Format",
+                        JOptionPane.INFORMATION_MESSAGE, infoIcon));
+
         errorLabel = new JLabel();
         errorLabel.setForeground(Color.red);
+
         Panel errorPanel = new Panel();
         errorPanel.setLayout(new GridBagLayout());
         errorPanel.setMaximumSize(new Dimension(600, 50));
@@ -96,27 +116,31 @@ public class Signup extends Registration {
         panel.add(passwordTField);
         panel.add(showPasswordLabel);
         panel.add(showPassword);
-        panel.add(createButton);
+        panel.add(signupButton);
         panel.add(backButton);
+        panel.add(passwordInfo);
 
         //Positioning of the username text field (210px from the left of panel and 105px down)
         panelLayout.putConstraint(SpringLayout.WEST, usernameTField, 210, SpringLayout.WEST , panel);
         panelLayout.putConstraint(SpringLayout.NORTH, usernameTField, 105, SpringLayout.NORTH, panel);
         //Positioning of the password text field (210px from the left of panel and 90px down from bottom of the usernameTField)
-        panelLayout.putConstraint(SpringLayout.WEST, passwordTField, 210, SpringLayout.NORTH, panel);
+        panelLayout.putConstraint(SpringLayout.WEST, passwordTField, 210, SpringLayout.WEST, panel);
         panelLayout.putConstraint(SpringLayout.NORTH, passwordTField, 90, SpringLayout.SOUTH, usernameTField);
-        //Positioning of the show password label (255px from left of panel and 5px down from passwordTField)
-        panelLayout.putConstraint(SpringLayout.WEST, showPasswordLabel, 255, SpringLayout.NORTH, panel);
+        //Positioning of the show password label (260px from left of panel and 5px down from passwordTField)
+        panelLayout.putConstraint(SpringLayout.WEST, showPasswordLabel, 260, SpringLayout.WEST, panel);
         panelLayout.putConstraint(SpringLayout.NORTH, showPasswordLabel, 15, SpringLayout.SOUTH, passwordTField);
-        //Positioning of the show password checkbox (320px from left of panel and same height as the showPasswordLabel)
-        panelLayout.putConstraint(SpringLayout.WEST, showPassword, 320, SpringLayout.NORTH, panel);
+        //Positioning of the show password checkbox (325px from left of panel and same height as the showPasswordLabel)
+        panelLayout.putConstraint(SpringLayout.WEST, showPassword, 325, SpringLayout.WEST, panel);
         panelLayout.putConstraint(SpringLayout.NORTH, showPassword, -15, SpringLayout.SOUTH, showPasswordLabel);
-        //Positioning of the create button (255px from left of panel and 20px down from showPassword)
-        panelLayout.putConstraint(SpringLayout.WEST, createButton, 255, SpringLayout.NORTH, panel);
-        panelLayout.putConstraint(SpringLayout.NORTH, createButton, 20, SpringLayout.SOUTH, showPassword);
+        //Positioning of the create button (237px from left of panel and 20px down from showPassword)
+        panelLayout.putConstraint(SpringLayout.WEST, signupButton, 237, SpringLayout.WEST, panel);
+        panelLayout.putConstraint(SpringLayout.NORTH, signupButton, 20, SpringLayout.SOUTH, showPassword);
         //Positioning of the back button (255px from left of panel and 20px down from create)
-        panelLayout.putConstraint(SpringLayout.WEST, backButton, 255, SpringLayout.NORTH, panel);
-        panelLayout.putConstraint(SpringLayout.NORTH, backButton, 20, SpringLayout.SOUTH, createButton);
+        panelLayout.putConstraint(SpringLayout.WEST, backButton, 255, SpringLayout.WEST, panel);
+        panelLayout.putConstraint(SpringLayout.NORTH, backButton, 20, SpringLayout.SOUTH, signupButton);
+        //Positioning of the password info button
+        panelLayout.putConstraint(SpringLayout.WEST, passwordInfo, 10, SpringLayout.WEST, panel);
+        panelLayout.putConstraint(SpringLayout.NORTH, passwordInfo, 229, SpringLayout.NORTH, panel);
 
         panel.setBackground(new Color(0, 0, 0, 0));
 
@@ -137,30 +161,36 @@ public class Signup extends Registration {
         String passwordEntered = String.valueOf(passwordTField.getPassword());
 
         //Checks that the username field is not empty
-        if(!checkInputNotNull(usernameEntered)){
+        if(inputIsNull(usernameEntered)){
             errorLabel.setText("Please insert a valid username");
 
             throw new InvalidUsernameError("Username field cannot be empty");
         }
 
-        //Checks that the password field is not empty
-        if(!checkInputNotNull(passwordEntered)) {
-            errorLabel.setText("Please insert a valid password");
-
-            throw new InvalidPasswordError("Password field cannot be empty");
-        }
-        if (!checkUserInArray(userArray, usernameEntered)){
-            if (checkInputNotNull(passwordEntered)){
-                createUser(usernameEntered, passwordEntered, userArray, window);
-            }
-        }
-        else{
+        //Checks if the username is already taken
+        if(checkUserInArray(userArray, usernameEntered)){
             errorLabel.setText("<html><div style = 'text-align: center;'>" +
                     "Username already exists.<br/>" +
                     "Please select another one or login" +
                     "</div></html>");
 
             throw new InvalidUsernameError("Username already exists");
+        }
+
+        //Password matches the regex
+        if(!passwordIsRightFormat(passwordEntered)){
+            errorLabel.setText("<html><div style = 'text-align: center;'>" +
+                                        "Password is not of the right format.<br/>" +
+                                        "Check the infobox for more information." +
+                                        "</div></html>");
+
+            throw new InvalidPasswordError("Password is not of the right format");
+        }
+
+        if (!checkUserInArray(userArray, usernameEntered)){
+            if(passwordIsRightFormat(passwordEntered)){
+                createUser(usernameEntered, passwordEntered, userArray, window);
+            }
         }
     }
 
@@ -179,8 +209,17 @@ public class Signup extends Registration {
     }
 
     //Checks that the input is not empty
-    private boolean checkInputNotNull (String s){
-        return !s.equalsIgnoreCase("");
+    private boolean inputIsNull (String passwordEntered){
+        return passwordEntered.equalsIgnoreCase("");
+    }
+
+    //Checks if the password matches the regex
+    private boolean passwordIsRightFormat(String passwordEntered){
+        if(4 <= passwordEntered.length() && passwordEntered.length() <= 10){
+            return passwordEntered.matches("^[a-zA-Z0-9]*[a-zA-Z][a-zA-Z0-9]*$");
+        }
+
+        return false;
     }
 
     //Creates a User object with the given parameters
