@@ -83,20 +83,14 @@ public abstract class Entity {
     }
 
     //UPDATE METHODS
-    public void update(){
-        checkGravity();
-        setCentDirection();
+    public abstract void update();
 
-        updateHitBox();
-        x += xAcc;
-        y += yAcc;
-    }
 
     public void draw(Graphics g) {
         g.drawImage(getCurrentImage(), (int) (hitbox.x - xOffset), (int) (hitbox.y - yOffset), tileSize, tileSize, null);
 
         //TESTING: draw the entity hitbox
-        drawHitBox(g);
+        //drawHitBox(g);
     }
 
 
@@ -114,99 +108,115 @@ public abstract class Entity {
 
     public void left(){
         direction = -1;
-
-        if(checkHitboxCollision( x-entitySpeed, y )) {
-            xAcc = -entitySpeed;
-
-            //animation based on jumping
-            if (jumping || falling) {
-                currentImage = entitySkin.jump(-1);
-            } else {
-                currentImage = entitySkin.leftAnimation();
-            }
-        }else {
-            xAcc = 0;
-
-            //testprint
-            System.out.println("left collision");
+        xAcc = -entitySpeed;
+        //animation based on jumping
+        if (jumping || falling) {
+            currentImage = entitySkin.jump(-1);
+        } else {
+            currentImage = entitySkin.leftAnimation();
         }
     }
 
 
     public void right() {
         direction = 1;
+        xAcc = entitySpeed;
 
-        if(checkHitboxCollision(x +  entitySpeed, y )) {
-            xAcc = entitySpeed;
-
-            //animation based on jumping
+         //animation based on jumping
             if (jumping || falling) {
                 currentImage = entitySkin.jump(1);
             } else {
                 currentImage = entitySkin.rightAnimation();
             }
-        }else {
-            xAcc = 0;
-
-            //testprint
-            System.out.println("right collision");
-        }
-
     }
 
     public void jump() {
-        yAcc -= jumpStrength;
+        if(!jumping) {
+            yAcc -= jumpStrength;
 
-         setJumping(true);
-            yAcc = 1;
+            setJumping(true);
+
             if (direction == 1) {
                 currentImage = entitySkin.jump(1);
             } else {
                 currentImage = entitySkin.jump(-1);
             }
-
+        }
     }
 
     //TO DO
     public void die() {
     }
 
-    public void checkGravity() {
-        yAcc -= weight;
-        if (jumping || falling) {
-            yAcc += weight;
+    //should work
+    //if [xAcc] causes a collision set [xAcc] to 0.
+    public void checkHorizontalCollision(){
 
-            if(yAcc > 10){yAcc = 10;}
-            //System.out.println("sto cadendo");
-        } else {
-            yAcc = 0;
+        //If xAcc = 0, no collision is possible, so no check is needed
+        if(xAcc != 0){
+            //general collision check
+            if(!checkHitboxCollision( xAcc, 0 )) {
+                xAcc = 0;
+          
+            }
         }
     }
 
-    //If the intended movement expressed in x and y cause a collision with a block, return false. Else: return true.
-    //TO FIX
-    public boolean checkHitboxCollision(int x, int y){
 
-        //return (CanMoveHere(x, y, hitbox.x - xOffset, hitbox.height - yOffset, lvlData));
-
-        //test
-        return (CanMoveHere(x, y, hitbox.x, hitbox.height, lvlData));
-
+    //if [yAcc] causes a top collision, set [yAcc] to the weight.
+    public void checkTopCollision(){
+        //if yAcc is not <0 the player is not going up, so no check is necessary
+        if(yAcc <0) {
+            if (!checkHitboxCollision(0, yAcc)) {
+                yAcc = weight;
+                falling = true;
+                jumping = true;
+                //testprint
+                System.out.println("top collision");
+            }
+        }
     }
 
 
+    public void checkGravity() {
+        //NO FLOOR COLLISION
+        if(checkHitboxCollision(0, yAcc+weight)) {
+            yAcc += weight;
+            falling = true;
+            jumping = true;
+        }
+        else { //FLOOR COLLISION
+            yAcc = 0;
+            jumping = false;
+            falling = false;
+
+            int count = 0;
+            while(!checkHitboxCollision(0, 1 - count)) {
+                y -= 1;
+                count+=1;
+            }
+            //testprint
+            System.out.println("moved upwards by " + count);
+
+        }
+    }
+    
+
+    //If the intended movement expressed in x and y cause a collision with a block, return false. Else: return true.
+    public boolean checkHitboxCollision(int x, int y){
+        return (CanMoveHere(hitbox.x +x, hitbox.y + y, hitbox.width, hitbox.height, lvlData));
+    }
 
     //SKIN METHODS
-
     public void setCentDirection() {
         if (direction == 1) {
             currentImage = entitySkin.center(1);
             //test print
-            //System.out.println("destra");
+            //System.out.println("right skin");
         } else {
             currentImage = entitySkin.center(-1);
             //test print
-            //System.out.println("sinistra");
+            //System.out.println("left skin");
         }
     }
 

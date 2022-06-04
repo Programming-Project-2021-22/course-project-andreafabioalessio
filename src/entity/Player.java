@@ -28,17 +28,44 @@ public class Player extends Entity {
         this.yAcc = 1;
         this.direction = 1;
         this.xOffset = 4 * scale;
+        this.yOffset = 0;
         createHitBox(x, y, 8 * scale, 16 * scale);
     }
 
+
+    /*The update must execute in this order:
+        -1 get left/right/up keys and update xAcc and yAcc
+        -2 check right and left collision: move the player(x-- or x++) and set xAcc to 0
+        -3 check top collision(?)
+        -4 check bottom collision: if there is a bottom collision move the player up(y--) and set yAcc to 0
+        -5 set skin direction
+        -6 update x and y based on xAcc and yAcc
+        -7 update hitbox.
+     */
 @Override
     public void update() {
-        checkGravity();
-        setCentDirection();
+
+    //-1 done
         playerMovement();
-        updateHitBox();
+    //-2 should work (right only)
+        checkHorizontalCollision();
+    //-3 to do
+        checkTopCollision();
+    //-4 should work
+        checkGravity();
+    //-5 done
+        setCentDirection();
+    //-6 done
+
         x += xAcc;
         y += yAcc;
+    //-7 done
+        updateHitBox();
+
+
+        // temporary: avoid out of bound
+        if(x < 0){x = 0;}
+        if(y < 0){y = 0;}
     }
 
 
@@ -50,7 +77,8 @@ public class Player extends Entity {
         } else if (KeyHandler.downPressed) {
             //ySpeed = entitySpeed;
             // yAcc = 1*weight;
-        } else if (KeyHandler.leftPressed) {
+        }
+        if (KeyHandler.leftPressed) {
             left();
 
         } else if (KeyHandler.rightPressed) {

@@ -47,6 +47,8 @@ public class HelpMethods {
          */
 
 
+
+
         float xIndex = x / Game.tileSize;
         float yIndex = y / Game.tileSize;
 

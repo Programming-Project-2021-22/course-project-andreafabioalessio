@@ -24,8 +24,8 @@ public class Game implements Runnable{
     public final static int originalTileSize = 16; // grandezza in pixel di ogni tile
     public final static int scale = 3; // scaling del tile
 
-    public final static int maxScreenCol = 16; // Ratio = 4:3
-    public final static int maxScreenRow = 12;
+    public final static int maxScreenCol = 20; // Ratio = 4:3
+    public final static int maxScreenRow = 15;
     public final static int tileSize = originalTileSize * scale;
     public final static int screenWidth = tileSize * maxScreenCol; // 1536 pixel
     public final static int screenHeight = tileSize * maxScreenRow; // 1248 pixel
@@ -45,7 +45,7 @@ public class Game implements Runnable{
     private void getClasses() {
         levelHandler = new levelHandler(this);
         PlayerSkin skin = new PlayerSkin();
-        player = new Player(100,300,6,20,1,skin);
+        player = new Player(100,300,6,25,2,skin);
         player.loadLvlData(levelHandler.getLevel().getLvlData());
     }
 
