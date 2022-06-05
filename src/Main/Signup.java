@@ -32,10 +32,10 @@ public class Signup extends Registration {
 
         JLabel showPasswordLabel = new JLabel("Show Password");
         showPasswordLabel.setForeground(new Color(255, 255, 255));
+
         JCheckBox showPassword = new JCheckBox();
         showPassword.setBackground(Color.BLACK);
         showPassword.setBorderPainted(false);
-
         showPasswordLabel.setFont(new Font("Dialog", Font.BOLD, 8));
 
         showPassword.addActionListener(e-> {passwordTField.setEchoChar(
@@ -63,12 +63,16 @@ public class Signup extends Registration {
             }
         });
 
-        ImageIcon backIcon = new ImageIcon("res/Images/back-button-resized.png", "back button icon");
+        ImageIcon backIcon = new ImageIcon("res/Images/New graphics/back-button2.png");
+        ImageIcon backIconHovered = new ImageIcon("res/Images/New graphics/back-button-hovered2.png");
+
         JButton backButton = new JButton(backIcon);
-        backButton.setMinimumSize(new Dimension(75, 24));
-        backButton.setMaximumSize(new Dimension(75, 24));
-        backButton.setPreferredSize(new Dimension(75, 24));
-        backButton.setContentAreaFilled(false);
+        backButton.setRolloverIcon(backIconHovered);
+
+        backButton.setMinimumSize(new Dimension(92, 40));
+        backButton.setMaximumSize(new Dimension(92, 40));
+        backButton.setPreferredSize(new Dimension(92, 40));
+        backButton.setBackground(Color.BLACK);
         backButton.setBorderPainted(false);
         backButton.addActionListener(e -> super.goBackToStartup(window));
 
@@ -102,7 +106,7 @@ public class Signup extends Registration {
         errorPanel.add(errorLabel);
         errorPanel.setBackground(new Color(0, 0, 0, 0));
 
-        Dimension panelDimension = new Dimension(600, 380);
+        Dimension panelDimension = new Dimension(600, 430);
 
         JPanel panel = new JPanel();
         SpringLayout panelLayout = new SpringLayout();
@@ -120,9 +124,9 @@ public class Signup extends Registration {
         panel.add(backButton);
         panel.add(passwordInfo);
 
-        //Positioning of the username text field (210px from the left of panel and 105px down)
+        //Positioning of the username text field (210px from the left of panel and 132px down)
         panelLayout.putConstraint(SpringLayout.WEST, usernameTField, 210, SpringLayout.WEST , panel);
-        panelLayout.putConstraint(SpringLayout.NORTH, usernameTField, 105, SpringLayout.NORTH, panel);
+        panelLayout.putConstraint(SpringLayout.NORTH, usernameTField, 132, SpringLayout.NORTH, panel);
         //Positioning of the password text field (210px from the left of panel and 90px down from bottom of the usernameTField)
         panelLayout.putConstraint(SpringLayout.WEST, passwordTField, 210, SpringLayout.WEST, panel);
         panelLayout.putConstraint(SpringLayout.NORTH, passwordTField, 90, SpringLayout.SOUTH, usernameTField);
@@ -139,8 +143,8 @@ public class Signup extends Registration {
         panelLayout.putConstraint(SpringLayout.WEST, backButton, 255, SpringLayout.WEST, panel);
         panelLayout.putConstraint(SpringLayout.NORTH, backButton, 20, SpringLayout.SOUTH, signupButton);
         //Positioning of the password info button
-        panelLayout.putConstraint(SpringLayout.WEST, passwordInfo, 10, SpringLayout.WEST, panel);
-        panelLayout.putConstraint(SpringLayout.NORTH, passwordInfo, 229, SpringLayout.NORTH, panel);
+        panelLayout.putConstraint(SpringLayout.WEST, passwordInfo, 12, SpringLayout.WEST, panel);
+        panelLayout.putConstraint(SpringLayout.NORTH, passwordInfo, 254, SpringLayout.NORTH, panel);
 
         panel.setBackground(new Color(0, 0, 0, 0));
 

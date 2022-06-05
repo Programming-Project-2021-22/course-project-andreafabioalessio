@@ -131,7 +131,6 @@ public class Menu extends JPanel {
 
         Dimension settingsButtonDimension = new Dimension(50, 50);
         settingsButton.setPreferredSize(settingsButtonDimension);
-        settingsButton.setContentAreaFilled(false);
         settingsButton.setBorderPainted(false);
         settingsButton.setBackground(Color.BLACK);
 

@@ -38,9 +38,9 @@ public class Startup extends JPanel {
         loginButton.setContentAreaFilled(false);
         loginButton.setBorderPainted(false);
 
-        ImageIcon signupIcon = new ImageIcon("res/Images/New graphics/signup-button2.png", "signup button icon");
-        ImageIcon signupIconHovered = new ImageIcon("res/Images/New graphics/signup-button-hovered2.png", "signup button icon");
-        ImageIcon signupIconPressed = new ImageIcon("res/Images/New graphics/signup-button-pressed2.png", "signup button icon");
+        ImageIcon signupIcon = new ImageIcon("res/Images/New graphics/signup-button2.png");
+        ImageIcon signupIconHovered = new ImageIcon("res/Images/New graphics/signup-button-hovered2.png");
+        ImageIcon signupIconPressed = new ImageIcon("res/Images/New graphics/signup-button-pressed2.png");
 
         JButton signupButton = new JButton(signupIcon);
         signupButton.setRolloverIcon(signupIconHovered);
