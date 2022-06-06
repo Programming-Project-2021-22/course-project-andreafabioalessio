@@ -28,13 +28,11 @@ public class PlayerSkin extends Skin{
             right[4] = ImageIO.read(getClass().getResourceAsStream("/player/red_right_5.png"));
             right[5] = ImageIO.read(getClass().getResourceAsStream("/player/red_right_6.png"));
         }catch (IOException ioe){
+
             ioe.printStackTrace();
+        } catch (Exception e){
+            //testprint
+            System.out.println("skin error: " + e);
         }
-
-
-
-
     }
-
-
 }

@@ -48,6 +48,8 @@ public class Skin {
             spriteNum = spriteNum%images.length;
             spriteCounter = 0;
         }
+        //testprint
+        //System.out.println("spriteCounter: " + spriteCounter);
         return images[spriteNum];
     }
 

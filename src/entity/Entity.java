@@ -67,7 +67,6 @@ public abstract class Entity {
 
     //Constructor
     public Entity(int x, int y, int speed, int jumpStrength, int weight, Skin skin) {
-
         this.x = x;
         this.y = y;
         this.entitySpeed = speed;
@@ -79,12 +78,10 @@ public abstract class Entity {
         this.entitySkin = skin;
         this.xOffset = 4 * scale;
         this.yOffset = 0;
-
     }
 
     //UPDATE METHODS
     public abstract void update();
-
 
     public void draw(Graphics g) {
         g.drawImage(getCurrentImage(), (int) (hitbox.x - xOffset), (int) (hitbox.y - yOffset), tileSize, tileSize, null);
@@ -93,16 +90,11 @@ public abstract class Entity {
         //drawHitBox(g);
     }
 
-
-
     public void loadLvlData(int[][] lvlData) {
         this.lvlData = lvlData;
     }
 
-
-
     //MOVEMENT METHODS
-
     public void still() {xAcc = 0;}
 
 
@@ -112,8 +104,12 @@ public abstract class Entity {
         //animation based on jumping
         if (jumping || falling) {
             currentImage = entitySkin.jump(-1);
+            //testprint
+            System.out.println("left jump skin");
         } else {
             currentImage = entitySkin.leftAnimation();
+            //testprint
+            System.out.println("left animation");
         }
     }
 
@@ -125,21 +121,27 @@ public abstract class Entity {
          //animation based on jumping
             if (jumping || falling) {
                 currentImage = entitySkin.jump(1);
+                //testprint
+                System.out.println("right jump skin");
             } else {
                 currentImage = entitySkin.rightAnimation();
+                //testprint
+                System.out.println("right animation");
             }
     }
 
     public void jump() {
         if(!jumping) {
             yAcc -= jumpStrength;
-
             setJumping(true);
-
             if (direction == 1) {
                 currentImage = entitySkin.jump(1);
+                //testprint
+                System.out.println("right jump skin");
             } else {
                 currentImage = entitySkin.jump(-1);
+                //testprint
+                System.out.println("left jump skin");
             }
         }
     }
@@ -151,13 +153,11 @@ public abstract class Entity {
     //should work
     //if [xAcc] causes a collision set [xAcc] to 0.
     public void checkHorizontalCollision(){
-
         //If xAcc = 0, no collision is possible, so no check is needed
         if(xAcc != 0){
             //general collision check
             if(!checkHitboxCollision( xAcc, 0 )) {
                 xAcc = 0;
-          
             }
         }
     }
@@ -172,12 +172,11 @@ public abstract class Entity {
                 falling = true;
                 jumping = true;
                 //testprint
-                System.out.println("top collision");
+                //System.out.println("top collision");
             }
         }
     }
-
-
+    
     public void checkGravity() {
         //NO FLOOR COLLISION
         if(checkHitboxCollision(0, yAcc+weight)) {
@@ -189,18 +188,16 @@ public abstract class Entity {
             yAcc = 0;
             jumping = false;
             falling = false;
-
+            /*
             int count = 0;
             while(!checkHitboxCollision(0, 1 - count)) {
                 y -= 1;
                 count+=1;
-            }
+            }*/
             //testprint
-            System.out.println("moved upwards by " + count);
-
+            //System.out.println("moved upwards by " + count);
         }
     }
-    
 
     //If the intended movement expressed in x and y cause a collision with a block, return false. Else: return true.
     public boolean checkHitboxCollision(int x, int y){

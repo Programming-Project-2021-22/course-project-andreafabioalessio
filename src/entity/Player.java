@@ -62,7 +62,6 @@ public class Player extends Entity {
     //-7 done
         updateHitBox();
 
-
         // temporary: avoid out of bound
         if(x < 0){x = 0;}
         if(y < 0){y = 0;}
@@ -87,8 +86,5 @@ public class Player extends Entity {
         } else {
             still();
         }
-
     }
-
-
 }
