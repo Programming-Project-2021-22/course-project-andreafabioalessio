@@ -36,7 +36,7 @@ public class Player extends Entity {
     /*The update must execute in this order:
         -1 get left/right/up keys and update xAcc and yAcc
         -2 check right and left collision: move the player(x-- or x++) and set xAcc to 0
-        -3 check top collision(?)
+        -3 check top collision
         -4 check bottom collision: if there is a bottom collision move the player up(y--) and set yAcc to 0
         -5 set skin direction
         -6 skin animation
@@ -75,6 +75,8 @@ public class Player extends Entity {
         if (KeyHandler.upPressed) {
            jump();
         } else if (KeyHandler.downPressed) {
+            //testprint
+            //testprintVariables();
             //ySpeed = entitySpeed;
             // yAcc = 1*weight;
         }

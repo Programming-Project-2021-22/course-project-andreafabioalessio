@@ -87,7 +87,7 @@ public abstract class Entity {
         g.drawImage(getCurrentImage(), (int) (hitbox.x - xOffset), (int) (hitbox.y - yOffset), tileSize, tileSize, null);
 
         //TESTING: draw the entity hitbox
-        //drawHitBox(g);
+        drawHitBox(g);
     }
 
     public void loadLvlData(int[][] lvlData) {
@@ -128,6 +128,8 @@ public abstract class Entity {
             //general collision check
             if(!checkHitboxCollision( xAcc, 0 )) {
                 xAcc = 0;
+                //testprint
+                //System.out.println("horizontal collision");
             }
         }
     }
@@ -136,7 +138,7 @@ public abstract class Entity {
     //if [yAcc] causes a top collision, set [yAcc] to the weight.
     public void checkTopCollision(){
         //if yAcc is not <0 the player is not going up, so no check is necessary
-        if(yAcc <0) {
+        if(yAcc < 0) {
             if (!checkHitboxCollision(0, yAcc)) {
                 yAcc = weight;
                 falling = true;
@@ -153,12 +155,15 @@ public abstract class Entity {
             yAcc += weight;
             falling = true;
             jumping = true;
+            //testprint
+            //System.out.println("floor collision");
         }
         else { //FLOOR COLLISION
             yAcc = 0;
             jumping = false;
             falling = false;
-
+            //testprint
+            //System.out.println("floor collision");
         }
     }
 
@@ -223,6 +228,11 @@ public abstract class Entity {
     protected void updateHitBox() {
         hitbox.x = x;
         hitbox.y = y;
+    }
+
+    //TESTING METHODS
+    public void testprintVariables(){
+        System.out.println("falling " + falling + "\njumping " + jumping + "\nyAcc " + yAcc + "\nxAcc " + xAcc + "\nx " + x + "\ny " + y + "\ncollisions: t "+ !checkHitboxCollision(0, yAcc+weight)  + "\n\n");
     }
 
 
