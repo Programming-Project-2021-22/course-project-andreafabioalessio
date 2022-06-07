@@ -39,8 +39,9 @@ public class Player extends Entity {
         -3 check top collision(?)
         -4 check bottom collision: if there is a bottom collision move the player up(y--) and set yAcc to 0
         -5 set skin direction
-        -6 update x and y based on xAcc and yAcc
-        -7 update hitbox.
+        -6 skin animation
+        -7 update x and y based on xAcc and yAcc
+        -8 update hitbox.
      */
 @Override
     public void update() {
@@ -55,19 +56,19 @@ public class Player extends Entity {
         checkGravity();
     //-5 done
         setCentDirection();
-    //-6 done
+    //-8 should work
+        skinAnimation();
+    //-7 done
 
         x += xAcc;
         y += yAcc;
-    //-7 done
+    //-8 done
         updateHitBox();
 
         // temporary: avoid out of bound
         if(x < 0){x = 0;}
         if(y < 0){y = 0;}
     }
-
-
 
     public void playerMovement() {
 
@@ -79,10 +80,8 @@ public class Player extends Entity {
         }
         if (KeyHandler.leftPressed) {
             left();
-
         } else if (KeyHandler.rightPressed) {
             right();
-
         } else {
             still();
         }

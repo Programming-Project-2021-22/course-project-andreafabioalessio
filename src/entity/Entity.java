@@ -101,48 +101,18 @@ public abstract class Entity {
     public void left(){
         direction = -1;
         xAcc = -entitySpeed;
-        //animation based on jumping
-        if (jumping || falling) {
-            currentImage = entitySkin.jump(-1);
-            //testprint
-            System.out.println("left jump skin");
-        } else {
-            currentImage = entitySkin.leftAnimation();
-            //testprint
-            System.out.println("left animation");
-        }
     }
 
 
     public void right() {
         direction = 1;
         xAcc = entitySpeed;
-
-         //animation based on jumping
-            if (jumping || falling) {
-                currentImage = entitySkin.jump(1);
-                //testprint
-                System.out.println("right jump skin");
-            } else {
-                currentImage = entitySkin.rightAnimation();
-                //testprint
-                System.out.println("right animation");
-            }
     }
 
     public void jump() {
         if(!jumping) {
             yAcc -= jumpStrength;
             setJumping(true);
-            if (direction == 1) {
-                currentImage = entitySkin.jump(1);
-                //testprint
-                System.out.println("right jump skin");
-            } else {
-                currentImage = entitySkin.jump(-1);
-                //testprint
-                System.out.println("left jump skin");
-            }
         }
     }
 
@@ -188,14 +158,7 @@ public abstract class Entity {
             yAcc = 0;
             jumping = false;
             falling = false;
-            /*
-            int count = 0;
-            while(!checkHitboxCollision(0, 1 - count)) {
-                y -= 1;
-                count+=1;
-            }*/
-            //testprint
-            //System.out.println("moved upwards by " + count);
+
         }
     }
 
@@ -217,6 +180,32 @@ public abstract class Entity {
         }
     }
 
+    public void skinAnimation(){
+        if(xAcc != 0 || falling || jumping) {
+            //Right movement
+            if (direction == 1) {
+                if (jumping || falling) {
+                    currentImage = entitySkin.jump(1);
+                    //testprint
+                    //System.out.println("right jump skin");
+                } else {
+                    currentImage = entitySkin.rightAnimation();
+                    //testprint
+                    //System.out.println("right animation");
+                }
+            } else { //Left movement
+                if (jumping || falling) {
+                    currentImage = entitySkin.jump(-1);
+                    //testprint
+                    //System.out.println("left jump skin");
+                } else {
+                    currentImage = entitySkin.leftAnimation();
+                    //testprint
+                    //System.out.println("left animation");
+                }
+            }
+        }
+    }
 
 
     //HITBOX METHODS
@@ -225,7 +214,6 @@ public abstract class Entity {
     protected void drawHitBox(Graphics g) {
         g.setColor(Color.black);
         g.drawRect((int) hitbox.x, (int) hitbox.y, (int) hitbox.width, (int) hitbox.height);
-
     }
 
     protected void createHitBox(float x, float y, float width, float height) {
