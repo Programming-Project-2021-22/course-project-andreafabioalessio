@@ -1,6 +1,9 @@
 package Main;
 import entity.Player;
 import entity.PlayerSkin;
+import gamestates.Gamestate;
+import gamestates.Login;
+import gamestates.Playing;
 import level.levelHandler;
 
 import java.awt.Graphics;
@@ -17,8 +20,10 @@ public class Game implements Runnable{
     private GameWindow gameWindow;
     private GamePanel gamePanel;
     private Thread gameThread;
-    private Player player;
-    private levelHandler levelHandler;
+
+    private Playing playing;
+    private Login login;
+
     private final int FPS = 60;
     public final static int originalTileSize = 16; // grandezza in pixel di ogni tile
     public final static int scale = 3; // scaling del tile
@@ -39,10 +44,8 @@ public class Game implements Runnable{
     }
 
     private void getClasses() {
-        levelHandler = new levelHandler(this);
-        PlayerSkin skin = new PlayerSkin();
-        player = new Player(100,300,7,25,2,skin);
-        player.loadLvlData(levelHandler.getLevel().getLvlData());
+        login = new Login(this);
+        playing = new Playing(this);
     }
 
     private void startGameLoop() {
@@ -51,13 +54,28 @@ public class Game implements Runnable{
     }
 
     public void update(){
-        levelHandler.update();
-        player.update();
+        switch (Gamestate.state){
+
+            case PLAYING -> {
+                playing.update();
+            }
+            case LOGIN -> {
+                login.update();
+            }
+        }
     }
 
     public void render(Graphics g){
-        levelHandler.draw(g);
-        player.draw(g);
+        switch (Gamestate.state){
+
+            case PLAYING -> {
+                playing.draw(g);
+            }
+            case LOGIN -> {
+                login.draw(g);
+            }
+        }
+
     }
 
     @Override
@@ -86,7 +104,10 @@ public class Game implements Runnable{
             }
         }
     }
-    public Player getPlayer(){
-        return player;
+    public Login getLogin(){
+        return login;
+    }
+    public Playing getPlaying(){
+        return playing;
     }
 }
