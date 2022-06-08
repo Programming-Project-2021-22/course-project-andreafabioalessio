@@ -83,11 +83,11 @@ public abstract class Entity {
     //UPDATE METHODS
     public abstract void update();
 
-    public void draw(Graphics g) {
-        g.drawImage(getCurrentImage(), (int) (hitbox.x - xOffset), (int) (hitbox.y - yOffset), tileSize, tileSize, null);
+    public void draw(Graphics g, int lvlOffset) {
+        g.drawImage(getCurrentImage(), (int) (hitbox.x - xOffset) - lvlOffset, (int) (hitbox.y - yOffset), tileSize, tileSize, null);
 
         //TESTING: draw the entity hitbox
-        drawHitBox(g);
+        //drawHitBox(g);
     }
 
     public void loadLvlData(int[][] lvlData) {

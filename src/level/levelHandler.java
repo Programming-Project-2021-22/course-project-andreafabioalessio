@@ -34,11 +34,11 @@ public class levelHandler {
             }
     }
 
-    public void draw(Graphics g) {
+    public void draw(Graphics g, int lvlOffset) {
         for (int j = 0; j < Game.maxScreenRow; j++)
-            for (int i = 0; i < Game.maxScreenCol; i++) {
+            for (int i = 0; i < levelOne.getLvlData()[0].length; i++) {
                 int index = levelOne.getSpriteIndex(i, j);
-                g.drawImage(levelSprite[index], i*Game.tileSize, j*Game.tileSize, Game.tileSize, Game.tileSize, null);
+                g.drawImage(levelSprite[index], i*Game.tileSize - lvlOffset, j*Game.tileSize, Game.tileSize, Game.tileSize, null);
             }
     }
 
