@@ -1,10 +1,7 @@
 package Main;
-import entity.Player;
-import entity.PlayerSkin;
 import gamestates.Gamestate;
-import gamestates.Login;
+import gamestates.MainMenu;
 import gamestates.Playing;
-import level.levelHandler;
 
 import java.awt.Graphics;
 
@@ -22,7 +19,7 @@ public class Game implements Runnable{
     private Thread gameThread;
 
     private Playing playing;
-    private Login login;
+    private MainMenu mainMenu;
 
     private final int FPS = 60;
     public final static int originalTileSize = 16; // grandezza in pixel di ogni tile
@@ -44,7 +41,7 @@ public class Game implements Runnable{
     }
 
     private void getClasses() {
-        login = new Login(this);
+        mainMenu = new MainMenu(this);
         playing = new Playing(this);
     }
 
@@ -55,25 +52,13 @@ public class Game implements Runnable{
 
     public void update(){
         switch (Gamestate.state){
-
-            case PLAYING -> {
-                playing.update();
-            }
-            case LOGIN -> {
-                login.update();
-            }
+            case PLAYING -> playing.update();
         }
     }
 
     public void render(Graphics g){
         switch (Gamestate.state){
-
-            case PLAYING -> {
-                playing.draw(g);
-            }
-            case LOGIN -> {
-                login.draw(g);
-            }
+            case PLAYING -> playing.draw(g);
         }
 
     }
@@ -104,8 +89,8 @@ public class Game implements Runnable{
             }
         }
     }
-    public Login getLogin(){
-        return login;
+    public MainMenu getMainMenu(){
+        return mainMenu;
     }
     public Playing getPlaying(){
         return playing;

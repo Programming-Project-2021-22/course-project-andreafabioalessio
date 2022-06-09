@@ -36,13 +36,6 @@ public class Playing extends State implements StateMethods{
         return player;
     }
 
-    @Override
-    public void update() {
-        levelHandler.update();
-        player.update();
-        checkBorder();
-    }
-
     private void checkBorder() {
         int playerX = (int) player.getHitbox().x;
         int diff = playerX - xlvlOffset;
@@ -57,6 +50,12 @@ public class Playing extends State implements StateMethods{
         else if (xlvlOffset < 0)
             xlvlOffset = 0;
     }
+    @Override
+    public void update() {
+        levelHandler.update();
+        player.update();
+        checkBorder();
+    }
 
     @Override
     public void draw(Graphics g) {
@@ -64,13 +63,4 @@ public class Playing extends State implements StateMethods{
         player.draw(g, xlvlOffset);
     }
 
-    @Override
-    public void keyPressed(KeyEvent e) {
-
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-
-    }
 }

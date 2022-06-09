@@ -1,6 +1,10 @@
 package Main;
 
+import gamestates.Gamestate;
+import gamestates.Startup;
+
 import javax.swing.*;
+import java.awt.*;
 
 /*
 
@@ -13,15 +17,37 @@ public class GameWindow {
 
     private JFrame jframe;
 
+    JFrame window = new JFrame();
+    Startup s = new Startup(window);
+
+
+
     public GameWindow(GamePanel gamePanel){
+
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setResizable(false);
+        window.setTitle("Menù");
+
+        window.add(s);
+        window.setSize(new Dimension(768, 624));
+
+        window.pack();
+        window.setLocationRelativeTo(null);
+
         jframe = new JFrame();
 
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jframe.add(gamePanel);
-        jframe.setLocationRelativeTo(null);
         jframe.setResizable(false);
         jframe.pack();
-        jframe.setVisible(true);
+        jframe.setLocationRelativeTo(null);
+
+        if (Gamestate.state == Gamestate.MAINMENU)
+            window.setVisible(true);
+        else
+            jframe.setVisible(true);
+
+
     }
 
 }
