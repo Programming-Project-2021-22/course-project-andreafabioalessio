@@ -23,13 +23,12 @@ public class Playing extends State implements StateMethods{
     public Playing(Game game) {
         super(game);
         getClasses();
-        
-        calcLvlOffset();
 
+        calcLvlOffset();
     }
 
     public void loadNextLevel(){
-        levelHandler.loadNextLevel();
+        level.levelHandler.loadNextLevel();
     }
 
     private void calcLvlOffset() {
