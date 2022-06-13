@@ -69,7 +69,6 @@ public class levelHandler {
     public static void loadNextLevel() {
 
         Level newLevel = levels.get(Menu.getNumLevel()-1);
-        game.getPlaying();
         game.getPlaying().getPlayer().loadLvlData(newLevel.getLvlData());
         game.getPlaying().setMaxLvlOffset(newLevel.getLvlOffset());
     }
