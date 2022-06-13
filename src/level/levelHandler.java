@@ -22,7 +22,6 @@ public class levelHandler {
     private static Game game;
     private BufferedImage[] levelSprite;
     private static ArrayList<Level> levels;
-    private static int lvlIndex = 0;
 
     public levelHandler(Game game){
         levelHandler.game = game;
@@ -60,7 +59,7 @@ public class levelHandler {
     }
 
     public Level getLevel(){
-        return levels.get(lvlIndex);
+        return levels.get(Menu.getNumLevel()-1);
     }
 
     public int getAmountOfLevels(){
@@ -68,13 +67,6 @@ public class levelHandler {
     }
 
     public static void loadNextLevel() {
-
-        lvlIndex ++;
-        if (lvlIndex >= levels.size()){
-            lvlIndex = 0;
-            System.out.println("No more levels");
-            Gamestate.state = Gamestate.MAINMENU;
-        }
 
         Level newLevel = levels.get(Menu.getNumLevel()-1);
         game.getPlaying();
