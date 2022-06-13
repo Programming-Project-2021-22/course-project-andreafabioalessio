@@ -23,7 +23,7 @@ public class Playing extends State implements StateMethods{
     public Playing(Game game) {
         super(game);
         getClasses();
-
+        
         calcLvlOffset();
 
     }
@@ -67,6 +67,7 @@ public class Playing extends State implements StateMethods{
     }
     @Override
     public void update() {
+
         levelHandler.update();
         player.update();
         checkBorder();

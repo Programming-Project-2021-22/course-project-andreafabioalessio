@@ -37,7 +37,7 @@ public class LevelLoad {
     }
 
     public static BufferedImage[] getAllLevels(){
-        URL url = LevelLoad.class.getResource("/lvls");
+        URL url = LevelLoad.class.getResource("/level/lvls");
         File file = null;
 
         try {

@@ -3,6 +3,7 @@ package gamestates;
 import Exeptions.LevelTooLowError;
 import Main.Game;
 import User.User;
+import level.levelHandler;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -403,12 +404,15 @@ public class Menu extends JPanel {
     }
 
     //Loads the level corresponding to the numLevel value
+
+
     private void loadLevel(User user){
         switch (numLevel){
             case 1:
                     level.setBackground(Color.green);
                     removeMe.setBackground(Color.green);
                     Gamestate.state = Gamestate.PLAYING;
+                    levelHandler.loadNextLevel();
                     break;
 
             case 2:
@@ -421,6 +425,7 @@ public class Menu extends JPanel {
                     level.setBackground(Color.green);
                     removeMe.setBackground(Color.green);
                     Gamestate.state = Gamestate.PLAYING;
+                    levelHandler.loadNextLevel();
                 }
                 break;
 
@@ -465,7 +470,7 @@ public class Menu extends JPanel {
         g.drawImage(background, 0, 0, null);
     }
 
-    public int getNumLevel(){
+    public static int getNumLevel(){
         return numLevel;
     }
 }
