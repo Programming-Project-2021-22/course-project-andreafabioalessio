@@ -5,6 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+
 import Exeptions.InvalidUsernameError;
 import Exeptions.WrongPasswordError;
 
@@ -53,8 +54,9 @@ public class Login extends Registration {
         loginButton.setMinimumSize(new Dimension(101, 40));
         loginButton.setMaximumSize(new Dimension(101, 40));
         loginButton.setPreferredSize(new Dimension(101, 40));
-        loginButton.setContentAreaFilled(false);
+        loginButton.setBackground(Color.BLACK);
         loginButton.setBorderPainted(false);
+
         loginButton.addActionListener(e -> {
             try {
                 if(checkUserInArray(userArray, usernameTField.getText().trim())){
@@ -76,6 +78,7 @@ public class Login extends Registration {
         backButton.setPreferredSize(new Dimension(92, 40));
         backButton.setBackground(Color.BLACK);
         backButton.setBorderPainted(false);
+
         backButton.addActionListener(e -> super.goBackToStartup(window));
 
         errorLabel = new JLabel();
@@ -105,7 +108,7 @@ public class Login extends Registration {
         panel.add(loginButton);
         panel.add(backButton);
 
-        //Positioning of the username text field (210px from the left of panel and 105px down)
+        //Positioning of the username text field (210px from the left of panel and 132px down)
         panelLayout.putConstraint(SpringLayout.WEST, usernameTField, 210, SpringLayout.WEST , panel);
         panelLayout.putConstraint(SpringLayout.NORTH, usernameTField, 132, SpringLayout.NORTH, panel);
         //Positioning of the password text field (210px from the left of panel and 90px down from bottom of the usernameTField)
@@ -120,7 +123,7 @@ public class Login extends Registration {
         //Positioning of the login button (255px from left of panel and 20px down from showPassword)
         panelLayout.putConstraint(SpringLayout.WEST, loginButton, 250, SpringLayout.WEST, panel);
         panelLayout.putConstraint(SpringLayout.NORTH, loginButton, 20, SpringLayout.SOUTH, showPassword);
-        //Positioning of the back button (255px from left of panel and 20px down from loginButton)
+        //Positioning of the back button (255px from left of panel and 18px down from loginButton)
         panelLayout.putConstraint(SpringLayout.WEST, backButton, 255, SpringLayout.WEST, panel);
         panelLayout.putConstraint(SpringLayout.NORTH, backButton, 18, SpringLayout.SOUTH, loginButton);
 
@@ -128,11 +131,14 @@ public class Login extends Registration {
 
         GridBagConstraints constraints = new GridBagConstraints();
         setLayout(new GridBagLayout());
+
         constraints.gridy = 1;
         constraints.gridx = 1;
         add(panel, constraints);
+
         constraints.gridy = 2;
         add(Box.createRigidArea(new Dimension(0,20)), constraints);
+
         constraints.gridy = 3;
         add(errorPanel, constraints);
     }
@@ -168,7 +174,7 @@ public class Login extends Registration {
             }
             else {
                 System.out.println("Entered: " + usernameEntered + " " + passwordEntered + "\n" +
-                        "Checking in array: " + userCheck.getUsername() + " " + userCheck.getPassword() + "\n");
+                        "Username in array: " + userCheck.getUsername() + "\n");
                 i++; //checks next user in the array
             }
         }

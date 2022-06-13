@@ -1,20 +1,19 @@
 package Main;
 
-import Exeptions.LevelTooLowError;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 
+import Exeptions.LevelTooLowError;
+
 public class Menu extends JPanel {
 
     private Image background;
-    private final JPanel level;
+    private final JPanel level, dot1, dot2, dot3, dot4, dots;
     private final Label userInfoLv = new Label();
     private int numLevel = 1;
-    private final JPanel dot1, dot2, dot3, dot4, dots;
 
     JButton removeMe;
 
@@ -163,6 +162,7 @@ public class Menu extends JPanel {
         panel.add(removeMe);
         panelLayout.putConstraint(SpringLayout.WEST, removeMe, 289, SpringLayout.WEST, panel);
         panelLayout.putConstraint(SpringLayout.NORTH, removeMe, 100, SpringLayout.NORTH, panel);
+
         removeMe.addActionListener(e->{
             try {
                 updateUserLevelInArray(user);
@@ -213,10 +213,10 @@ public class Menu extends JPanel {
         FileWriter fw = new FileWriter("src/UsersList.txt", true);
         PrintWriter pw = new PrintWriter(fw);
 
-        String line = user.getUsername() + ";" + user.getPassword() + ";" + user.getLevel() + ";:";
+        String newLine = user.getUsername() + ";" + user.getPassword() + ";" + user.getLevel() + ";:";
 
         pw.append("\n");
-        pw.append(line.trim());
+        pw.append(newLine.trim());
         pw.close();
 
         //Copies all data besides old user data in myTempFile.txt
@@ -272,8 +272,7 @@ public class Menu extends JPanel {
 
     //Updates userInfo label
     private void updateUserInfoLabel(User user){
-        userInfoLv.setText("Lv: " + user.getLevel()
-               );
+        userInfoLv.setText("Lv: " + user.getLevel());
     }
 
     //Updates the graphics of the dots and level cover
@@ -348,7 +347,6 @@ public class Menu extends JPanel {
                 dots.repaint();
             }
         }
-
     }
 
     //Updates the value of numLevel

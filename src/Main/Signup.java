@@ -4,6 +4,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
+
 import Exeptions.InvalidUsernameError;
 import Exeptions.InvalidPasswordError;
 
@@ -74,6 +75,7 @@ public class Signup extends Registration {
         backButton.setPreferredSize(new Dimension(92, 40));
         backButton.setBackground(Color.BLACK);
         backButton.setBorderPainted(false);
+
         backButton.addActionListener(e -> super.goBackToStartup(window));
 
         ImageIcon infoIcon = new ImageIcon("res/Images/New graphics/infobutton-icon2.png");
@@ -130,7 +132,7 @@ public class Signup extends Registration {
         //Positioning of the password text field (210px from the left of panel and 90px down from bottom of the usernameTField)
         panelLayout.putConstraint(SpringLayout.WEST, passwordTField, 210, SpringLayout.WEST, panel);
         panelLayout.putConstraint(SpringLayout.NORTH, passwordTField, 90, SpringLayout.SOUTH, usernameTField);
-        //Positioning of the show password label (260px from left of panel and 5px down from passwordTField)
+        //Positioning of the show password label (260px from left of panel and 15px down from passwordTField)
         panelLayout.putConstraint(SpringLayout.WEST, showPasswordLabel, 260, SpringLayout.WEST, panel);
         panelLayout.putConstraint(SpringLayout.NORTH, showPasswordLabel, 15, SpringLayout.SOUTH, passwordTField);
         //Positioning of the show password checkbox (325px from left of panel and same height as the showPasswordLabel)
@@ -142,7 +144,7 @@ public class Signup extends Registration {
         //Positioning of the back button (255px from left of panel and 20px down from create)
         panelLayout.putConstraint(SpringLayout.WEST, backButton, 255, SpringLayout.WEST, panel);
         panelLayout.putConstraint(SpringLayout.NORTH, backButton, 20, SpringLayout.SOUTH, signupButton);
-        //Positioning of the password info button
+        //Positioning of the password info button on the left of the password Text
         panelLayout.putConstraint(SpringLayout.WEST, passwordInfo, 12, SpringLayout.WEST, panel);
         panelLayout.putConstraint(SpringLayout.NORTH, passwordInfo, 254, SpringLayout.NORTH, panel);
 
@@ -150,11 +152,14 @@ public class Signup extends Registration {
 
         GridBagConstraints constraints = new GridBagConstraints();
         setLayout(new GridBagLayout());
+
         constraints.gridy = 1;
         constraints.gridx = 1;
         add(panel, constraints);
+
         constraints.gridy = 2;
         add(Box.createRigidArea(new Dimension(0,20)), constraints);
+
         constraints.gridy = 3;
         add(errorPanel, constraints);
     }

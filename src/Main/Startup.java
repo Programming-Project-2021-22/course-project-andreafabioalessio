@@ -13,7 +13,6 @@ public class Startup extends JPanel {
 
     private Image background;
     private static User [] userArray = new User[0];
-    private Scanner userLineScan = null;
 
     public Startup(JFrame window){
         fillArray(); //reads users from UserList.txt and fills an array with users
@@ -55,9 +54,13 @@ public class Startup extends JPanel {
         ImageIcon background = new ImageIcon("res/Images/background.jpg");
         Image img = background.getImage().getScaledInstance(600, 400, Image.SCALE_SMOOTH);
         background = new ImageIcon(img);
-        JLabel back = new JLabel(background);
-        back.setLayout(new BorderLayout());
-        back.setBounds(0,0,600,400);
+        JLabel backgroundLabel = new JLabel(background);
+        backgroundLabel.setLayout(new BorderLayout());
+        backgroundLabel.setBounds(0,0,600,400);
+
+        JLabel credits = new JLabel("Developed by: Eritale Alessio, Marconi Fabio, Parodi Andrea");
+        credits.setForeground(Color.WHITE);
+        credits.setFont(new Font("Dialog", Font.BOLD, 10));
 
         signupButton.addActionListener(e -> openSignUpWindow(window));
         loginButton.addActionListener(e -> openLoginWindow(window));
@@ -66,13 +69,22 @@ public class Startup extends JPanel {
         setLayout(new GridBagLayout());
         c.gridx = 1;
         c.gridy = 1;
-        add(Box.createRigidArea(new Dimension(0,20)), c);
+        add(Box.createRigidArea(new Dimension(0,170)), c);
+
         c.gridy = 2;
         add(loginButton, c);
+
         c.gridy = 3;
-        add(Box.createRigidArea(new Dimension(0,30)), c);
+        add(Box.createRigidArea(new Dimension(0,40)), c);
+
         c.gridy = 4;
         add(signupButton, c);
+
+        c.gridy = 5;
+        add(Box.createRigidArea(new Dimension(0, 150)), c);
+
+        c.gridy = 6;
+        add(credits, c);
     }
 
     //Opens login window
@@ -97,6 +109,8 @@ public class Startup extends JPanel {
 
     //Fills an array with users created with data from the usersList file
     private void fillArray(){
+        Scanner userLineScan = null;
+
         ArrayList<User> temp = new ArrayList<>();
         {
             try {
