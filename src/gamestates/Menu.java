@@ -15,7 +15,7 @@ public class Menu extends JPanel {
     private Image background;
     private final JPanel level;
     private final Label userInfoLv = new Label();
-    private int numLevel = 1;
+    public static int numLevel = 1;
     private final JPanel dot1, dot2, dot3, dot4, dots;
 
     JButton removeMe;
@@ -420,6 +420,7 @@ public class Menu extends JPanel {
                 else{
                     level.setBackground(Color.green);
                     removeMe.setBackground(Color.green);
+                    Gamestate.state = Gamestate.PLAYING;
                 }
                 break;
 
@@ -432,6 +433,7 @@ public class Menu extends JPanel {
                 else{
                     level.setBackground(Color.cyan);
                     removeMe.setBackground(Color.green);
+                    Gamestate.state = Gamestate.PLAYING;
                 }
                 break;
 
@@ -444,6 +446,7 @@ public class Menu extends JPanel {
                 else{
                     level.setBackground(Color.yellow);
                     removeMe.setBackground(Color.green);
+                    Gamestate.state = Gamestate.PLAYING;
                 }
                 break;
         }
@@ -460,5 +463,9 @@ public class Menu extends JPanel {
         super.paintComponent(g);
 
         g.drawImage(background, 0, 0, null);
+    }
+
+    public int getNumLevel(){
+        return numLevel;
     }
 }

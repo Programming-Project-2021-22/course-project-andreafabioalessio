@@ -15,7 +15,7 @@ class status: currently ok
 
 public class GameWindow {
 
-    private JFrame jframe;
+    protected JFrame jframe;
 
     JFrame window = new JFrame();
     Startup s = new Startup(window);
@@ -29,7 +29,7 @@ public class GameWindow {
         window.setTitle("Menù");
 
         window.add(s);
-        window.setSize(new Dimension(768, 624));
+        window.setSize(new Dimension(960, 720));
 
         window.pack();
         window.setLocationRelativeTo(null);

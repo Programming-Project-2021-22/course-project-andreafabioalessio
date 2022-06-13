@@ -16,13 +16,24 @@ public class Playing extends State implements StateMethods{
     private int xlvlOffset;
     private int leftBorder = (int) (0.2 * Game.screenWidth);
     private int rightBorder = (int) (0.8 * Game.screenWidth);
-    private int lvlTilesWide = LevelLoad.GetLevelData()[0].length;
-    private int maxTilesOffset = lvlTilesWide - Game.maxScreenCol;
-    private int maxLvlOffsetX = maxTilesOffset * Game.tileSize;
+    private int maxLvlOffsetX;
+
+    private boolean lvlCompleted = false;
 
     public Playing(Game game) {
         super(game);
         getClasses();
+
+        calcLvlOffset();
+
+    }
+
+    public void loadNextLevel(){
+        levelHandler.loadNextLevel();
+    }
+
+    private void calcLvlOffset() {
+        maxLvlOffsetX = levelHandler.getLevel().getLvlOffset();
     }
 
     private void getClasses() {
@@ -34,6 +45,10 @@ public class Playing extends State implements StateMethods{
 
     public Player getPlayer(){
         return player;
+    }
+
+    public void setMaxLvlOffset(int lvlvOffset){
+        this.maxLvlOffsetX = lvlvOffset;
     }
 
     private void checkBorder() {

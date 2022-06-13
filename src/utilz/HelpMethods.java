@@ -1,6 +1,11 @@
 package utilz;
 
 import Main.Game;
+import gamestates.Menu;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.nio.Buffer;
 
 
 /*
@@ -60,4 +65,21 @@ public class HelpMethods {
 
         return false;
     }
+
+    public static int[][] GetLevelData(BufferedImage img) {
+
+        int[][] lvlData = new int[img.getHeight()][img.getWidth()];
+
+        for (int j = 0; j < img.getHeight(); j++)
+            for (int i = 0; i < img.getWidth(); i++) {
+                Color color = new Color(img.getRGB(i, j));
+                int value = color.getRed();
+                if (value >= 16)
+                    value = 0;
+                lvlData[j][i] = value;
+            }
+        return lvlData;
+
+    }
+
 }

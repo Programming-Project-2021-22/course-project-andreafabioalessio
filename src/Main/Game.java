@@ -2,6 +2,7 @@ package Main;
 import gamestates.Gamestate;
 import gamestates.MainMenu;
 import gamestates.Playing;
+import level.LevelLoad;
 
 import java.awt.Graphics;
 
@@ -30,7 +31,8 @@ public class Game implements Runnable{
     public final static int screenWidth = tileSize * maxScreenCol; // 1536 pixel
     public final static int screenHeight = tileSize * maxScreenRow; // 1248 pixel
 
-    public Game(){ 
+    public Game(){
+
         getClasses();
 
         gamePanel = new GamePanel(this);
@@ -51,6 +53,15 @@ public class Game implements Runnable{
     }
 
     public void update(){
+        if (Gamestate.state == Gamestate.MAINMENU)
+            gameWindow.window.setVisible(true);
+
+        else if (Gamestate.state == Gamestate.PLAYING){
+            gameWindow.jframe.setVisible(true);
+            gameWindow.window.setVisible(false);
+        }
+
+
         switch (Gamestate.state){
             case PLAYING -> playing.update();
         }
