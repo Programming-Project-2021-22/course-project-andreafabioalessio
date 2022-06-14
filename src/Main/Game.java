@@ -1,10 +1,9 @@
 package Main;
-import gamestates.Gamestate;
-import gamestates.MainMenu;
-import gamestates.Playing;
-import level.LevelLoad;
+import gamestates.*;
 
 import java.awt.Graphics;
+
+import static java.awt.SystemColor.menu;
 
 /*
 
@@ -53,14 +52,20 @@ public class Game implements Runnable{
     }
 
     public void update(){
-        if (Gamestate.state == Gamestate.MAINMENU)
+        if (Gamestate.state == Gamestate.MAINMENU) {
             gameWindow.window.setVisible(true);
+            gameWindow.settingsWindow.setVisible(false);
+        }
+
+        else if (Gamestate.state == Gamestate.PAUSE){
+            gameWindow.settingsWindow.setVisible(true);
+        }
 
         else if (Gamestate.state == Gamestate.PLAYING){
             gameWindow.jframe.setVisible(true);
             gameWindow.window.setVisible(false);
+            gameWindow.settingsWindow.setVisible(false);
         }
-
 
         switch (Gamestate.state){
             case PLAYING -> playing.update();
@@ -71,7 +76,6 @@ public class Game implements Runnable{
         switch (Gamestate.state){
             case PLAYING -> playing.draw(g);
         }
-
     }
 
     @Override

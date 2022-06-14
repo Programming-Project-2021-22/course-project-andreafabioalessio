@@ -15,25 +15,26 @@ public class Settings extends JPanel {
         settingsLabel.setFont(new Font("Dialog", Font.BOLD, 30));
         settingsLabel.setForeground(new Color(205, 58, 218));
 
-        JButton idk = new JButton("I'm useless");
-        idk.setPreferredSize(new Dimension(120, 30));
-        idk.setMaximumSize(new Dimension(120, 30));
-        idk.setForeground(new Color(205, 58, 218));
+        JButton mute = new JButton("Mute Music");
+
+        mute.setPreferredSize(new Dimension(120, 30));
+        mute.setMaximumSize(new Dimension(120, 30));
+        mute.setForeground(new Color(205, 58, 218));
 
         GridBagConstraints c = new GridBagConstraints();
         setLayout(new GridBagLayout());
 
+        c.gridy = 1;
+        add(Box.createRigidArea(new Dimension(0, 30)), c);
+
         c.gridy = 2;
-        add(Box.createRigidArea(new Dimension(0, 50)), c);
+        add(resume, c);
 
         c.gridy = 3;
-        add(idk, c);
-
-        c.gridy = 4;
         add(Box.createRigidArea(new Dimension(0,30)), c);
 
-        c.gridy = 5;
-        add(resume, c);
+        c.gridy = 4;
+        add(mute, c);
     }
 
     //Overridden paintComponent method that paints the background
