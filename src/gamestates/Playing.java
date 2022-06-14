@@ -8,6 +8,7 @@ import level.levelHandler;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 
 public class Playing extends State implements StateMethods{
     private Player player;
@@ -18,6 +19,10 @@ public class Playing extends State implements StateMethods{
     private int rightBorder = (int) (0.8 * Game.screenWidth);
     private int maxLvlOffsetX;
 
+    private BufferedImage bgImage,clouds;
+
+
+
     private boolean lvlCompleted = false;
 
     public Playing(Game game) {
@@ -25,6 +30,9 @@ public class Playing extends State implements StateMethods{
         getClasses();
 
         calcLvlOffset();
+
+        bgImage = LevelLoad.GetSpriteAtlas(LevelLoad.BG_IMAGE);
+        clouds = LevelLoad.GetSpriteAtlas(LevelLoad.CLOUDS);
     }
 
     public static void loadNextLevel(){
@@ -74,8 +82,19 @@ public class Playing extends State implements StateMethods{
 
     @Override
     public void draw(Graphics g) {
+        g.drawImage(bgImage,0,0, Game.screenWidth,Game.screenHeight, null);
+
+        drawClouds(g);
+
         levelHandler.draw(g, xlvlOffset);
         player.draw(g, xlvlOffset);
+    }
+
+    private void drawClouds(Graphics g) {
+        for (int i = 0; i<3;i++){
+            g.drawImage(clouds, i * (360 * 2) - (int) (xlvlOffset*0.2),0, 360*2, 180*2,null);
+        }
+
     }
 
 }

@@ -16,6 +16,8 @@ import gamestates.Menu;
 public class LevelLoad {
 
     public static final String LEVEL_ATLAS = "level_sprites.png";
+    public static final String BG_IMAGE = "background_sky.png";
+    public static final String CLOUDS = "clouds.png";
 
 
     public static BufferedImage GetSpriteAtlas(String fileName) {
