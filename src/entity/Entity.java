@@ -157,10 +157,7 @@ public abstract class Entity {
                 //testprint
                 //System.out.println("floor collision");
 
-                //if the player fall into a hole, teleport to the beginning
-                if (y > 640) {
-                    teleportToBeginning();
-                }
+
             } else { //FLOOR COLLISION
                 yAcc = 0;
                 jumping = false;
@@ -168,10 +165,16 @@ public abstract class Entity {
                 //testprint
                 //System.out.println("floor collision");
             }
+
+
         } catch(ArrayIndexOutOfBoundsException e){
             teleportToBeginning();
             //testprint
             System.out.println("array out of bound bug");
+        } catch(Exception e){
+            teleportToBeginning();
+            //testprint
+            System.out.println("not array out of bound bug");
         }
     }
 

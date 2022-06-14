@@ -46,6 +46,14 @@ public class Player extends Entity {
 @Override
     public void update() {
 
+
+    //-hole check
+    //if the player fall into a hole, teleport to the beginning
+    if (y > 600) {
+        teleportToBeginning();
+        //testprint
+        System.out.println("spikes");
+    }
     //-1 done
         playerMovement();
     //-2 should work (right only)
