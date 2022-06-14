@@ -404,8 +404,6 @@ public class Menu extends JPanel {
     }
 
     //Loads the level corresponding to the numLevel value
-
-
     private void loadLevel(User user){
         switch (numLevel){
             case 1:

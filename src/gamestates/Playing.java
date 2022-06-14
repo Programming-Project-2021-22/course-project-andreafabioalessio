@@ -27,7 +27,7 @@ public class Playing extends State implements StateMethods{
         calcLvlOffset();
     }
 
-    public void loadNextLevel(){
+    public static void loadNextLevel(){
         level.levelHandler.loadNextLevel();
     }
 

@@ -2,6 +2,8 @@ package entity;
 
 import Main.Game;
 import Main.GamePanel;
+import gamestates.Gamestate;
+import gamestates.Playing;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -116,10 +118,6 @@ public abstract class Entity {
         }
     }
 
-    //TO DO
-    public void die() {
-    }
-
     //should work
     //if [xAcc] causes a collision set [xAcc] to 0.
     public void checkHorizontalCollision(){
@@ -150,20 +148,30 @@ public abstract class Entity {
     }
     
     public void checkGravity() {
-        //NO FLOOR COLLISION
-        if(checkHitboxCollision(0, yAcc+weight)) {
-            yAcc += weight;
-            falling = true;
-            jumping = true;
+        try {
+            //NO FLOOR COLLISION
+            if (checkHitboxCollision(0, yAcc + weight)) {
+                yAcc += weight;
+                falling = true;
+                jumping = true;
+                //testprint
+                //System.out.println("floor collision");
+
+                //if the player fall into a hole, teleport to the beginning
+                if (y > 640) {
+                    teleportToBeginning();
+                }
+            } else { //FLOOR COLLISION
+                yAcc = 0;
+                jumping = false;
+                falling = false;
+                //testprint
+                //System.out.println("floor collision");
+            }
+        } catch(ArrayIndexOutOfBoundsException e){
+            teleportToBeginning();
             //testprint
-            //System.out.println("floor collision");
-        }
-        else { //FLOOR COLLISION
-            yAcc = 0;
-            jumping = false;
-            falling = false;
-            //testprint
-            //System.out.println("floor collision");
+            System.out.println("array out of bound bug");
         }
     }
 
@@ -173,10 +181,22 @@ public abstract class Entity {
     }
 
     //DIE
-    public boolean teleportToBeginning(){
+    public void teleportToBeginning(){
         x = 100;
         y = 300;
-        return true;
+        xAcc = 0;
+        yAcc = 0;
+    }
+
+    //WIN
+    public void checkWin(){
+        //14240
+        if(x>=14240){
+            teleportToBeginning();
+            Gamestate.state = Gamestate.MAINMENU;
+            //testprint
+            System.out.println("LEVEL WON");
+        }
     }
 
 
@@ -240,8 +260,8 @@ public abstract class Entity {
 
     //TESTING METHODS
     public void testprintVariables(){
-
-        //System.out.println("falling " + falling + "\njumping " + jumping + "\nyAcc " + yAcc + "\nxAcc " + xAcc + "\nx " + x + "\ny " + y + "\ncollisions: t "+ !checkHitboxCollision(0, yAcc+weight)  + "\n\n");
+        //teleportToBeginning();
+        System.out.println("falling " + falling + "\njumping " + jumping + "\nyAcc " + yAcc + "\nxAcc " + xAcc + "\nx " + x + "\ny " + y + "\ncollisions: t "+ !checkHitboxCollision(0, yAcc+weight)  + "\n\n");
     }
 
 

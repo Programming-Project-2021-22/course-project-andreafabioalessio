@@ -53,9 +53,10 @@ public class Game implements Runnable{
     }
 
     public void update(){
-        if (Gamestate.state == Gamestate.MAINMENU)
+        if (Gamestate.state == Gamestate.MAINMENU) {
             gameWindow.window.setVisible(true);
-
+            gameWindow.jframe.setVisible(false);
+        }
         else if (Gamestate.state == Gamestate.PLAYING){
             gameWindow.jframe.setVisible(true);
             gameWindow.window.setVisible(false);

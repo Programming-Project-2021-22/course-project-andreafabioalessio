@@ -68,6 +68,9 @@ public class Player extends Entity {
         // temporary: avoid out of bound
         if(x < 0){x = 0;}
         if(y < 0){y = 0;}
+
+    //-checkwin
+    checkWin();
     }
 
     public void playerMovement() {

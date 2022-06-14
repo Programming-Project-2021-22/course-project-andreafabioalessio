@@ -67,10 +67,12 @@ public class levelHandler {
         return levels.size();
     }
 
+
+    //To Load next level after the level is complete
     public static void loadNextLevel() {
 
+        //Levlindex = current level index
         lvlIndex++;
-
         if (lvlIndex > Menu.getNumLevel()-1){
             lvlIndex = Menu.getNumLevel() -1;
         }
