@@ -172,6 +172,13 @@ public abstract class Entity {
         return (CanMoveHere(hitbox.x +x, hitbox.y + y, hitbox.width, hitbox.height, lvlData));
     }
 
+    //DIE
+    public boolean teleportToBeginning(){
+        x = 100;
+        y = 300;
+    }
+
+
     //SKIN METHODS
     public void setCentDirection() {
         if (direction == 1) {
@@ -232,7 +239,8 @@ public abstract class Entity {
 
     //TESTING METHODS
     public void testprintVariables(){
-        System.out.println("falling " + falling + "\njumping " + jumping + "\nyAcc " + yAcc + "\nxAcc " + xAcc + "\nx " + x + "\ny " + y + "\ncollisions: t "+ !checkHitboxCollision(0, yAcc+weight)  + "\n\n");
+
+        //System.out.println("falling " + falling + "\njumping " + jumping + "\nyAcc " + yAcc + "\nxAcc " + xAcc + "\nx " + x + "\ny " + y + "\ncollisions: t "+ !checkHitboxCollision(0, yAcc+weight)  + "\n\n");
     }
 
 

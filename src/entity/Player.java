@@ -76,7 +76,7 @@ public class Player extends Entity {
            jump();
         } else if (KeyHandler.downPressed) {
             //testprint
-            //testprintVariables();
+            testprintVariables();
             //ySpeed = entitySpeed;
             // yAcc = 1*weight;
         }
