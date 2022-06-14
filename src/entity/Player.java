@@ -49,7 +49,7 @@ public class Player extends Entity {
 
     //-hole check
     //if the player fall into a hole, teleport to the beginning
-    if (y > 600) {
+    if (y > 580) {
         teleportToBeginning();
         //testprint
         System.out.println("spikes");
