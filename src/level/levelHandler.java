@@ -22,6 +22,7 @@ public class levelHandler {
     private static Game game;
     private BufferedImage[] levelSprite;
     private static ArrayList<Level> levels;
+    private static int lvlIndex = 0;
 
     public levelHandler(Game game){
         levelHandler.game = game;
@@ -68,7 +69,13 @@ public class levelHandler {
 
     public static void loadNextLevel() {
 
-        Level newLevel = levels.get(Menu.getNumLevel()-1);
+        lvlIndex++;
+
+        if (lvlIndex > Menu.getNumLevel()-1){
+            lvlIndex = Menu.getNumLevel() -1;
+        }
+
+        Level newLevel = levels.get(lvlIndex);
         game.getPlaying().getPlayer().loadLvlData(newLevel.getLvlData());
         game.getPlaying().setMaxLvlOffset(newLevel.getLvlOffset());
     }

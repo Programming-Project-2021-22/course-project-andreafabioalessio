@@ -176,6 +176,7 @@ public abstract class Entity {
     public boolean teleportToBeginning(){
         x = 100;
         y = 300;
+        return true;
     }
 
 
