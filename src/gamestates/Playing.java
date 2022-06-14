@@ -6,9 +6,12 @@ import entity.PlayerSkin;
 import level.LevelLoad;
 import level.levelHandler;
 
+import javax.sound.sampled.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.io.*;
+import java.net.URL;
 
 public class Playing extends State implements StateMethods{
     private Player player;
@@ -30,10 +33,11 @@ public class Playing extends State implements StateMethods{
         getClasses();
 
         calcLvlOffset();
-
+        
         bgImage = LevelLoad.GetSpriteAtlas(LevelLoad.BG_IMAGE);
         clouds = LevelLoad.GetSpriteAtlas(LevelLoad.CLOUDS);
     }
+
 
     public static void loadNextLevel(){
         level.levelHandler.loadNextLevel();
