@@ -138,8 +138,8 @@ public class Menu extends JPanel {
         settingsButton.setBackground(Color.BLACK);
 
         settingsButton.addActionListener(e ->{
-            openSettings();
-            });
+            openSettings(window);
+        });
 
         JPanel panel = new JPanel();
         SpringLayout panelLayout = new SpringLayout();
@@ -379,28 +379,8 @@ public class Menu extends JPanel {
     }
 
     //Opens the Settings window
-    private void openSettings(){
-        JFrame settings = new JFrame("Settings");
-
-        JButton resume = new JButton("Close");
-        resume.setPreferredSize(new Dimension(120, 30));
-        resume.setMaximumSize(new Dimension(120, 30));
-        resume.setForeground(new Color(205, 58, 218));
-
-        resume.addActionListener(e ->{
-            settings.dispose();
-        });
-
-        Settings set = new Settings(resume);
-        set.setPreferredSize(new Dimension(350, 350));
-        settings.add(set);
-
-        settings.setPreferredSize(new Dimension(350, 350));
-        settings.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        settings.setResizable(false);
-        settings.setVisible(true);
-        settings.pack();
-        settings.setLocationRelativeTo(null);
+    private void openSettings(JFrame window){
+        Gamestate.state = Gamestate.PAUSE;
     }
 
     //Loads the level corresponding to the numLevel value

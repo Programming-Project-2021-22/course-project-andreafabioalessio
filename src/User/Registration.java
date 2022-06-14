@@ -1,6 +1,7 @@
 package User;
 
 import gamestates.Menu;
+import gamestates.Settings;
 import gamestates.Startup;
 
 import javax.swing.*;
