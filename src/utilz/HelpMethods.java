@@ -59,7 +59,7 @@ public class HelpMethods {
 
         int value = lvlData[(int) yIndex][(int) xIndex];
 
-        if (value != 11) {  //48 è il numero di sprites per il livello. 11 è lo sprite vuoto
+        if (value != 14) {  //48 è il numero di sprites per il livello. 11 è lo sprite vuoto
             return true;
         }
 
@@ -70,13 +70,13 @@ public class HelpMethods {
 
         int[][] lvlData = new int[img.getHeight()][img.getWidth()];
 
-        for (int j = 0; j < img.getHeight(); j++)
-            for (int i = 0; i < img.getWidth(); i++) {
-                Color color = new Color(img.getRGB(i, j));
+        for (int i = 0; i < img.getHeight(); i++)
+            for (int j = 0; j < img.getWidth(); j++) {
+                Color color = new Color(img.getRGB(j, i));
                 int value = color.getRed();
-                if (value >= 16)
+                if (value >= 18)
                     value = 0;
-                lvlData[j][i] = value;
+                lvlData[i][j] = value;
             }
         return lvlData;
 
