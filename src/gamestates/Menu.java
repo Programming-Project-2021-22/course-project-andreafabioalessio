@@ -138,7 +138,7 @@ public class Menu extends JPanel {
         settingsButton.setBackground(Color.BLACK);
 
         settingsButton.addActionListener(e ->{
-            openSettings(window);
+            openSettings();
         });
 
         JPanel panel = new JPanel();
@@ -379,8 +379,8 @@ public class Menu extends JPanel {
     }
 
     //Opens the Settings window
-    private void openSettings(JFrame window){
-        Gamestate.state = Gamestate.PAUSE;
+    private void openSettings(){
+        Gamestate.state = Gamestate.SETTINGS;
     }
 
     //Loads the level corresponding to the numLevel value

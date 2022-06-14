@@ -54,17 +54,18 @@ public class Game implements Runnable{
     public void update(){
         if (Gamestate.state == Gamestate.MAINMENU) {
             gameWindow.window.setVisible(true);
-            gameWindow.settingsWindow.setVisible(false);
+            gameWindow.settingsWindow.dispose();
+            gameWindow.jframe.dispose();
         }
 
-        else if (Gamestate.state == Gamestate.PAUSE){
+        else if (Gamestate.state == Gamestate.SETTINGS){
             gameWindow.settingsWindow.setVisible(true);
         }
 
         else if (Gamestate.state == Gamestate.PLAYING){
             gameWindow.jframe.setVisible(true);
-            gameWindow.window.setVisible(false);
-            gameWindow.settingsWindow.setVisible(false);
+            gameWindow.window.dispose();
+            gameWindow.settingsWindow.dispose();
         }
 
         switch (Gamestate.state){
