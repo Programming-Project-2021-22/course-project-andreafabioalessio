@@ -19,7 +19,7 @@ public class Playing extends State implements StateMethods{
 
     private int xlvlOffset;
     private int leftBorder = (int) (0.2 * Game.screenWidth);
-    private int rightBorder = (int) (0.8 * Game.screenWidth);
+    private int rightBorder = (int) (0.6 * Game.screenWidth);
     private int maxLvlOffsetX;
 
     private BufferedImage bgImage,clouds;
@@ -95,7 +95,7 @@ public class Playing extends State implements StateMethods{
     }
 
     private void drawClouds(Graphics g) {
-        for (int i = 0; i<3;i++){
+        for (int i = 0; i<5;i++){
             g.drawImage(clouds, i * (360 * 2) - (int) (xlvlOffset*0.2),0, 360*2, 180*2,null);
         }
 

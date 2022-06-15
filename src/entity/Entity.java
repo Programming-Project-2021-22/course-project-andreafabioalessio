@@ -194,7 +194,7 @@ public abstract class Entity {
     //WIN
     public void checkWin(){
         //14240
-        if(x>=14240){
+        if(x>=14084){
             teleportToBeginning();
             Gamestate.state = Gamestate.MAINMENU;
             //testprint
