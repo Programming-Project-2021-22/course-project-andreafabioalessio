@@ -26,9 +26,9 @@ public class Startup extends JPanel {
         Dimension loginButtonDimension = new Dimension(190, 75);
         Dimension signupButtonDimension = new Dimension(236, 75);
 
-        ImageIcon loginIcon = new ImageIcon("res/Images/New graphics/login-button2.png", "login button icon");
-        ImageIcon loginIconHovered = new ImageIcon("res/Images/New graphics/login-button-hovered2.png", "login button icon");
-        ImageIcon loginIconPressed = new ImageIcon("res/Images/New graphics/login-button-pressed2.png", "login button icon");
+        ImageIcon loginIcon = new ImageIcon("res/Images/login-button2.png", "login button icon");
+        ImageIcon loginIconHovered = new ImageIcon("res/Images/login-button-hovered2.png", "login button icon");
+        ImageIcon loginIconPressed = new ImageIcon("res/Images/login-button-pressed2.png", "login button icon");
 
         JButton loginButton = new JButton(loginIcon);
         loginButton.setRolloverIcon(loginIconHovered);
@@ -40,9 +40,9 @@ public class Startup extends JPanel {
         loginButton.setContentAreaFilled(false);
         loginButton.setBorderPainted(false);
 
-        ImageIcon signupIcon = new ImageIcon("res/Images/New graphics/signup-button2.png");
-        ImageIcon signupIconHovered = new ImageIcon("res/Images/New graphics/signup-button-hovered2.png");
-        ImageIcon signupIconPressed = new ImageIcon("res/Images/New graphics/signup-button-pressed2.png");
+        ImageIcon signupIcon = new ImageIcon("res/Images/signup-button2.png");
+        ImageIcon signupIconHovered = new ImageIcon("res/Images/signup-button-hovered2.png");
+        ImageIcon signupIconPressed = new ImageIcon("res/Images/signup-button-pressed2.png");
 
         JButton signupButton = new JButton(signupIcon);
         signupButton.setRolloverIcon(signupIconHovered);
@@ -150,7 +150,7 @@ public class Startup extends JPanel {
     @Override
     public void paintComponent(Graphics g){
         try {
-            background = ImageIO.read(new File("res/Images/New graphics/Startup-background-resized.png"));
+            background = ImageIO.read(new File("res/Images/Startup-background-resized.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

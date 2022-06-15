@@ -46,12 +46,13 @@ public class Menu extends JPanel {
         level.setMinimumSize(levelPanelDimensions);
         level.setMinimumSize(levelPanelDimensions);
         level.setPreferredSize(levelPanelDimensions);
+        level.setBackground(Color.BLACK);
 
         JButton select = new JButton();
 
-        select.setMaximumSize(levelPanelDimensions);
-        select.setMinimumSize(levelPanelDimensions);
-        select.setPreferredSize(levelPanelDimensions);
+        select.setMaximumSize(new Dimension(630, 240));
+        select.setMinimumSize(new Dimension(630, 240));
+        select.setPreferredSize(new Dimension(630, 240));
         select.setOpaque(false);
         select.setBorderPainted(false);
         select.setContentAreaFilled(false);
@@ -86,11 +87,11 @@ public class Menu extends JPanel {
         dots.add(dot4, dotsConstraints);
         dots.setBackground(Color.BLACK);
 
-        updateLevelGraphics();
+        updateLevelGraphics(user);
 
-        ImageIcon forwardIcon = new ImageIcon("res/Images/New graphics/forward-arrow2.png");
-        ImageIcon forwardIconHovered = new ImageIcon("res/Images/New graphics/forward-arrow-hovered2.png");
-        ImageIcon forwardIconPressed = new ImageIcon("res/Images/New graphics/forward-arrow-pressed2.png");
+        ImageIcon forwardIcon = new ImageIcon("res/Images/forward-arrow2.png");
+        ImageIcon forwardIconHovered = new ImageIcon("res/Images/forward-arrow-hovered2.png");
+        ImageIcon forwardIconPressed = new ImageIcon("res/Images/forward-arrow-pressed2.png");
 
         JButton forward = new JButton(forwardIcon);
         forward.setBackground(Color.BLACK);
@@ -101,15 +102,15 @@ public class Menu extends JPanel {
 
         forward.addActionListener(e -> {
             try {
-                processForwardButtonPress();
+                processForwardButtonPress(user);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
         });
 
-        ImageIcon backIcon = new ImageIcon("res/Images/New graphics/back-arrow2.png");
-        ImageIcon backIconHovered = new ImageIcon("res/Images/New graphics/back-arrow-hovered2.png");
-        ImageIcon backIconPressed = new ImageIcon("res/Images/New graphics/back-arrow-pressed2.png");
+        ImageIcon backIcon = new ImageIcon("res/Images/back-arrow2.png");
+        ImageIcon backIconHovered = new ImageIcon("res/Images/back-arrow-hovered2.png");
+        ImageIcon backIconPressed = new ImageIcon("res/Images/back-arrow-pressed2.png");
 
         JButton back = new JButton(backIcon);
         back.setBackground(Color.BLACK);
@@ -120,14 +121,14 @@ public class Menu extends JPanel {
 
         back.addActionListener(e -> {
             try {
-                processBackwardButtonPress();
+                processBackwardButtonPress(user);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
         });
 
-        ImageIcon settingsIcon = new ImageIcon("res/Images/New graphics/settings-button2.png");
-        ImageIcon settingsIconHovered = new ImageIcon("res/Images/New graphics/settings-button-hovered2.png");
+        ImageIcon settingsIcon = new ImageIcon("res/Images/settings-button2.png");
+        ImageIcon settingsIconHovered = new ImageIcon("res/Images/settings-button-hovered2.png");
 
         JButton settingsButton = new JButton(settingsIcon);
         settingsButton.setRolloverIcon(settingsIconHovered);
@@ -153,8 +154,8 @@ public class Menu extends JPanel {
 
         panel.add(userInfo);
         panel.add(back);
-        panel.add(select);
         panel.add(level);
+        panel.add(select);
         panel.add(forward);
         panel.add(dots);
         panel.add(settingsButton);
@@ -181,8 +182,8 @@ public class Menu extends JPanel {
         //Level button selector and images perfectly centered
         panelLayout.putConstraint(SpringLayout.NORTH, level, 230, SpringLayout.NORTH, panel);
         panelLayout.putConstraint(SpringLayout.WEST, level, 155, SpringLayout.WEST, panel);
-        panelLayout.putConstraint(SpringLayout.NORTH, select, 230, SpringLayout.NORTH, panel);
-        panelLayout.putConstraint(SpringLayout.WEST, select, 155, SpringLayout.WEST, panel);
+        panelLayout.putConstraint(SpringLayout.NORTH, select, 235, SpringLayout.NORTH, panel);
+        panelLayout.putConstraint(SpringLayout.WEST, select, 160, SpringLayout.WEST, panel);
         //Arrows placed vertically centered and on the sides of the level panel
         panelLayout.putConstraint(SpringLayout.EAST, back, -20, SpringLayout.WEST, level);
         panelLayout.putConstraint(SpringLayout.NORTH, back, 70, SpringLayout.NORTH, level);
@@ -280,11 +281,17 @@ public class Menu extends JPanel {
     }
 
     //Updates the graphics of the dots and level cover
-    private void updateLevelGraphics() throws IOException {
+    private void updateLevelGraphics(User user) throws IOException {
         //Updates the level cover
         Dimension dotSelected = new Dimension(30, 10);
         Dimension dotUnselected = new Dimension(10, 10);
         String imagePath = "res/LevelCovers/Lv" + numLevel + ".png";
+
+        if(numLevel > user.getLevel()){
+            imagePath = "res/LevelCovers/Lv" + numLevel + "-locked.png";
+
+        }
+
         BufferedImage img = ImageIO.read(new File(imagePath));
         JLabel pic = new JLabel(new ImageIcon(img));
 
@@ -355,26 +362,26 @@ public class Menu extends JPanel {
     }
 
     //Updates the value of numLevel
-    private void processForwardButtonPress() throws IOException {
+    private void processForwardButtonPress(User user) throws IOException {
         if (numLevel < 4) {
             numLevel++;
-            updateLevelGraphics();
+            updateLevelGraphics(user);
         }
         else {
             numLevel = 1;
-            updateLevelGraphics();
+            updateLevelGraphics(user);
         }
     }
 
     //Updates the value of numLevel
-    private void processBackwardButtonPress() throws IOException {
+    private void processBackwardButtonPress(User user) throws IOException {
         if(numLevel > 1){
             numLevel--;
-            updateLevelGraphics();
+            updateLevelGraphics(user);
         }
         else{
             numLevel = 4;
-            updateLevelGraphics();
+            updateLevelGraphics(user);
         }
     }
 
@@ -387,7 +394,6 @@ public class Menu extends JPanel {
     private void loadLevel(User user){
         switch (numLevel){
             case 1:
-                    level.setBackground(Color.green);
                     removeMe.setBackground(Color.green);
                     Gamestate.state = Gamestate.PLAYING;
                     levelHandler.loadNextLevel();
@@ -395,12 +401,10 @@ public class Menu extends JPanel {
 
             case 2:
                 if(user.getLevel() < numLevel){
-                    level.setBackground(Color.red);
                     removeMe.setBackground(Color.red);
                     throw new LevelTooLowError("Level locked, reach level " + numLevel + " to unlock it");
                 }
                 else{
-                    level.setBackground(Color.green);
                     removeMe.setBackground(Color.green);
                     Gamestate.state = Gamestate.PLAYING;
                     levelHandler.loadNextLevel();
@@ -409,12 +413,10 @@ public class Menu extends JPanel {
 
             case 3:
                 if(user.getLevel() < numLevel){
-                    level.setBackground(Color.red);
                     removeMe.setBackground(Color.red);
                     throw new LevelTooLowError("Level locked, reach level " + numLevel + " to unlock it");
                 }
                 else{
-                    level.setBackground(Color.cyan);
                     removeMe.setBackground(Color.green);
                     Gamestate.state = Gamestate.PLAYING;
                 }
@@ -422,12 +424,10 @@ public class Menu extends JPanel {
 
             case 4:
                 if(user.getLevel() < numLevel){
-                    level.setBackground(Color.red);
                     removeMe.setBackground(Color.red);
                     throw new LevelTooLowError("Level locked, reach level " + numLevel + " to unlock it");
                 }
                 else{
-                    level.setBackground(Color.yellow);
                     removeMe.setBackground(Color.green);
                     Gamestate.state = Gamestate.PLAYING;
                 }
@@ -439,7 +439,7 @@ public class Menu extends JPanel {
     @Override
     public void paintComponent(Graphics g){
         try {
-            background = ImageIO.read(new File("res/Images/New graphics/Menu-background-resized.png"));
+            background = ImageIO.read(new File("res/Images/Menu-background-resized.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

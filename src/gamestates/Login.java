@@ -44,9 +44,9 @@ public class Login extends Registration {
         showPassword.addActionListener(e-> {passwordTField.setEchoChar(
                 showPassword.isSelected() ? '\u0000' : '\u2022');});
 
-        ImageIcon loginIcon = new ImageIcon("res/Images/New graphics/login-button3.png");
-        ImageIcon loginIconHovered = new ImageIcon("res/Images/New graphics/login-button-hovered3.png");
-        ImageIcon loginIconPressed = new ImageIcon("res/Images/New graphics/login-button-pressed3.png");
+        ImageIcon loginIcon = new ImageIcon("res/Images/login-button3.png");
+        ImageIcon loginIconHovered = new ImageIcon("res/Images/login-button-hovered3.png");
+        ImageIcon loginIconPressed = new ImageIcon("res/Images/login-button-pressed3.png");
 
         JButton loginButton = new JButton(loginIcon);
         loginButton.setRolloverIcon(loginIconHovered);
@@ -67,8 +67,8 @@ public class Login extends Registration {
             }
         });
 
-        ImageIcon backIcon = new ImageIcon("res/Images/New graphics/back-button2.png");
-        ImageIcon backIconHovered = new ImageIcon("res/Images/New graphics/back-button-hovered2.png");
+        ImageIcon backIcon = new ImageIcon("res/Images/back-button2.png");
+        ImageIcon backIconHovered = new ImageIcon("res/Images/back-button-hovered2.png");
 
         JButton backButton = new JButton(backIcon);
         backButton.setRolloverIcon(backIconHovered);
@@ -191,7 +191,7 @@ public class Login extends Registration {
     @Override
     public void paintComponent(Graphics g){
         try {
-            background = ImageIO.read(new File("res/Images/New graphics/LoginSignup-background-resized.png"));
+            background = ImageIO.read(new File("res/Images/LoginSignup-background-resized.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

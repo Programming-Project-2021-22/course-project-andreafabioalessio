@@ -43,9 +43,9 @@ public class Signup extends Registration {
         showPassword.addActionListener(e-> {passwordTField.setEchoChar(
                 showPassword.isSelected() ? '\u0000' : '\u2022');});
 
-        ImageIcon signupIcon = new ImageIcon("res/Images/New graphics/signup-button3.png");
-        ImageIcon signupIconHovered = new ImageIcon("res/Images/New graphics/signup-button-hovered3.png");
-        ImageIcon signupIconPressed = new ImageIcon("res/Images/New graphics/signup-button-pressed3.png");
+        ImageIcon signupIcon = new ImageIcon("res/Images/signup-button3.png");
+        ImageIcon signupIconHovered = new ImageIcon("res/Images/signup-button-hovered3.png");
+        ImageIcon signupIconPressed = new ImageIcon("res/Images/signup-button-pressed3.png");
 
         JButton signupButton = new JButton(signupIcon);
         signupButton.setRolloverIcon(signupIconHovered);
@@ -65,8 +65,8 @@ public class Signup extends Registration {
             }
         });
 
-        ImageIcon backIcon = new ImageIcon("res/Images/New graphics/back-button2.png");
-        ImageIcon backIconHovered = new ImageIcon("res/Images/New graphics/back-button-hovered2.png");
+        ImageIcon backIcon = new ImageIcon("res/Images/back-button2.png");
+        ImageIcon backIconHovered = new ImageIcon("res/Images/back-button-hovered2.png");
 
         JButton backButton = new JButton(backIcon);
         backButton.setRolloverIcon(backIconHovered);
@@ -78,8 +78,8 @@ public class Signup extends Registration {
         backButton.setBorderPainted(false);
         backButton.addActionListener(e -> super.goBackToStartup(window));
 
-        ImageIcon infoIcon = new ImageIcon("res/Images/New graphics/infobutton-icon2.png");
-        ImageIcon infoIconHovered = new ImageIcon("res/Images/New graphics/infobutton-icon-hovered2.png");
+        ImageIcon infoIcon = new ImageIcon("res/Images/infobutton-icon2.png");
+        ImageIcon infoIconHovered = new ImageIcon("res/Images/infobutton-icon-hovered2.png");
 
         JButton passwordInfo = new JButton(infoIcon);
         passwordInfo.setPreferredSize(new Dimension(25, 25));
@@ -262,7 +262,7 @@ public class Signup extends Registration {
     @Override
     public void paintComponent(Graphics g){
         try {
-            background = ImageIO.read(new File("res/Images/New graphics/LoginSignup-background-resized.png"));
+            background = ImageIO.read(new File("res/Images/LoginSignup-background-resized.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
