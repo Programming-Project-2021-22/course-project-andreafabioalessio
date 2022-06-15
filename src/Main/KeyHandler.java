@@ -12,8 +12,6 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyTyped(KeyEvent e) {
 
-
-
     }
 
     @Override
@@ -52,6 +50,14 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT){ // se premi d
             rightPressed = false;
         }
+    }
+
+
+    public static void resetKeyHandler(){
+        upPressed = false;
+        downPressed = false;
+        leftPressed = false;
+        rightPressed = false;
     }
 
     public boolean getUp(){

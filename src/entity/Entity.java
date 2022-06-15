@@ -2,6 +2,7 @@ package entity;
 
 import Main.Game;
 import Main.GamePanel;
+import Main.KeyHandler;
 import gamestates.Gamestate;
 import gamestates.Playing;
 
@@ -10,6 +11,8 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 import static utilz.HelpMethods.CanMoveHere;
+
+import Main.KeyHandler;
 
 
 /*
@@ -196,6 +199,7 @@ public abstract class Entity {
         //14240
         if(x>=14084){
             teleportToBeginning();
+            KeyHandler.resetKeyHandler();
             Gamestate.state = Gamestate.MAINMENU;
             //testprint
             System.out.println("LEVEL WON");
