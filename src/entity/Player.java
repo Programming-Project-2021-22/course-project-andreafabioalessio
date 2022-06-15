@@ -1,6 +1,7 @@
 package entity;
 
 import Main.KeyHandler;
+import Main.Sound;
 
 
 /*
@@ -19,6 +20,7 @@ class status: currently ok, but for the player death
 
 
 public class Player extends Entity {
+
 
 
 
@@ -46,10 +48,10 @@ public class Player extends Entity {
 @Override
     public void update() {
 
-
     //-hole check
     //if the player fall into a hole, teleport to the beginning
     if (y > 580) {
+        playSFX(4);
         teleportToBeginning();
         //testprint
         System.out.println("spikes");
@@ -81,10 +83,12 @@ public class Player extends Entity {
     checkWin();
     }
 
+
+
     public void playerMovement() {
 
         if (KeyHandler.upPressed) {
-           jump();
+            jump();
         } else if (KeyHandler.downPressed) {
             //testprint
             testprintVariables();

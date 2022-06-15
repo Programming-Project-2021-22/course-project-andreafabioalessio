@@ -1,6 +1,7 @@
 package gamestates;
 
 import Main.Game;
+import Main.Sound;
 import entity.Player;
 import entity.PlayerSkin;
 import level.LevelLoad;
@@ -22,9 +23,9 @@ public class Playing extends State implements StateMethods{
     private int rightBorder = (int) (0.6 * Game.screenWidth);
     private int maxLvlOffsetX;
 
+    public Sound sound = new Sound();
+
     private BufferedImage bgImage,clouds;
-
-
 
     private boolean lvlCompleted = false;
 
@@ -33,11 +34,21 @@ public class Playing extends State implements StateMethods{
         getClasses();
 
         calcLvlOffset();
-        
+
+//        playMusic(5);
+
         bgImage = LevelLoad.GetSpriteAtlas(LevelLoad.BG_IMAGE);
         clouds = LevelLoad.GetSpriteAtlas(LevelLoad.CLOUDS);
     }
 
+    public void playMusic(int x){
+        sound.setFile(x);
+        sound.play();
+        sound.loop();
+    }
+    public void stopMusic(){
+        sound.stop();
+    }
 
     public static void loadNextLevel(){
         level.levelHandler.loadNextLevel();
@@ -50,7 +61,7 @@ public class Playing extends State implements StateMethods{
     private void getClasses() {
         levelHandler = new levelHandler(game);
         PlayerSkin skin = new PlayerSkin();
-        player = new Player(100,300,7,20,1,skin);
+        player = new Player(200,300,7,20,1,skin);
         player.loadLvlData(levelHandler.getLevel().getLvlData());
     }
 

@@ -2,12 +2,14 @@ package entity;
 
 import Main.Game;
 import Main.GamePanel;
+import Main.Sound;
 import gamestates.Gamestate;
 import gamestates.Playing;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.util.concurrent.TimeUnit;
 
 import static utilz.HelpMethods.CanMoveHere;
 
@@ -66,6 +68,7 @@ public abstract class Entity {
     protected int direction; //WARNING:direction should be used only to choose which image will be shown, 
                              //        not to establish physics => -1 = sx; 0= center; 1=dx
 
+    public Sound sound = new Sound();
 
     //Constructor
     public Entity(int x, int y, int speed, int jumpStrength, int weight, Skin skin) {
@@ -80,6 +83,14 @@ public abstract class Entity {
         this.entitySkin = skin;
         this.xOffset = 4 * scale;
         this.yOffset = 0;
+    }
+
+    public void playSFX(int x){
+        sound.setFile(x);
+        sound.play();
+    }
+    public void stopMusic(){
+        sound.stop();
     }
 
     //UPDATE METHODS
@@ -112,7 +123,9 @@ public abstract class Entity {
     }
 
     public void jump() {
+
         if(!jumping) {
+            playSFX(2);
             yAcc -= jumpStrength;
             setJumping(true);
         }
@@ -185,7 +198,7 @@ public abstract class Entity {
 
     //DIE
     public void teleportToBeginning(){
-        x = 100;
+        x = 200;
         y = 300;
         xAcc = 0;
         yAcc = 0;
@@ -195,6 +208,12 @@ public abstract class Entity {
     public void checkWin(){
         //14240
         if(x>=14084){
+            playSFX(1);
+            try {
+                TimeUnit.SECONDS.sleep(2);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             teleportToBeginning();
             Gamestate.state = Gamestate.MAINMENU;
             //testprint
