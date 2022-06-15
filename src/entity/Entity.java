@@ -3,6 +3,8 @@ package entity;
 import Main.Game;
 import Main.GamePanel;
 import Main.Sound;
+
+import Main.KeyHandler;
 import gamestates.Gamestate;
 import gamestates.Playing;
 
@@ -12,6 +14,8 @@ import java.awt.image.BufferedImage;
 import java.util.concurrent.TimeUnit;
 
 import static utilz.HelpMethods.CanMoveHere;
+
+import Main.KeyHandler;
 
 
 /*
@@ -215,6 +219,7 @@ public abstract class Entity {
                 e.printStackTrace();
             }
             teleportToBeginning();
+            KeyHandler.resetKeyHandler();
             Gamestate.state = Gamestate.MAINMENU;
             //testprint
             System.out.println("LEVEL WON");
