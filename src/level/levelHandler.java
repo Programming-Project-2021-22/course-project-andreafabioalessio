@@ -72,12 +72,12 @@ public class levelHandler {
     public static void loadNextLevel() {
 
         //Levlindex = current level index
-        lvlIndex++;
-        if (lvlIndex > Menu.getNumLevel()-1){
-            lvlIndex = Menu.getNumLevel() -1;
-        }
+        //lvlIndex++;
+//        if (lvlIndex > Menu.getNumLevel()-1){
+//            lvlIndex = Menu.getNumLevel() -1;
+//        }
 
-        Level newLevel = levels.get(lvlIndex);
+        Level newLevel = levels.get(Menu.getNumLevel()-1);
         game.getPlaying().getPlayer().loadLvlData(newLevel.getLvlData());
         game.getPlaying().setMaxLvlOffset(newLevel.getLvlOffset());
     }

@@ -23,8 +23,6 @@ public class Playing extends State implements StateMethods{
     private int rightBorder = (int) (0.6 * Game.screenWidth);
     private int maxLvlOffsetX;
 
-    public Sound sound = new Sound();
-
     private BufferedImage bgImage,clouds;
 
     private boolean lvlCompleted = false;
@@ -33,21 +31,10 @@ public class Playing extends State implements StateMethods{
         super(game);
         getClasses();
 
-        calcLvlOffset();
-
-//        playMusic(5);
-
         bgImage = LevelLoad.GetSpriteAtlas(LevelLoad.BG_IMAGE);
         clouds = LevelLoad.GetSpriteAtlas(LevelLoad.CLOUDS);
-    }
 
-    public void playMusic(int x){
-        sound.setFile(x);
-        sound.play();
-        sound.loop();
-    }
-    public void stopMusic(){
-        sound.stop();
+        calcLvlOffset();
     }
 
     public static void loadNextLevel(){

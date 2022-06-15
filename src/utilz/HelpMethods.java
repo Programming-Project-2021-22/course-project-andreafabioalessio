@@ -33,7 +33,6 @@ public class HelpMethods {
 
     private static boolean IsSolid(float x, float y, int[][] lvlData) {
 
-
         //NOT USED (bugged because of JPanel size bug)
         /*
         //if the player exits the screen return true
@@ -50,9 +49,6 @@ public class HelpMethods {
         }
 
          */
-
-
-
 
         float xIndex = x / Game.tileSize;
         float yIndex = y / Game.tileSize;

@@ -31,7 +31,6 @@ public class Game implements Runnable{
     public final static int screenHeight = tileSize * maxScreenRow; // 1248 pixel
 
     public Game(){
-
         getClasses();
 
         gamePanel = new GamePanel(this);

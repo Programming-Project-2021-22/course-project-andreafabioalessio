@@ -21,9 +21,6 @@ class status: currently ok, but for the player death
 
 public class Player extends Entity {
 
-
-
-
     public Player(int x, int y, int speed, int jumpStrenght, int weight, Skin skin) {
         super(x, y, speed, jumpStrenght, weight, skin);
         this.xAcc = 0;

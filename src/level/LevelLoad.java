@@ -19,7 +19,6 @@ public class LevelLoad {
     public static final String BG_IMAGE = "background_sky.png";
     public static final String CLOUDS = "clouds.png";
 
-
     public static BufferedImage GetSpriteAtlas(String fileName) {
         BufferedImage img = null;
         InputStream is = LevelLoad.class.getResourceAsStream("/level/" + fileName);
@@ -70,6 +69,4 @@ public class LevelLoad {
 
         return imgs;
     }
-
-
 }
