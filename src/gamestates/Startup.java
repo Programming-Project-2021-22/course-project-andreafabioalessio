@@ -20,7 +20,7 @@ public class Startup extends JPanel {
     public Startup(JFrame window){
         fillArray(); //reads users from UserList.txt and fills an array with users
 
-        this.setPreferredSize(new Dimension(768, 624));
+        this.setPreferredSize(new Dimension(960, 720));
         this.setBackground(Color.white);
 
         Dimension loginButtonDimension = new Dimension(190, 75);
@@ -150,7 +150,7 @@ public class Startup extends JPanel {
     @Override
     public void paintComponent(Graphics g){
         try {
-            background = ImageIO.read(new File("res/Images/Start-screen-background-resized.png"));
+            background = ImageIO.read(new File("res/Images/New graphics/Startup-background-resized.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

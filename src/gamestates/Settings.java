@@ -9,11 +9,15 @@ import java.io.IOException;
 public class Settings extends JPanel {
     private Image background;
 
-    public Settings(JButton resume){
+    public Settings(){
         this.setPreferredSize(new Dimension(350, 350));
-        JLabel settingsLabel = new JLabel("Settings");
-        settingsLabel.setFont(new Font("Dialog", Font.BOLD, 30));
-        settingsLabel.setForeground(new Color(205, 58, 218));
+        JButton back = new JButton("Back");
+
+        back.addActionListener(e -> Gamestate.state = Gamestate.MAINMENU);
+
+        back.setPreferredSize(new Dimension(120, 30));
+        back.setMaximumSize(new Dimension(120, 30));
+        back.setForeground(new Color(205, 58, 218));
 
         JButton mute = new JButton("Mute Music");
 
@@ -28,13 +32,13 @@ public class Settings extends JPanel {
         add(Box.createRigidArea(new Dimension(0, 30)), c);
 
         c.gridy = 2;
-        add(resume, c);
+        add(mute, c);
 
         c.gridy = 3;
         add(Box.createRigidArea(new Dimension(0,30)), c);
 
         c.gridy = 4;
-        add(mute, c);
+        add(back, c);
     }
 
     //Overridden paintComponent method that paints the background

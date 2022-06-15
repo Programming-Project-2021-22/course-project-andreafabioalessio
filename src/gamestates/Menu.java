@@ -24,10 +24,10 @@ public class Menu extends JPanel {
     public Menu (JFrame window, User user) throws IOException {
         window.setTitle("Menù");
 
-        this.setPreferredSize(new Dimension(768, 624));
+        this.setPreferredSize(new Dimension(960, 720));
         this.setBackground(Color.WHITE);
 
-        Dimension levelPanelDimensions = new Dimension(500, 200);
+        Dimension levelPanelDimensions = new Dimension(650, 260);
 
         Label userInfoName = new Label(user.getUsername());
         userInfoLv.setText("Lv: " + user.getLevel());
@@ -46,6 +46,17 @@ public class Menu extends JPanel {
         level.setMinimumSize(levelPanelDimensions);
         level.setMinimumSize(levelPanelDimensions);
         level.setPreferredSize(levelPanelDimensions);
+
+        JButton select = new JButton();
+
+        select.setMaximumSize(levelPanelDimensions);
+        select.setMinimumSize(levelPanelDimensions);
+        select.setPreferredSize(levelPanelDimensions);
+        select.setOpaque(false);
+        select.setBorderPainted(false);
+        select.setContentAreaFilled(false);
+
+        select.addActionListener(e -> loadLevel(user));
 
         dot1 = new JPanel();
         dot2 = new JPanel();
@@ -115,17 +126,6 @@ public class Menu extends JPanel {
             }
         });
 
-        JButton select = new JButton();
-
-        select.setMaximumSize(levelPanelDimensions);
-        select.setMinimumSize(levelPanelDimensions);
-        select.setPreferredSize(levelPanelDimensions);
-        select.setOpaque(false);
-        select.setBorderPainted(false);
-        select.setContentAreaFilled(false);
-
-        select.addActionListener(e -> loadLevel(user));
-
         ImageIcon settingsIcon = new ImageIcon("res/Images/New graphics/settings-button2.png");
         ImageIcon settingsIconHovered = new ImageIcon("res/Images/New graphics/settings-button-hovered2.png");
 
@@ -138,12 +138,12 @@ public class Menu extends JPanel {
         settingsButton.setBackground(Color.BLACK);
 
         settingsButton.addActionListener(e ->{
-            openSettings(window);
+            openSettings();
         });
 
         JPanel panel = new JPanel();
         SpringLayout panelLayout = new SpringLayout();
-        Dimension panelDimension = new Dimension(748, 604);
+        Dimension panelDimension = new Dimension(960, 720);
 
         panel.setPreferredSize(panelDimension);
         panel.setMaximumSize(panelDimension);
@@ -164,8 +164,8 @@ public class Menu extends JPanel {
         removeMe.setPreferredSize(new Dimension(170, 40));
         removeMe.setSize(new Dimension(20, 20));
         panel.add(removeMe);
-        panelLayout.putConstraint(SpringLayout.WEST, removeMe, 289, SpringLayout.WEST, panel);
-        panelLayout.putConstraint(SpringLayout.NORTH, removeMe, 100, SpringLayout.NORTH, panel);
+        panelLayout.putConstraint(SpringLayout.WEST, removeMe, 370, SpringLayout.WEST, panel);
+        panelLayout.putConstraint(SpringLayout.NORTH, removeMe, 50, SpringLayout.NORTH, panel);
         removeMe.addActionListener(e->{
             try {
                 updateUserLevelInArray(user);
@@ -176,24 +176,24 @@ public class Menu extends JPanel {
         ///////////////////////////////////////////////////////////////////////
 
         //User info upper right corner
-        panelLayout.putConstraint(SpringLayout.EAST, userInfo, -10, SpringLayout.EAST, panel);
-        panelLayout.putConstraint(SpringLayout.NORTH, userInfo, 15, SpringLayout.NORTH, panel);
+        panelLayout.putConstraint(SpringLayout.EAST, userInfo, -30, SpringLayout.EAST, panel);
+        panelLayout.putConstraint(SpringLayout.NORTH, userInfo, 20, SpringLayout.NORTH, panel);
         //Level button selector and images perfectly centered
-        panelLayout.putConstraint(SpringLayout.NORTH, level, 202, SpringLayout.NORTH, panel);
-        panelLayout.putConstraint(SpringLayout.WEST, level, 124, SpringLayout.WEST, panel);
-        panelLayout.putConstraint(SpringLayout.NORTH, select, 202, SpringLayout.NORTH, panel);
-        panelLayout.putConstraint(SpringLayout.WEST, select, 124, SpringLayout.WEST, panel);
+        panelLayout.putConstraint(SpringLayout.NORTH, level, 230, SpringLayout.NORTH, panel);
+        panelLayout.putConstraint(SpringLayout.WEST, level, 155, SpringLayout.WEST, panel);
+        panelLayout.putConstraint(SpringLayout.NORTH, select, 230, SpringLayout.NORTH, panel);
+        panelLayout.putConstraint(SpringLayout.WEST, select, 155, SpringLayout.WEST, panel);
         //Arrows placed vertically centered and on the sides of the level panel
         panelLayout.putConstraint(SpringLayout.EAST, back, -20, SpringLayout.WEST, level);
-        panelLayout.putConstraint(SpringLayout.NORTH, back, 252, SpringLayout.NORTH, panel);
+        panelLayout.putConstraint(SpringLayout.NORTH, back, 70, SpringLayout.NORTH, level);
         panelLayout.putConstraint(SpringLayout.WEST, forward, 20, SpringLayout.EAST, level);
-        panelLayout.putConstraint(SpringLayout.NORTH, forward, 252, SpringLayout.NORTH, panel);
+        panelLayout.putConstraint(SpringLayout.NORTH, forward, 70, SpringLayout.NORTH, level);
         //Dots placed directly under the level panel and horizontally centered
         panelLayout.putConstraint(SpringLayout.NORTH, dots, 0, SpringLayout.SOUTH, level);
-        panelLayout.putConstraint(SpringLayout.WEST, dots, 249, SpringLayout.WEST, panel);
+        panelLayout.putConstraint(SpringLayout.WEST, dots, 355, SpringLayout.WEST, panel);
         //Settings button on top left corner
-        panelLayout.putConstraint(SpringLayout.WEST, settingsButton, 20, SpringLayout.WEST, panel);
-        panelLayout.putConstraint(SpringLayout.NORTH, settingsButton, 20, SpringLayout.NORTH, panel);
+        panelLayout.putConstraint(SpringLayout.WEST, settingsButton, 30, SpringLayout.WEST, panel);
+        panelLayout.putConstraint(SpringLayout.NORTH, settingsButton, 30, SpringLayout.NORTH, panel);
 
         add(panel);
     }
@@ -284,7 +284,7 @@ public class Menu extends JPanel {
         //Updates the level cover
         Dimension dotSelected = new Dimension(30, 10);
         Dimension dotUnselected = new Dimension(10, 10);
-        String imagePath = "res/LevelCovers/Level-cover-" + numLevel + ".jpg";
+        String imagePath = "res/LevelCovers/Lv" + numLevel + ".png";
         BufferedImage img = ImageIO.read(new File(imagePath));
         JLabel pic = new JLabel(new ImageIcon(img));
 
@@ -379,8 +379,8 @@ public class Menu extends JPanel {
     }
 
     //Opens the Settings window
-    private void openSettings(JFrame window){
-        Gamestate.state = Gamestate.PAUSE;
+    private void openSettings(){
+        Gamestate.state = Gamestate.SETTINGS;
     }
 
     //Loads the level corresponding to the numLevel value
@@ -439,7 +439,7 @@ public class Menu extends JPanel {
     @Override
     public void paintComponent(Graphics g){
         try {
-            background = ImageIO.read(new File("res/Images/Menu-background-resized.png"));
+            background = ImageIO.read(new File("res/Images/New graphics/Menu-background-resized.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

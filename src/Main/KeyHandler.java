@@ -1,5 +1,7 @@
 package Main;
 
+import gamestates.Gamestate;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -30,6 +32,9 @@ public class KeyHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT){ // se premi d
             rightPressed = true;
+        }
+        if (code == KeyEvent.VK_ESCAPE){
+            Gamestate.state = Gamestate.MAINMENU;
         }
     }
 

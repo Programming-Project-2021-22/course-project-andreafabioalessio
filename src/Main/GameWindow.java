@@ -44,12 +44,11 @@ public class GameWindow {
         jframe.pack();
         jframe.setLocationRelativeTo(null);
 
-        JButton backToMenu = new JButton("Back to Menu");
-        backToMenu.addActionListener(e -> Gamestate.state = Gamestate.MAINMENU);
-        Settings set = new Settings(backToMenu);
+
+        Settings set = new Settings();
         set.setPreferredSize(new Dimension(350, 350));
 
-        settingsWindow = new JFrame();
+        settingsWindow = new JFrame("Settings");
         settingsWindow.add(set);
         settingsWindow.setPreferredSize(new Dimension(350, 350));
         settingsWindow.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -58,13 +57,18 @@ public class GameWindow {
         settingsWindow.pack();
         settingsWindow.setLocationRelativeTo(null);
 
-        if (Gamestate.state == Gamestate.MAINMENU)
+        if (Gamestate.state == Gamestate.MAINMENU) {
             window.setVisible(true);
+            jframe.dispose();
+        }
 
-        else if (Gamestate.state == Gamestate.PAUSE)
+        else if (Gamestate.state == Gamestate.SETTINGS) {
             settingsWindow.setVisible(true);
+        }
 
-        else
+        else {
             jframe.setVisible(true);
+            window.dispose();
+        }
     }
 }

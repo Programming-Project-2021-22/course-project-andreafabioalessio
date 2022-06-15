@@ -108,7 +108,7 @@ public class Signup extends Registration {
         errorPanel.add(errorLabel);
         errorPanel.setBackground(new Color(0, 0, 0, 0));
 
-        Dimension panelDimension = new Dimension(600, 430);
+        Dimension panelDimension = new Dimension(700, 460);
 
         JPanel panel = new JPanel();
         SpringLayout panelLayout = new SpringLayout();
@@ -127,26 +127,26 @@ public class Signup extends Registration {
         panel.add(passwordInfo);
 
         //Positioning of the username text field (210px from the left of panel and 132px down)
-        panelLayout.putConstraint(SpringLayout.WEST, usernameTField, 210, SpringLayout.WEST , panel);
-        panelLayout.putConstraint(SpringLayout.NORTH, usernameTField, 132, SpringLayout.NORTH, panel);
+        panelLayout.putConstraint(SpringLayout.WEST, usernameTField, 235, SpringLayout.WEST , panel);
+        panelLayout.putConstraint(SpringLayout.NORTH, usernameTField, 135, SpringLayout.NORTH, panel);
         //Positioning of the password text field (210px from the left of panel and 90px down from bottom of the usernameTField)
-        panelLayout.putConstraint(SpringLayout.WEST, passwordTField, 210, SpringLayout.WEST, panel);
-        panelLayout.putConstraint(SpringLayout.NORTH, passwordTField, 90, SpringLayout.SOUTH, usernameTField);
+        panelLayout.putConstraint(SpringLayout.WEST, passwordTField, 235, SpringLayout.WEST, panel);
+        panelLayout.putConstraint(SpringLayout.NORTH, passwordTField, 105, SpringLayout.SOUTH, usernameTField);
         //Positioning of the show password label (260px from left of panel and 5px down from passwordTField)
-        panelLayout.putConstraint(SpringLayout.WEST, showPasswordLabel, 260, SpringLayout.WEST, panel);
+        panelLayout.putConstraint(SpringLayout.WEST, showPasswordLabel, 310, SpringLayout.WEST, panel);
         panelLayout.putConstraint(SpringLayout.NORTH, showPasswordLabel, 15, SpringLayout.SOUTH, passwordTField);
         //Positioning of the show password checkbox (325px from left of panel and same height as the showPasswordLabel)
-        panelLayout.putConstraint(SpringLayout.WEST, showPassword, 325, SpringLayout.WEST, panel);
+        panelLayout.putConstraint(SpringLayout.WEST, showPassword, 375, SpringLayout.WEST, panel);
         panelLayout.putConstraint(SpringLayout.NORTH, showPassword, -15, SpringLayout.SOUTH, showPasswordLabel);
         //Positioning of the create button (237px from left of panel and 20px down from showPassword)
-        panelLayout.putConstraint(SpringLayout.WEST, signupButton, 237, SpringLayout.WEST, panel);
-        panelLayout.putConstraint(SpringLayout.NORTH, signupButton, 20, SpringLayout.SOUTH, showPassword);
+        panelLayout.putConstraint(SpringLayout.WEST, signupButton, 285, SpringLayout.WEST, panel);
+        panelLayout.putConstraint(SpringLayout.NORTH, signupButton, 30, SpringLayout.SOUTH, showPassword);
         //Positioning of the back button (255px from left of panel and 20px down from create)
-        panelLayout.putConstraint(SpringLayout.WEST, backButton, 255, SpringLayout.WEST, panel);
-        panelLayout.putConstraint(SpringLayout.NORTH, backButton, 20, SpringLayout.SOUTH, signupButton);
+        panelLayout.putConstraint(SpringLayout.WEST, backButton, 300, SpringLayout.WEST, panel);
+        panelLayout.putConstraint(SpringLayout.NORTH, backButton, 22, SpringLayout.SOUTH, signupButton);
         //Positioning of the password info button
-        panelLayout.putConstraint(SpringLayout.WEST, passwordInfo, 12, SpringLayout.WEST, panel);
-        panelLayout.putConstraint(SpringLayout.NORTH, passwordInfo, 254, SpringLayout.NORTH, panel);
+        panelLayout.putConstraint(SpringLayout.WEST, passwordInfo, 2, SpringLayout.WEST, panel);
+        panelLayout.putConstraint(SpringLayout.NORTH, passwordInfo, 271, SpringLayout.NORTH, panel);
 
         panel.setBackground(new Color(0, 0, 0, 0));
 
@@ -262,7 +262,7 @@ public class Signup extends Registration {
     @Override
     public void paintComponent(Graphics g){
         try {
-            background = ImageIO.read(new File("res/Images/LoginSignup-screen-background-resized.png"));
+            background = ImageIO.read(new File("res/Images/New graphics/LoginSignup-background-resized.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
