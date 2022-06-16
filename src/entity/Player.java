@@ -96,7 +96,7 @@ public class Player extends Entity {
             left();
         } else if (KeyHandler.rightPressed) {
             right();
-        } else {
+        }else {
             still();
         }
     }

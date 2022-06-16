@@ -55,6 +55,7 @@ public class Game implements Runnable{
             gameWindow.window.setVisible(true);
             gameWindow.settingsWindow.dispose();
             gameWindow.jframe.dispose();
+            playing.getPlayer().teleportToBeginning();
 
         }
 
