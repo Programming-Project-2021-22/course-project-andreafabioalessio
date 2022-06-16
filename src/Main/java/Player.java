@@ -45,7 +45,7 @@ public class Player extends Entity {
         playSFX(4);
         teleportToBeginning();
         //testprint
-        System.out.println("spikes");
+        //System.out.println("spikes");
     }
     //-1 done
         playerMovement();
@@ -80,12 +80,12 @@ public class Player extends Entity {
 
         if (KeyHandler.upPressed) {
             jump();
-        } else if (KeyHandler.downPressed) {
+        }/* else if (KeyHandler.downPressed) {
             //testprint
-            testprintVariables();
+            //testprintVariables();
             //ySpeed = entitySpeed;
             // yAcc = 1*weight;
-        }
+        }*/
         if (KeyHandler.leftPressed) {
             left();
         } else if (KeyHandler.rightPressed) {
