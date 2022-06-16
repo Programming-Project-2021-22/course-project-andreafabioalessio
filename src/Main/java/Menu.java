@@ -394,6 +394,8 @@ public class Menu extends JPanel {
             case 1:
                 removeMe.setBackground(Color.green);
                 openCommands();
+                Gamestate.state = Gamestate.PLAYING;
+                levelHandler.loadNextLevel();
                 break;
 
             case 2:
