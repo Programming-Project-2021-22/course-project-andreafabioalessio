@@ -32,8 +32,7 @@ public class Sound {
     }
 
     public void play(){
-        FloatControl gainControl =
-                (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+        FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
         gainControl.setValue(-20.0f); // Reduce volume by 10 decibels.
         clip.start();
     }

@@ -1,5 +1,6 @@
 package Main;
 
+import entity.Entity;
 import gamestates.Gamestate;
 
 import java.awt.event.KeyEvent;
