@@ -1,5 +1,6 @@
-package User;
+package gamestates;
 
+import User.User;
 import gamestates.Menu;
 import gamestates.Settings;
 import gamestates.Startup;

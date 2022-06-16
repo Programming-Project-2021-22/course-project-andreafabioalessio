@@ -6,7 +6,6 @@ import java.awt.*;
 import java.io.*;
 import Exeptions.InvalidUsernameError;
 import Exeptions.InvalidPasswordError;
-import User.Registration;
 import User.User;
 
 public class Signup extends Registration {

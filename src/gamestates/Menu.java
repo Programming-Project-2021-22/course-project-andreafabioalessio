@@ -1,7 +1,6 @@
 package gamestates;
 
 import Exeptions.LevelTooLowError;
-import Main.Game;
 import User.User;
 import level.levelHandler;
 
@@ -57,7 +56,7 @@ public class Menu extends JPanel {
         select.setBorderPainted(false);
         select.setContentAreaFilled(false);
 
-        select.addActionListener(e -> loadLevel(user));
+        select.addActionListener(e -> loadLevel(user, window));
 
         dot1 = new JPanel();
         dot2 = new JPanel();
@@ -390,14 +389,18 @@ public class Menu extends JPanel {
         Gamestate.state = Gamestate.SETTINGS;
     }
 
+    //Opens command window
+    private void openCommands(){
+        Gamestate.state = Gamestate.COMMANDS;
+    }
+
     //Loads the level corresponding to the numLevel value
-    private void loadLevel(User user){
+    private void loadLevel(User user, JFrame window){
         switch (numLevel){
             case 1:
-                    removeMe.setBackground(Color.green);
-                    Gamestate.state = Gamestate.PLAYING;
-                    levelHandler.loadNextLevel();
-                    break;
+                removeMe.setBackground(Color.green);
+                openCommands();
+                break;
 
             case 2:
                 if(user.getLevel() < numLevel){

@@ -7,7 +7,6 @@ import java.io.File;
 import java.io.IOException;
 import Exeptions.InvalidUsernameError;
 import Exeptions.WrongPasswordError;
-import User.Registration;
 import User.User;
 
 public class Login extends Registration {

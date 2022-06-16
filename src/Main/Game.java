@@ -55,12 +55,18 @@ public class Game implements Runnable{
             gameWindow.window.setVisible(true);
             gameWindow.settingsWindow.dispose();
             gameWindow.jframe.dispose();
+            gameWindow.commandsWindow.dispose();
             playing.getPlayer().teleportToBeginning();
 
         }
 
         else if (Gamestate.state == Gamestate.SETTINGS){
             gameWindow.settingsWindow.setVisible(true);
+        }
+
+        else if (Gamestate.state == Gamestate.COMMANDS){
+            gameWindow.window.dispose();
+            gameWindow.commandsWindow.setVisible(true);
         }
 
         else if (Gamestate.state == Gamestate.PLAYING){
