@@ -419,6 +419,7 @@ public class Menu extends JPanel {
                 else{
                     removeMe.setBackground(Color.green);
                     Gamestate.state = Gamestate.PLAYING;
+                    levelHandler.loadNextLevel();
                 }
                 break;
 
@@ -430,6 +431,7 @@ public class Menu extends JPanel {
                 else{
                     removeMe.setBackground(Color.green);
                     Gamestate.state = Gamestate.PLAYING;
+                    levelHandler.loadNextLevel();
                 }
                 break;
         }

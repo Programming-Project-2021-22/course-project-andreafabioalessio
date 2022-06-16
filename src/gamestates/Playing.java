@@ -16,7 +16,7 @@ import java.net.URL;
 
 public class Playing extends State implements StateMethods{
     private Player player;
-    private level.levelHandler levelHandler;
+    private levelHandler levelHandler;
 
     private int xlvlOffset;
     private int leftBorder = (int) (0.2 * Game.screenWidth);
@@ -77,7 +77,7 @@ public class Playing extends State implements StateMethods{
     @Override
     public void update() {
 
-        levelHandler.update();
+        //levelHandler.update();
         player.update();
         checkBorder();
     }
