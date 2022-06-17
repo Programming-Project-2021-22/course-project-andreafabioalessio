@@ -40,9 +40,9 @@ public class Login extends Registration {
         showPassword.addActionListener(e-> {passwordTField.setEchoChar(
                 showPassword.isSelected() ? '\u0000' : '\u2022');});
 
-        ImageIcon loginIcon = new ImageIcon(getClass().getResource("Images/login-button3.png"));
-        ImageIcon loginIconHovered = new ImageIcon(getClass().getResource("Images/login-button-hovered3.png"));
-        ImageIcon loginIconPressed = new ImageIcon(getClass().getResource("Images/login-button-pressed3.png"));
+        ImageIcon loginIcon = new ImageIcon(getClass().getResource("/Images/login-button3.png"));
+        ImageIcon loginIconHovered = new ImageIcon(getClass().getResource("/Images/login-button-hovered3.png"));
+        ImageIcon loginIconPressed = new ImageIcon(getClass().getResource("/Images/login-button-pressed3.png"));
 
         JButton loginButton = new JButton(loginIcon);
         loginButton.setRolloverIcon(loginIconHovered);

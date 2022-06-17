@@ -74,6 +74,13 @@
             </plugin>
 
         </plugins>
+
+        <resources>
+            <resource>
+                <directory>src/Main/res</directory>
+                <includes><include>*.png</include></includes>
+            </resource>
+        </resources>
     </build>
     
 </project>
