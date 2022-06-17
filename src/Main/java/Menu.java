@@ -18,7 +18,7 @@ public class Menu extends JPanel {
     public Menu (JFrame window, User user) throws IOException {
         window.setTitle("Menù");
 
-        this.user = user;
+        Menu.user = user;
 
         this.setPreferredSize(new Dimension(960, 720));
         this.setBackground(Color.WHITE);
@@ -197,7 +197,9 @@ public class Menu extends JPanel {
 
     //Updates the level of the player in the array
     public static void updateUserLevelInArray(User user) throws IOException {
+        //If the level that has been just beaten is the last unlocked
         if(user.getLevel() == numLevel){
+            //If the level was not the last one
             if(user.getLevel() < 4){
                 System.out.println("User data: " + user.getUsername() + "; Lv: " + user.getLevel());
                 user.setLevel(user.getLevel() + 1);
@@ -453,8 +455,8 @@ public class Menu extends JPanel {
         g.drawImage(background, 0, 0, null);
     }
 
-    public static User getUser(){
-        return user;
+    public static void updateUserAfterWin() throws IOException {
+        updateUserLevelInArray(user);
     }
 
     public static int getNumLevel(){
