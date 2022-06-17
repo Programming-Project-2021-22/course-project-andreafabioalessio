@@ -138,15 +138,24 @@ public class Login extends Registration {
     }
 
     //Abstract method implementation from the Registration class
-    //Checks if a user with the same username entered exists or not
+
+    /***
+     * Checks if a user with the same username entered exists or not
+     * @param userArray: array containing all registered Users
+     * @param usernameEntered: username provided by the player in textField
+     * @param passwordEntered: password provided by the player in textField
+     * @return = true if the username and the password entered by the player match one of the User's username and password,
+     *              false otherwise;
+     * @throws WrongPasswordError: if the password provided by the player does not match the one registered and associated to the username
+     * @throws InvalidUsernameError: if the username provided by the player is not registered
+     */
     @Override
     protected boolean checkUserInArray(User[] userArray, String usernameEntered, String passwordEntered) throws WrongPasswordError, InvalidUsernameError {
         boolean usernameFound = false;
 
         for (int i = 0; i < userArray.length; ){
             User userCheck = userArray[i];
-            System.out.println("Entered: " + usernameEntered + " " + passwordEntered + "\n" +
-                    "Checking: " + userCheck.getUsername() + " " + userCheck.getPassword() + "\n");
+
             //Checks if username entered exists in the array
             if (usernameEntered.equalsIgnoreCase(userCheck.getUsername())) {
                 usernameFound = true;
@@ -159,12 +168,10 @@ public class Login extends Registration {
                 //Username matches, password doesn't
                 else {
                     errorLabel.setText("Wrong password");
-
                     throw new WrongPasswordError("Password does not match username");
                 }
             }
             else {
-
                 i++; //checks next user in the array
             }
         }
@@ -174,12 +181,14 @@ public class Login extends Registration {
             errorLabel.setText("Username not found, please sign up first.");
 
             throw new InvalidUsernameError("Username not found in User List");
-
         }
         return false;
     }
 
-    //Overridden paintComponent method that paints the background
+    /***
+     * Overridden paintComponent method that paints the background
+     * @param g: the Graphics object to protect
+     */
     @Override
     public void paintComponent(Graphics g){
         try {

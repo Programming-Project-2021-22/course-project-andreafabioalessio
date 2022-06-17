@@ -53,7 +53,7 @@ public class Menu extends JPanel {
         select.setBorderPainted(false);
         select.setContentAreaFilled(false);
 
-        select.addActionListener(e -> loadLevel(user, window));
+        select.addActionListener(e -> loadLevel(user));
 
         dot1 = new JPanel();
         dot2 = new JPanel();
@@ -195,22 +195,28 @@ public class Menu extends JPanel {
         add(panel);
     }
 
-    //Updates the level of the player in the array
+    /***
+     * Updates the level of the player in the array
+     * @param user: the logged-in User
+     * @throws IOException: thrown by the updateUserLevelInFile(User user) method
+     */
     public static void updateUserLevelInArray(User user) throws IOException {
         //If the level that has been just beaten is the last unlocked
         if(user.getLevel() == numLevel){
             //If the level was not the last one
             if(user.getLevel() < 4){
-                System.out.println("User data: " + user.getUsername() + "; Lv: " + user.getLevel());
                 user.setLevel(user.getLevel() + 1);
-                System.out.println("New user data: " + user.getUsername() + "; Lv: " + user.getLevel());
 
                 updateUserLevelInFile(user);
             }
         }
     }
 
-    //Updates the level of the player writing on the usersList file
+    /***
+     * Updates the level of the player writing on the usersList file
+     * @param user: the logged-in User
+     * @throws IOException: if the named file exists but is a directory rather than a regular file, does not exist but cannot be created, or cannot be opened for any other reason
+     */
     private static void updateUserLevelInFile(User user) throws IOException {
         //Appends new user data in UsersList.txt
         FileWriter fw = new FileWriter("src/UsersList.txt", true);
@@ -235,13 +241,11 @@ public class Menu extends JPanel {
         while(currentLine != null) {
             //If line matches the old user's data
             if(currentLine.trim().equalsIgnoreCase(lineToRemove.trim())) {
-                System.out.println("MATCH: Deleting this line..." + "(" + currentLine + ")");
                 currentLine = reader.readLine();
             }
             //Else we write the data
             else{
                 writer.write(currentLine.trim());
-                System.out.println("Just wrote this line: " + currentLine);
                 currentLine = reader.readLine();
                 //if the next line is not null we go to a new line
                 if(currentLine != null) {
@@ -273,13 +277,20 @@ public class Menu extends JPanel {
         updateUserInfoLabel(user);
     }
 
-    //Updates userInfo label
+    /***
+     * Updates userInfo label
+     * @param user: the logged-in User
+     */
     private static void updateUserInfoLabel(User user){
         userInfoLv.setText("Lv: " + user.getLevel()
                );
     }
 
-    //Updates the graphics of the dots and level cover
+    /***
+     * Updates the graphics of the dots and level cover
+     * @param user: the logged-in User
+     * @throws IOException: if an error occurs during reading
+     */
     private void updateLevelGraphics(User user) throws IOException {
         //Updates the level cover
         Dimension dotSelected = new Dimension(30, 10);
@@ -360,7 +371,11 @@ public class Menu extends JPanel {
 
     }
 
-    //Updates the value of numLevel
+    /***
+     * Updates the value of numLevel
+     * @param user: the logged-in User
+     * @throws IOException: thrown because of the updateLevelGraphics(User user) method call
+     */
     private void processForwardButtonPress(User user) throws IOException {
         if (numLevel < 4) {
             numLevel++;
@@ -372,7 +387,11 @@ public class Menu extends JPanel {
         }
     }
 
-    //Updates the value of numLevel
+    /***
+     * Updates the value of numLevel
+     * @param user: the logged-in User
+     * @throws IOException: thrown because of the updateLevelGraphics(User user) method call
+     */
     private void processBackwardButtonPress(User user) throws IOException {
         if(numLevel > 1){
             numLevel--;
@@ -384,18 +403,25 @@ public class Menu extends JPanel {
         }
     }
 
-    //Opens the Settings window
+    /***
+     * Opens the Settings window by changing GameState
+     */
     private void openSettings(){
         Gamestate.state = Gamestate.SETTINGS;
     }
 
-    //Opens command window
+    /***
+     * Opens command window by changing the GameState
+     */
     private void openCommands(){
         Gamestate.state = Gamestate.COMMANDS;
     }
 
-    //Loads the level corresponding to the numLevel value
-    private void loadLevel(User user, JFrame window){
+    /***
+     * Loads the level corresponding to the numLevel value
+     * @param user: the logged-in User
+     */
+    private void loadLevel(User user){
         switch (numLevel){
             case 1:
                 removeMe.setBackground(Color.green);
@@ -441,7 +467,26 @@ public class Menu extends JPanel {
         }
     }
 
-    //Overridden paintComponent method that paints the background
+    /***
+     * After a level is won, updates the level of the user if necessary
+     * @throws IOException
+     */
+    public static void updateUserAfterWin() throws IOException {
+        updateUserLevelInArray(user);
+    }
+
+    /***
+     * Gets the numLevel value, the number of the level the player is selecting
+     * @return = the value of the Level
+     */
+    public static int getNumLevel(){
+        return numLevel;
+    }
+
+    /***
+     * Overridden paintComponent method that paints the background
+     * @param g: the Graphics object to protect
+     */
     @Override
     public void paintComponent(Graphics g){
         try {
@@ -453,14 +498,5 @@ public class Menu extends JPanel {
         super.paintComponent(g);
 
         g.drawImage(background, 0, 0, null);
-    }
-
-    //After a win, updates the level
-    public static void updateUserAfterWin() throws IOException {
-        updateUserLevelInArray(user);
-    }
-
-    public static int getNumLevel(){
-        return numLevel;
     }
 }

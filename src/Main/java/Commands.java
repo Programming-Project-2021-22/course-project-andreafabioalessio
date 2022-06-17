@@ -54,7 +54,11 @@ public class Commands extends JPanel {
         add(back, c);
 
     }
-    //Overridden paintComponent method that paints the background
+
+    /***
+     * Overridden paintComponent method that paints the background
+     * @param g: the Graphics object to protect
+     */
     @Override
     public void paintComponent(Graphics g){
         try {

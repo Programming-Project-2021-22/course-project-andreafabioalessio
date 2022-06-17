@@ -89,6 +89,7 @@ public abstract class Entity {
         sound.setFile(x);
         sound.play();
     }
+
     public void stopMusic(){
         sound.stop();
     }

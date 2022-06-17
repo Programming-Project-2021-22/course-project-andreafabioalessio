@@ -196,12 +196,18 @@ public class Signup extends Registration {
     }
 
     //Abstract method implementation from the Registration class
-    //Checks if the input username is not already taken
+
+    /***
+     * Checks if the input username is not already taken
+     * @param userArray: array containing all registered Users
+     * @param usernameEntered: username provided by the player in textField
+     * @param passwordEntered: password provided by the player in textField
+     * @return = true if the username provided by the player has already been taken,
+     *              false otherwise
+     */
     @Override
     protected boolean checkUserInArray(User[] userArray, String usernameEntered, String passwordEntered){
-        System.out.println("Checking if the username entered is not already taken:");
         for(User u : userArray){
-            System.out.println("Username entered: " + usernameEntered + "; Username in array: " + u.getUsername() + ";");
             if(usernameEntered.equalsIgnoreCase(u.getUsername())){
                 return true;
             }
@@ -209,12 +215,22 @@ public class Signup extends Registration {
         return false;
     }
 
-    //Checks that the input is not empty
+    /***
+     * Checks that the input is not empty
+     * @param usernameEntered: username provided by the player in textField
+     * @return = true if the input string is empty
+     *              false otherwise
+     */
     private boolean inputIsNull(String usernameEntered){
         return usernameEntered.equalsIgnoreCase("");
     }
 
-    //Checks if the password matches the regex
+    /***
+     * Checks if the password matches the regex
+     * @param passwordEntered: password provided by the player in textField
+     * @return = true if the password matches the regex requirements
+     *              false otherwise
+     */
     private boolean passwordIsRightFormat(String passwordEntered){
         if(4 <= passwordEntered.length() && passwordEntered.length() <= 10){
             return passwordEntered.matches("^[a-zA-Z0-9]*[a-zA-Z][a-zA-Z0-9]*$");
@@ -223,7 +239,14 @@ public class Signup extends Registration {
         return false;
     }
 
-    //Creates a User object with the given parameters
+    /***
+     * Creates a User object with the given parameters
+     * @param usernameEntered: username provided by the player in textField
+     * @param passwordEntered: password provided by the player in textField
+     * @param userArray: array containing all registered Users
+     * @param window: window on which components will get painted on
+     * @throws IOException: because of the openMenu(JFrame window, User user) method in the Registration class
+     */
     private void createUser(String usernameEntered, String passwordEntered, User[] userArray, JFrame window) throws IOException {
         User d = new User (usernameEntered, passwordEntered, 1);
         addToFile(d);
@@ -237,7 +260,11 @@ public class Signup extends Registration {
         super.getUser(userArray, window, usernameEntered);  //Gets user from array and starts menu window
     }
 
-    //Adds the user data to the file
+    /***
+     * Adds the user data to the file
+     * @param user: User created with the data provided
+     * @throws IOException: if the named file exists but is a directory rather than a regular file, does not exist but cannot be created, or cannot be opened for any other reason
+     */
     private void addToFile(User user) throws IOException {
 
         FileWriter fw = new FileWriter("src/UsersList.txt", true);
@@ -248,12 +275,19 @@ public class Signup extends Registration {
         pw.close();
     }
 
-    //Formats user data for the userList file
+    /***
+     * Formats user data for the userList file
+     * @param user: User created with the data provided
+     * @return = a String with the User's data formatted the right way for the UsersList.txt file
+     */
     private String userToString(User user){
         return user.getUsername() + ";" + user.getPassword() + ";" + user.getLevel() + ";:";
     }
 
-    //Overridden paintComponent method that paints the background
+    /***
+     * Overridden paintComponent method that paints the background
+     * @param g: the Graphics object to protect
+     */
     @Override
     public void paintComponent(Graphics g){
         try {

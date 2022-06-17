@@ -75,7 +75,10 @@ public class Startup extends JPanel {
         add(developers, c);
     }
 
-    //Opens login window
+    /***
+     * Opens Login Window
+     * @param window: window on which the Login page gets painted on
+     */
     private void openLoginWindow(JFrame window){
         Login l = new Login(window, userArray);
         window.getContentPane().removeAll();
@@ -85,7 +88,10 @@ public class Startup extends JPanel {
         window.repaint();
     }
 
-    //Opens signup window
+    /***
+     * Opens Signup Window
+     * @param window: window on which the Signup page gets painted on
+     */
     private void openSignUpWindow(JFrame window){
         Signup s = new Signup(window, userArray);
         window.getContentPane().removeAll();
@@ -95,7 +101,9 @@ public class Startup extends JPanel {
         window.repaint();
     }
 
-    //Fills an array with users created with data from the usersList file
+    /***
+     * Fills an array with Users, taking data from the usersList file
+     */
     private void fillArray(){
         ArrayList<User> temp = new ArrayList<>();
         {
@@ -126,25 +134,12 @@ public class Startup extends JPanel {
         for (int i = 0; i < temp.size(); i++){
             userArray[i] = temp.get(i);
         }
-
-        System.out.println(arrayToString(userArray));
     }
 
-    //Puts the array into a String format
-    private String arrayToString(User [] userArray){
-        String users = "List of users:\n";
-        for (User u : userArray){
-            users += userToString(u) + "\n";
-        }
-        return users;
-    }
-
-    //User to string method
-    private String userToString(User user){
-        return user.getUsername() + ";" + user.getPassword() + ";" + user.getLevel() + ";:";
-    }
-
-    //Overridden paintComponent method that paints the background
+    /***
+     * Overridden paintComponent method that paints the background
+     * @param g: the Graphics object to protect
+     */
     @Override
     public void paintComponent(Graphics g){
         try {
