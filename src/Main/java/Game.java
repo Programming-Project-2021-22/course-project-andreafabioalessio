@@ -7,6 +7,9 @@ CLASS SUMMARY
 class status: currently ok, but comments need to be added and the structure might be quite confused
  */
 
+/***
+ * Class that initializes all the Game related classes. It contains the GameLoop
+ */
 public class Game implements Runnable{
 
     private GameWindow gameWindow;
@@ -14,7 +17,6 @@ public class Game implements Runnable{
     private Thread gameThread;
 
     private Playing playing;
-    private MainMenu mainMenu;
 
     private final int FPS = 60;
     public final static int originalTileSize = 16; // grandezza in pixel di ogni tile
@@ -35,16 +37,24 @@ public class Game implements Runnable{
         startGameLoop();
     }
 
+    /***
+     * Initializes the Menu and Playing classes
+     */
     private void getClasses() {
-        mainMenu = new MainMenu(this);
         playing = new Playing(this);
     }
 
+    /***
+     * starts the Gameloop
+     */
     private void startGameLoop() {
         gameThread = new Thread(this);
         gameThread.start();
     }
 
+    /***
+     * Update method, that updates the player and level position. It check also the Gamestate.
+     */
     public void update(){
         if (Gamestate.state == Gamestate.MAINMENU) {
             gameWindow.window.setVisible(true);
@@ -75,12 +85,19 @@ public class Game implements Runnable{
         }
     }
 
+    /***
+     * Renders the level and Player on the screen
+     * @param g Graphics engine
+     */
     public void render(Graphics g){
         switch (Gamestate.state){
             case PLAYING -> playing.draw(g);
         }
     }
 
+    /***
+     * Creates the GameLoop. The game runs at 60 FPS
+     */
     @Override
     public void run() {
         double drawInterval = 1000000000f/ FPS;
@@ -107,9 +124,7 @@ public class Game implements Runnable{
             }
         }
     }
-    public MainMenu getMainMenu(){
-        return mainMenu;
-    }
+
     public Playing getPlaying(){
         return playing;
     }

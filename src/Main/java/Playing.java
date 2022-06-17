@@ -1,6 +1,9 @@
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+/***
+ * Class that initializes the player and the level in order to create a GameState that can be referenced to in the Game class
+ */
 public class Playing extends State implements StateMethods{
     private Player player;
     private static levelHandler levelHandler;
@@ -32,6 +35,12 @@ public class Playing extends State implements StateMethods{
         maxLvlOffsetX = levelHandler.getLevel().getLvlOffset();
     }
 
+    /***
+     * Initializes all the necessary classes:
+     * Levelhandler
+     * PlayerSkin
+     * Player
+     */
     private void getClasses() {
         levelHandler = new levelHandler(game);
         PlayerSkin skin = new PlayerSkin();
@@ -47,6 +56,9 @@ public class Playing extends State implements StateMethods{
         this.maxLvlOffsetX = lvlvOffset;
     }
 
+    /***
+     * checks if the player is in any of the two scrolling borders. If so it updates the Offset
+     */
     private void checkBorder() {
         int playerX = (int) player.getHitbox().x;
         int diff = playerX - xlvlOffset;
@@ -61,14 +73,20 @@ public class Playing extends State implements StateMethods{
         else if (xlvlOffset < 0)
             xlvlOffset = 0;
     }
+
+    /***
+     * updates the player and the level scrolling Border
+     */
     @Override
     public void update() {
-
-        //levelHandler.update();
         player.update();
         checkBorder();
     }
 
+    /***
+     * Draws the Background, the player, the level and the clouds
+     * @param g
+     */
     @Override
     public void draw(Graphics g) {
         g.drawImage(bgImage,0,0, Game.screenWidth,Game.screenHeight, null);

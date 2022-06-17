@@ -37,7 +37,9 @@ class status: collision and gravity need to be fixed
 */
 
 
-
+/***
+ * Abstract class for all types of entities
+ */
 public abstract class Entity {
 
     protected BufferedImage currentImage;
@@ -79,6 +81,10 @@ public abstract class Entity {
         this.yOffset = 0;
     }
 
+    /***
+     * Plays a specific audio file
+     * @param x index of the sound that wants to be played. Refers to the array in the Sound class
+     */
     public void playSFX(int x){
         sound.setFile(x);
         sound.play();
@@ -90,6 +96,11 @@ public abstract class Entity {
     //UPDATE METHODS
     public abstract void update();
 
+    /***
+     * Draws the Player
+     * @param g: Graphics engine
+     * @param lvlOffset: Current leveloffset for the scrolling level
+     */
     public void draw(Graphics g, int lvlOffset) {
         g.drawImage(getCurrentImage(), (int) (hitbox.x - xOffset) - lvlOffset, (int) (hitbox.y - yOffset), tileSize, tileSize, null);
 
@@ -97,27 +108,41 @@ public abstract class Entity {
         //drawHitBox(g);
     }
 
+    /***
+     * Loads the Data of the current level
+     * @param lvlData 2D array of level data
+     */
     public void loadLvlData(int[][] lvlData) {
         this.lvlData = lvlData;
     }
 
     //MOVEMENT METHODS
+
+    /***
+     * sets the x acceleration to 0
+     */
     public void still() {xAcc = 0;}
 
-
+    /***
+     * sets the direction of the player and updates the x Acceleration
+     */
     public void left(){
         direction = -1;
         xAcc = -entitySpeed;
     }
 
-
+    /***
+     * sets the direction of the player and updates the x Acceleration
+     */
     public void right() {
         direction = 1;
         xAcc = entitySpeed;
     }
 
+    /***
+     * Plays jump sound and updates the y Acceleration
+     */
     public void jump() {
-
         if(!jumping) {
             playSFX(2);
             yAcc -= jumpStrength;
@@ -125,22 +150,22 @@ public abstract class Entity {
         }
     }
 
-    //should work
-    //if [xAcc] causes a collision set [xAcc] to 0.
+    /***
+     * Checks for a collision on the horizontal axis
+     */
     public void checkHorizontalCollision(){
         //If xAcc = 0, no collision is possible, so no check is needed
         if(xAcc != 0){
             //general collision check
             if(!checkHitboxCollision( xAcc, 0 )) {
                 xAcc = 0;
-                //testprint
-                //System.out.println("horizontal collision");
             }
         }
     }
 
-
-    //if [yAcc] causes a top collision, set [yAcc] to the weight.
+    /***
+     * Checks for collision on top of the player
+     */
     public void checkTopCollision(){
         //if yAcc is not <0 the player is not going up, so no check is necessary
         if(yAcc < 0) {
@@ -148,12 +173,13 @@ public abstract class Entity {
                 yAcc = weight;
                 falling = true;
                 jumping = true;
-                //testprint
-                //System.out.println("top collision");
             }
         }
     }
-    
+
+    /***
+     * Checks if there is a solid block underneath the player.
+     */
     public void checkGravity() {
         try {
             //NO FLOOR COLLISION
@@ -185,12 +211,19 @@ public abstract class Entity {
         }
     }
 
-    //If the intended movement expressed in x and y cause a collision with a block, return false. Else: return true.
+    /***
+     * If the intended movement expressed in x and y cause a collision with a block, return false. Else: return true.
+     * @param x: x coordinate
+     * @param y: y coordinate
+     * @return return true if at that coordinate there no block.
+     */
     public boolean checkHitboxCollision(int x, int y){
         return (HelpMethods.CanMoveHere(hitbox.x +x, hitbox.y + y, hitbox.width, hitbox.height, lvlData));
     }
 
-    //DIE
+    /***
+     * teleports the player to the beginning of the level
+     */
     public void teleportToBeginning(){
         win = false;
         x = 200;
@@ -199,7 +232,10 @@ public abstract class Entity {
         yAcc = 0;
     }
 
-    //WIN
+    /***
+     * checks if the player has come to the end of the level. If so it plays a winning song,
+     * teleports the player to the beginning and changes GameState
+     */
     public void checkWin(){
         //14240
         if(x>=14084){
@@ -230,8 +266,9 @@ public abstract class Entity {
         }
     }
 
-
-    //SKIN METHODS
+    /***
+     * Sets the correct sprite based on the direction of the player
+     */
     public void setCentDirection() {
         if (direction == 1) {
             currentImage = entitySkin.center(1);
@@ -244,59 +281,68 @@ public abstract class Entity {
         }
     }
 
+    /***
+     * sets the correct jumping sprite based on the direction of the player
+     */
     public void skinAnimation(){
         if(xAcc != 0 || falling || jumping) {
             //Right movement
             if (direction == 1) {
                 if (jumping || falling) {
                     currentImage = entitySkin.jump(1);
-                    //testprint
-                    //System.out.println("right jump skin");
                 } else {
                     currentImage = entitySkin.rightAnimation();
-                    //testprint
-                    //System.out.println("right animation");
                 }
             } else { //Left movement
                 if (jumping || falling) {
                     currentImage = entitySkin.jump(-1);
-                    //testprint
-                    //System.out.println("left jump skin");
                 } else {
                     currentImage = entitySkin.leftAnimation();
-                    //testprint
-                    //System.out.println("left animation");
                 }
             }
         }
     }
 
-
     //HITBOX METHODS
 
-    //method used while testing to show the player hitbox: show the hitbox as a rectangle
+    /***
+     * Draws the player hitbox
+     * @param g: Graphic engine
+     */
     protected void drawHitBox(Graphics g) {
         g.setColor(Color.black);
         g.drawRect((int) hitbox.x, (int) hitbox.y, (int) hitbox.width, (int) hitbox.height);
     }
 
+    /***
+     * Creates the player hitbox
+     * @param x: coordinate
+     * @param y: coordinate
+     * @param width: width of the hitbox
+     * @param height: height of the hitbox
+     */
     protected void createHitBox(float x, float y, float width, float height) {
         hitbox = new Rectangle2D.Float(x, y, width, height);
     }
 
+    /***
+     * Updates the hitbox position
+     */
     protected void updateHitBox() {
         hitbox.x = x;
         hitbox.y = y;
     }
 
-    //TESTING METHODS
+    /***
+     * Prints variables on the console for testing
+     */
     public void testprintVariables(){
         //teleportToBeginning();
         System.out.println("falling " + falling + "\njumping " + jumping + "\nyAcc " + yAcc + "\nxAcc " + xAcc + "\nx " + x + "\ny " + y + "\ncollisions: t "+ !checkHitboxCollision(0, yAcc+weight)  + "\n\n");
     }
 
 
-    //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -//
 
     //Getters and Setters
 

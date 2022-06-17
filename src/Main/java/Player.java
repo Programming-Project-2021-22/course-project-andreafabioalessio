@@ -12,7 +12,9 @@ The player class extends the entity class.
 class status: currently ok, but for the player death
  */
 
-
+/***
+ * Creates the Player and implements all the entity methods
+ */
 public class Player extends Entity {
 
     public Player(int x, int y, int speed, int jumpStrenght, int weight, Skin skin) {
@@ -25,18 +27,18 @@ public class Player extends Entity {
         createHitBox(x, y, 8 * scale, 16 * scale);
     }
 
-
-    /*The update must execute in this order:
-        -1 get left/right/up keys and update xAcc and yAcc
-        -2 check right and left collision: move the player(x-- or x++) and set xAcc to 0
-        -3 check top collision
-        -4 check bottom collision: if there is a bottom collision move the player up(y--) and set yAcc to 0
-        -5 set skin direction
-        -6 skin animation
-        -7 update x and y based on xAcc and yAcc
-        -8 update hitbox.
+    /***
+     * The update must execute in this order:
+     *         -1 get left/right/up keys and update xAcc and yAcc
+     *         -2 check right and left collision: move the player(x-- or x++) and set xAcc to 0
+     *         -3 check top collision
+     *         -4 check bottom collision: if there is a bottom collision move the player up(y--) and set yAcc to 0
+     *         -5 set skin direction
+     *         -6 skin animation
+     *         -7 update x and y based on xAcc and yAcc
+     *         -8 update hitbox.
      */
-@Override
+    @Override
     public void update() {
 
     //-hole check
@@ -75,17 +77,14 @@ public class Player extends Entity {
     }
 
 
-
+    /***
+     * exectutes a specific movement based on the Keyboard button pressed
+     */
     public void playerMovement() {
 
         if (KeyHandler.upPressed) {
             jump();
-        }/* else if (KeyHandler.downPressed) {
-            //testprint
-            //testprintVariables();
-            //ySpeed = entitySpeed;
-            // yAcc = 1*weight;
-        }*/
+        }
         if (KeyHandler.leftPressed) {
             left();
         } else if (KeyHandler.rightPressed) {

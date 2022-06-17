@@ -2,6 +2,9 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+/***
+ * Loads the Player skins
+ */
 public class PlayerSkin extends Skin{
 
     public PlayerSkin() {

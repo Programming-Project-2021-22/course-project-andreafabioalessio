@@ -7,12 +7,20 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Objects;
 
+/***
+ * Class that has methods that load the level sprites
+ */
 public class LevelLoad {
 
     public static final String LEVEL_ATLAS = "level_sprites.png";
     public static final String BG_IMAGE = "background_sky.png";
     public static final String CLOUDS = "clouds.png";
 
+    /***
+     * Loads the Given image
+     * @param fileName
+     * @return Returns a BufferedImage
+     */
     public static BufferedImage GetSpriteAtlas(String fileName) {
         BufferedImage img = null;
         InputStream is = LevelLoad.class.getResourceAsStream("/level/" + fileName);
@@ -31,21 +39,11 @@ public class LevelLoad {
         return img;
     }
 
+    /***
+     *
+     * @return returns an array of BufferedImage containing alle the levels
+     */
     public static BufferedImage[] getAllLevels(){
-//        URL url = LevelLoad.class.getClassLoader().getResource("/level/lvls");
-//        File file = null;
-
-//        System.out.println("Ho trovato il path");
-//
-//        File[] files = file.listFiles();
-//        File[] filesSorted = new File[files.length];
-//
-//        for (int i = 0; i < filesSorted.length; i++){
-//            for (int j = 0; j < files.length; j++){
-//                if (files[j].getName().equals((i+1) + ".png"))
-//                    filesSorted[i] = files[j];
-//            }
-//        }
 
         BufferedImage[] imgs = new BufferedImage[4];
         InputStream one = LevelLoad.class.getResourceAsStream("/level/lvls/1.png");
