@@ -51,27 +51,28 @@ public class Startup extends JPanel {
         signupButton.setContentAreaFilled(false);
         signupButton.setBorderPainted(false);
 
-//        ImageIcon background = new ImageIcon(getClass().getResource("Images/background.jpg"));
-//        Image img = background.getImage().getScaledInstance(600, 400, Image.SCALE_SMOOTH);
-//        background = new ImageIcon(img);
-//        JLabel back = new JLabel(background);
-//        back.setLayout(new BorderLayout());
-//        back.setBounds(0,0,600,400);
-
         signupButton.addActionListener(e -> openSignUpWindow(window));
         loginButton.addActionListener(e -> openLoginWindow(window));
+
+        JLabel developers = new JLabel("Developed by: Eritale Alessio, Marconi Fabio, Parodi Andrea");
+        developers.setFont(new Font("Dialog", Font.BOLD, 12));
+        developers.setForeground(Color.WHITE);
 
         GridBagConstraints c = new GridBagConstraints();
         setLayout(new GridBagLayout());
         c.gridx = 1;
+        c.gridy = 0;
+        add(Box.createRigidArea(new Dimension(0,220)), c);
         c.gridy = 1;
-        add(Box.createRigidArea(new Dimension(0,20)), c);
-        c.gridy = 2;
         add(loginButton, c);
+        c.gridy = 2;
+        add(Box.createRigidArea(new Dimension(0,50)), c);
         c.gridy = 3;
-        add(Box.createRigidArea(new Dimension(0,30)), c);
-        c.gridy = 4;
         add(signupButton, c);
+        c.gridy = 4;
+        add(Box.createRigidArea(new Dimension(0, 190)), c);
+        c.gridy = 5;
+        add(developers, c);
     }
 
     //Opens login window
