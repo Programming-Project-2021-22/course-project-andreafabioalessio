@@ -12,6 +12,9 @@ CLASS SUMMARY
 class status: PANEL TO FIX
  */
 
+/***
+ * The Game will be drawn on this Panel
+ */
 public class GamePanel extends JPanel{
 
     private Game game;
@@ -31,15 +34,13 @@ public class GamePanel extends JPanel{
     //BUGGED: THE SIZE IS ACTUALLY BIGGER THAN WHAT EXPRESSED IN [screenWidth] & [screenHeight]
     private void setPanelSize(){
         Dimension size = new Dimension(Game.screenWidth, Game.screenHeight);
-
-
         setPreferredSize(size);
-
-        //testprint
-        System.out.println("panel initialized x: "+ Game.screenWidth + " y: " + Game.screenHeight);
     }
 
-
+    /***
+     * Draws the panel
+     * @param g Graphics engine
+     */
     public void paintComponent(Graphics g){ //Graphics è una classe default di java per disegnare oggetti sullo schermo
 
         super.paintComponent(g); // super significa la classe parent di questa classe. in questo caso JPanel

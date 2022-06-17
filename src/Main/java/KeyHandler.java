@@ -3,6 +3,9 @@
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/***
+ * Class for getting keyboard input
+ */
 public class KeyHandler implements KeyListener {
 
     public static boolean upPressed, downPressed, leftPressed, rightPressed;

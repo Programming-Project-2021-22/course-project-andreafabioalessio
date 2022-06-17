@@ -15,8 +15,21 @@ CLASS SUMMARY
 
 class status: not sure if it works, there might be some structure problems, but currently ok
  */
+
+/***
+ * Class that stores Methods that can get accessed by any class
+ */
 public class HelpMethods {
 
+    /***
+     * the method returns false if the intended movement causes a collision.
+     * @param x: Coordinate
+     * @param y: Coordinate
+     * @param width
+     * @param height
+     * @param lvlData: current Data of the level
+     * @return true if the intended movement doesn't cause a collision
+     */
     public static boolean CanMoveHere(float x, float y, float width, float height, int[][] lvlData) {
         if (!IsSolid(x, y, lvlData))
             if (!IsSolid(x + width, y + height, lvlData))
@@ -26,38 +39,32 @@ public class HelpMethods {
         return false;
     }
 
-
+    /***
+     * checks if at the given coordinates there is a solid block
+     * @param x
+     * @param y
+     * @param lvlData
+     * @return true if the there is a soldi block
+     */
     private static boolean IsSolid(float x, float y, int[][] lvlData) {
-
-        //NOT USED (bugged because of JPanel size bug)
-        /*
-        //if the player exits the screen return true
-        if (x < 0 || x >= Game.screenWidth) {
-            //testprint
-            System.out.println("out of X bound at " + x);
-            return true;
-        }
-        if (y < 0 || y >= Game.screenHeight) {
-
-            //testprint
-            System.out.println("out of Y bound at " + y);
-            return true;
-        }
-
-         */
 
         float xIndex = x / Game.tileSize;
         float yIndex = y / Game.tileSize;
 
         int value = lvlData[(int) yIndex][(int) xIndex];
 
-        if (value != 14) {  //48 è il numero di sprites per il livello. 11 è lo sprite vuoto
+        if (value != 14) {  //14 is the only non solid block. the number referes to the sprite Altas of the level
             return true;
         }
 
         return false;
     }
 
+    /***
+     * Analyzes the red rgb values of the level image and creates an array with those informations
+     * @param img: image of the Level
+     * @return returns a 2D in array with the red values taken from the level image
+     */
     public static int[][] GetLevelData(BufferedImage img) {
 
         int[][] lvlData = new int[img.getHeight()][img.getWidth()];

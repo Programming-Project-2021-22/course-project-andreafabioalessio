@@ -8,6 +8,9 @@ CLASS SUMMARY
 class status: currently ok
  */
 
+/***
+ * Setup the Window in which the GamePanel will be shown
+ */
 public class GameWindow {
 
     protected JFrame jframe;

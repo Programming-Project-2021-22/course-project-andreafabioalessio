@@ -9,6 +9,9 @@ CLASS SUMMARY
 class status: idk
  */
 
+/***
+ * Creates the level
+ */
 public class levelHandler {
 
     private static Game game;
@@ -23,12 +26,18 @@ public class levelHandler {
         buildAllLevels();
     }
 
+    /***
+     * Builds all the levels in advance
+     */
     private void buildAllLevels() {
         BufferedImage[] allLevels = LevelLoad.getAllLevels();
         for (BufferedImage img: allLevels)
             levels.add(new Level(img));
     }
 
+    /***
+     * Imports the Level Sprites
+     */
     private void importOutsideSprites() {
         BufferedImage img = LevelLoad.GetSpriteAtlas(LevelLoad.LEVEL_ATLAS);
         levelSprite = new BufferedImage[18];
@@ -39,6 +48,11 @@ public class levelHandler {
             }
     }
 
+    /***
+     * Draws the level
+     * @param g Graphics engine
+     * @param lvlOffset level offset. Is needed for scrolling level
+     */
     public void draw(Graphics g, int lvlOffset) {
         for (int j = 0; j < Game.maxScreenRow; j++)
             for (int i = 0; i < levels.get(Menu.getNumLevel()-1).getLvlData()[0].length; i++) {
@@ -60,14 +74,10 @@ public class levelHandler {
     }
 
 
-    //To Load next level after the level is complete
+    /***
+     * loads the next level based on the value of the Numlevel in the Menu class
+     */
     public static void loadNextLevel() {
-
-        //Levlindex = current level index
-        //lvlIndex++;
-//        if (lvlIndex > Menu.getNumLevel()-1){
-//            lvlIndex = Menu.getNumLevel() -1;
-//        }
 
         Level newLevel = levels.get(Menu.getNumLevel()-1);
         game.getPlaying().getPlayer().loadLvlData(newLevel.getLvlData());

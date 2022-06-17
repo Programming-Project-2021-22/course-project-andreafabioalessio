@@ -7,6 +7,10 @@ CLASS SUMMARY
 
 class status: currently ok,but a way to implement entity death might be added
  */
+
+/***
+ * creates the player animation
+ */
 public class Skin {
     //variables
 
@@ -29,15 +33,28 @@ public class Skin {
 //Getters & Setters
     public void setSpriteNum(int spriteNum) { this.spriteNum = spriteNum;}
 
+    /***
+     *
+     * @return Image with the left animation
+     */
     public BufferedImage leftAnimation(){
         //spriteNum = 0;
         return animate(left);
     }
+
+    /***
+     *
+     * @return Image with the right animation
+     */
     public BufferedImage rightAnimation(){
         //spriteNum = 0;
         return animate(right);
     }
 
+    /***
+     * creates the walking animation
+     * @return returns a Bufferedimage with the specific player sprite.
+     */
     public BufferedImage animate(BufferedImage[] images){
 
         spriteCounter++;
@@ -46,11 +63,14 @@ public class Skin {
             spriteNum = spriteNum%images.length;
             spriteCounter = 0;
         }
-        //testprint
-        //System.out.println("spriteCounter: " + spriteCounter);
         return images[spriteNum];
     }
 
+    /***
+     *
+     * @param direction
+     * @return returns a BufferedImage with the correct center Direction
+     */
     public BufferedImage center(int direction){
         if (direction == -1){
             image = center[0];
@@ -60,6 +80,11 @@ public class Skin {
         return image;
     }
 
+    /***
+     *
+     * @param direction
+     * @return returns a BufferedImage with the correct jump sprite
+     */
     public BufferedImage jump(int direction){
         if (direction == -1){
             image = left[0];  //frame 1 is always a jump frame
