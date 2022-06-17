@@ -210,7 +210,7 @@ public abstract class Entity {
             KeyHandler.resetKeyHandler();
             Gamestate.state = Gamestate.MAINMENU;
             //testprint
-            System.out.println("LEVEL WON");
+            //System.out.println("LEVEL WON");
         }
     }
 
