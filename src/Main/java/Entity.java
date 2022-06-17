@@ -50,6 +50,7 @@ public abstract class Entity {
     protected boolean falling = false;
     protected boolean jumping = false;
 
+    public static boolean win = false;
 
     protected Rectangle2D.Float hitbox;
     public int[][] lvlData;
@@ -190,6 +191,7 @@ public abstract class Entity {
 
     //DIE
     public void teleportToBeginning(){
+        win = false;
         x = 200;
         y = 300;
         xAcc = 0;
@@ -201,6 +203,7 @@ public abstract class Entity {
         //14240
         if(x>=14084){
             playSFX(1);
+            win = true;
             try {
                 TimeUnit.SECONDS.sleep(2);
             } catch (InterruptedException e) {

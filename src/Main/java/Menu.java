@@ -194,7 +194,9 @@ public class Menu extends JPanel {
 
     //Updates the level of the player in the array
     private void updateUserLevelInArray(User user) throws IOException {
+        if (Entity.win){
 
+        }
         if(user.getLevel() < 4){
             System.out.println("User data: " + user.getUsername() + "; Lv: " + user.getLevel());
             user.setLevel(user.getLevel() + 1);
