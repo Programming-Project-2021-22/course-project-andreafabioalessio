@@ -111,7 +111,7 @@ public abstract class Entity {
     }
 
     /***
-     * Loads the Data of the current level
+     * Loads the Data of the current level used for collisions
      * @param lvlData 2D array of level data
      */
     public void loadLvlData(int[][] lvlData) {
@@ -166,7 +166,7 @@ public abstract class Entity {
     }
 
     /***
-     * Checks for collision on top of the player
+     * Checks for roof collisions
      */
     public void checkTopCollision(){
         //if yAcc is not <0 the player is not going up, so no check is necessary
@@ -180,7 +180,7 @@ public abstract class Entity {
     }
 
     /***
-     * Checks if there is a solid block underneath the player.
+     * Checks if there is a solid block underneath the player and in case create a floor collision.
      */
     public void checkGravity() {
         try {
@@ -217,7 +217,7 @@ public abstract class Entity {
      * If the intended movement expressed in x and y cause a collision with a block, return false. Else: return true.
      * @param x: x coordinate
      * @param y: y coordinate
-     * @return return true if at that coordinate there no block.
+     * @return return true if at that coordinate there is no block.
      */
     public boolean checkHitboxCollision(int x, int y){
         return (HelpMethods.CanMoveHere(hitbox.x +x, hitbox.y + y, hitbox.width, hitbox.height, lvlData));

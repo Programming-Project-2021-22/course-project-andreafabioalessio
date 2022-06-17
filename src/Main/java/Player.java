@@ -29,6 +29,7 @@ public class Player extends Entity {
 
     /***
      * The update must execute in this order:
+     *         -0 check falling into spikes
      *         -1 get left/right/up keys and update xAcc and yAcc
      *         -2 check right and left collision: move the player(x-- or x++) and set xAcc to 0
      *         -3 check top collision
@@ -37,48 +38,49 @@ public class Player extends Entity {
      *         -6 skin animation
      *         -7 update x and y based on xAcc and yAcc
      *         -8 update hitbox.
+     *         -9 check winning
      */
     @Override
     public void update() {
 
     //-hole check
-    //if the player fall into a hole, teleport to the beginning
+    //-0 if the player fall into a hole, teleport to the beginning
     if (y > 580) {
         playSFX(4);
         teleportToBeginning();
         //testprint
         //System.out.println("spikes");
     }
-    //-1 done
+    //-1
         playerMovement();
-    //-2 should work (right only)
+    //-2
         checkHorizontalCollision();
-    //-3 to do
+    //-3
         checkTopCollision();
-    //-4 should work
+    //-4
         checkGravity();
-    //-5 done
+    //-5
         setCentDirection();
-    //-8 should work
+    //-8
         skinAnimation();
-    //-7 done
+    //-7
 
         x += xAcc;
         y += yAcc;
-    //-8 done
+    //-8
         updateHitBox();
 
         // temporary: avoid out of bound
         if(x < 0){x = 0;}
         if(y < 0){y = 0;}
 
-    //-checkwin
+    //-9 checkwin
     checkWin();
     }
 
 
     /***
-     * exectutes a specific movement based on the Keyboard button pressed
+     * executes a specific movement based on the Keyboard button pressed
      */
     public void playerMovement() {
 
