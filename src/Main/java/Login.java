@@ -143,13 +143,13 @@ public class Login extends Registration {
 
     /***
      * Checks if a user with the same username entered exists or not
-     * @param userArray: array containing all registered Users
-     * @param usernameEntered: username provided by the player in textField
-     * @param passwordEntered: password provided by the player in textField
-     * @return = true if the username and the password entered by the player match one of the User's username and password,
+     * @param userArray array containing all registered Users
+     * @param usernameEntered username provided by the player in textField
+     * @param passwordEntered password provided by the player in textField
+     * @return true if the username and the password entered by the player match one of the User's username and password,
      *              false otherwise;
-     * @throws WrongPasswordError : if the password provided by the player does not match the one registered and associated to the username
-     * @throws InvalidUsernameError : if the username provided by the player is not registered
+     * @throws WrongPasswordError if the password provided by the player does not match the one registered and associated to the username
+     * @throws InvalidUsernameError if the username provided by the player is not registered
      */
     @Override
     protected boolean checkUserInArray(User[] userArray, String usernameEntered, String passwordEntered) throws WrongPasswordError, InvalidUsernameError {
@@ -189,7 +189,7 @@ public class Login extends Registration {
 
     /***
      * Overridden paintComponent method that paints the background
-     * @param g: the Graphics object to protect
+     * @param g the Graphics object to protect
      */
     @Override
     public void paintComponent(Graphics g){

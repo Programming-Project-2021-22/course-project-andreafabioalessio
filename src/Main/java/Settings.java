@@ -60,6 +60,9 @@ public class Settings extends JPanel {
         add(back, c);
     }
 
+    /***
+     * Changes the mute status from muted to unmuted and vice versa, updating the button icon as well
+     */
     private void changeMuteStatus() {
         if(Entity.muted){
             mute.setIcon(unmutedIcon);
@@ -76,7 +79,7 @@ public class Settings extends JPanel {
 
     /***
      * Overridden paintComponent method that paints the background
-     * @param g: the Graphics object to protect
+     * @param g the Graphics object to protect
      */
     @Override
     public void paintComponent(Graphics g){

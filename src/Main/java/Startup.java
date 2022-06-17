@@ -77,7 +77,7 @@ public class Startup extends JPanel {
 
     /***
      * Opens Login Window
-     * @param window: window on which the Login page gets painted on
+     * @param window window on which the Login page gets painted on
      */
     private void openLoginWindow(JFrame window){
         Login l = new Login(window, userArray);
@@ -90,7 +90,7 @@ public class Startup extends JPanel {
 
     /***
      * Opens Signup Window
-     * @param window: window on which the Signup page gets painted on
+     * @param window window on which the Signup page gets painted on
      */
     private void openSignUpWindow(JFrame window){
         Signup s = new Signup(window, userArray);
@@ -138,7 +138,7 @@ public class Startup extends JPanel {
 
     /***
      * Overridden paintComponent method that paints the background
-     * @param g: the Graphics object to protect
+     * @param g the Graphics object to protect
      */
     @Override
     public void paintComponent(Graphics g){

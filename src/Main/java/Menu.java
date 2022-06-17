@@ -182,8 +182,8 @@ public class Menu extends JPanel {
 
     /***
      * Updates the level of the player in the array
-     * @param user: the logged-in User
-     * @throws IOException: thrown by the updateUserLevelInFile(User user) method
+     * @param user the logged-in User
+     * @throws IOException thrown by the updateUserLevelInFile(User user) method
      */
     public static void updateUserLevelInArray(User user) throws IOException {
         //If the level that has been just beaten is the last unlocked
@@ -199,8 +199,8 @@ public class Menu extends JPanel {
 
     /***
      * Updates the level of the player writing on the usersList file
-     * @param user: the logged-in User
-     * @throws IOException: if the named file exists but is a directory rather than a regular file, does not exist but cannot be created, or cannot be opened for any other reason
+     * @param user the logged-in User
+     * @throws IOException if the named file exists but is a directory rather than a regular file, does not exist but cannot be created, or cannot be opened for any other reason
      */
     private static void updateUserLevelInFile(User user) throws IOException {
         //Appends new user data in UsersList.txt
@@ -264,7 +264,7 @@ public class Menu extends JPanel {
 
     /***
      * Updates userInfo label
-     * @param user: the logged-in User
+     * @param user the logged-in User
      */
     private static void updateUserInfoLabel(User user){
         userInfoLv.setText("Lv: " + user.getLevel()
@@ -273,8 +273,8 @@ public class Menu extends JPanel {
 
     /***
      * Updates the graphics of the dots and level cover
-     * @param user: the logged-in User
-     * @throws IOException: if an error occurs during reading
+     * @param user the logged-in User
+     * @throws IOException if an error occurs during reading
      */
     private void updateLevelGraphics(User user) throws IOException {
         //Updates the level cover
@@ -358,8 +358,8 @@ public class Menu extends JPanel {
 
     /***
      * Updates the value of numLevel
-     * @param user: the logged-in User
-     * @throws IOException: thrown because of the updateLevelGraphics(User user) method call
+     * @param user the logged-in User
+     * @throws IOException thrown because of the updateLevelGraphics(User user) method call
      */
     private void processForwardButtonPress(User user) throws IOException {
         if (numLevel < 4) {
@@ -374,8 +374,8 @@ public class Menu extends JPanel {
 
     /***
      * Updates the value of numLevel
-     * @param user: the logged-in User
-     * @throws IOException: thrown because of the updateLevelGraphics(User user) method call
+     * @param user the logged-in User
+     * @throws IOException thrown because of the updateLevelGraphics(User user) method call
      */
     private void processBackwardButtonPress(User user) throws IOException {
         if(numLevel > 1){
@@ -404,7 +404,7 @@ public class Menu extends JPanel {
 
     /***
      * Loads the level corresponding to the numLevel value
-     * @param user: the logged-in User
+     * @param user the logged-in User
      */
     private void loadLevel(User user){
         switch (numLevel){
@@ -447,7 +447,7 @@ public class Menu extends JPanel {
 
     /***
      * After a level is won, updates the level of the user if necessary
-     * @throws IOException
+     * @throws IOException thrown because of the updateUserLevelInArray(User user) method call
      */
     public static void updateUserAfterWin() throws IOException {
         updateUserLevelInArray(user);
@@ -455,7 +455,7 @@ public class Menu extends JPanel {
 
     /***
      * Gets the numLevel value, the number of the level the player is selecting
-     * @return = the value of the Level
+     * @return the value of the Level
      */
     public static int getNumLevel(){
         return numLevel;
@@ -463,7 +463,7 @@ public class Menu extends JPanel {
 
     /***
      * Overridden paintComponent method that paints the background
-     * @param g: the Graphics object to protect
+     * @param g the Graphics object to protect
      */
     @Override
     public void paintComponent(Graphics g){

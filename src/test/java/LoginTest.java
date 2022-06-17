@@ -1,4 +1,3 @@
-
 import Exceptions.InvalidUsernameError;
 import Exceptions.WrongPasswordError;
 import org.junit.jupiter.api.Test;

@@ -163,11 +163,11 @@ public class Signup extends Registration {
 
     /***
      * Processes the press of the signUpButton by checking input values with methods listed below
-     * @param window: window on which elements will be painted on
-     * @param userArray: array containing all registered Users
-     * @param usernameEntered: username provided by the player in textField
-     * @param passwordEntered: password provided by the player in textField
-     * @throws IOException: thrown because "InvalidUsernameError()" and "InvalidPasswordError()" are children of the IOException class
+     * @param window window on which elements will be painted on
+     * @param userArray array containing all registered Users
+     * @param usernameEntered username provided by the player in textField
+     * @param passwordEntered password provided by the player in textField
+     * @throws IOException thrown because "InvalidUsernameError()" and "InvalidPasswordError()" are children of the IOException class
      */
     public void createButtonPress(JFrame window, User[] userArray, String usernameEntered, String passwordEntered) throws IOException {
 
@@ -209,10 +209,10 @@ public class Signup extends Registration {
 
     /***
      * Checks if the input username is not already taken
-     * @param userArray: array containing all registered Users
-     * @param usernameEntered: username provided by the player in textField
-     * @param passwordEntered: password provided by the player in textField
-     * @return = true if the username provided by the player has already been taken,
+     * @param userArray array containing all registered Users
+     * @param usernameEntered username provided by the player in textField
+     * @param passwordEntered password provided by the player in textField
+     * @return true if the username provided by the player has already been taken,
      *              false otherwise
      */
     @Override
@@ -227,8 +227,8 @@ public class Signup extends Registration {
 
     /***
      * Checks that the input is not empty
-     * @param usernameEntered: username provided by the player in textField
-     * @return = true if the input string is empty
+     * @param usernameEntered username provided by the player in textField
+     * @return true if the input string is empty
      *              false otherwise
      */
     private boolean inputIsNull(String usernameEntered){
@@ -237,8 +237,8 @@ public class Signup extends Registration {
 
     /***
      * Checks if the password matches the regex
-     * @param passwordEntered: password provided by the player in textField
-     * @return = true if the password matches the regex requirements
+     * @param passwordEntered password provided by the player in textField
+     * @return true if the password matches the regex requirements
      *              false otherwise
      */
     private boolean passwordIsRightFormat(String passwordEntered){
@@ -251,11 +251,11 @@ public class Signup extends Registration {
 
     /***
      * Creates a User object with the given parameters
-     * @param usernameEntered: username provided by the player in textField
-     * @param passwordEntered: password provided by the player in textField
-     * @param userArray: array containing all registered Users
-     * @param window: window on which components will get painted on
-     * @throws IOException: because of the openMenu(JFrame window, User user) method in the Registration class
+     * @param usernameEntered username provided by the player in textField
+     * @param passwordEntered password provided by the player in textField
+     * @param userArray array containing all registered Users
+     * @param window window on which components will get painted on
+     * @throws IOException because of the openMenu(JFrame window, User user) method in the Registration class
      */
     private void createUser(String usernameEntered, String passwordEntered, User[] userArray, JFrame window) throws IOException {
         User d = new User (usernameEntered, passwordEntered, 1);
@@ -272,8 +272,8 @@ public class Signup extends Registration {
 
     /***
      * Adds the user data to the file
-     * @param user: User created with the data provided
-     * @throws IOException: if the named file exists but is a directory rather than a regular file, does not exist but cannot be created, or cannot be opened for any other reason
+     * @param user User created with the data provided
+     * @throws IOException if the named file exists but is a directory rather than a regular file, does not exist but cannot be created, or cannot be opened for any other reason
      */
     private void addToFile(User user) throws IOException {
 
@@ -287,8 +287,8 @@ public class Signup extends Registration {
 
     /***
      * Formats user data for the userList file
-     * @param user: User created with the data provided
-     * @return = a String with the User's data formatted the right way for the UsersList.txt file
+     * @param user User created with the data provided
+     * @return a String with the User's data formatted the right way for the UsersList.txt file
      */
     private String userToString(User user){
         return user.getUsername() + ";" + user.getPassword() + ";" + user.getLevel() + ";:";
@@ -296,7 +296,7 @@ public class Signup extends Registration {
 
     /***
      * Overridden paintComponent method that paints the background
-     * @param g: the Graphics object to protect
+     * @param g the Graphics object to protect
      */
     @Override
     public void paintComponent(Graphics g){
