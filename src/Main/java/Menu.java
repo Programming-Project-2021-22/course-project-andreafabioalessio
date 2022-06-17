@@ -8,14 +8,17 @@ public class Menu extends JPanel {
 
     private Image background;
     private final JPanel level;
-    private final Label userInfoLv = new Label();
+    private static final Label userInfoLv = new Label();
     public static int numLevel = 1;
     private final JPanel dot1, dot2, dot3, dot4, dots;
+    private static User user;
 
     JButton removeMe;
 
     public Menu (JFrame window, User user) throws IOException {
         window.setTitle("Menù");
+
+        this.user = user;
 
         this.setPreferredSize(new Dimension(960, 720));
         this.setBackground(Color.WHITE);
@@ -193,21 +196,20 @@ public class Menu extends JPanel {
     }
 
     //Updates the level of the player in the array
-    private void updateUserLevelInArray(User user) throws IOException {
-        if (Entity.win){
+    public static void updateUserLevelInArray(User user) throws IOException {
+        if(user.getLevel() == numLevel){
+            if(user.getLevel() < 4){
+                System.out.println("User data: " + user.getUsername() + "; Lv: " + user.getLevel());
+                user.setLevel(user.getLevel() + 1);
+                System.out.println("New user data: " + user.getUsername() + "; Lv: " + user.getLevel());
 
-        }
-        if(user.getLevel() < 4){
-            System.out.println("User data: " + user.getUsername() + "; Lv: " + user.getLevel());
-            user.setLevel(user.getLevel() + 1);
-            System.out.println("New user data: " + user.getUsername() + "; Lv: " + user.getLevel());
-
-            updateUserLevelInFile(user);
+                updateUserLevelInFile(user);
+            }
         }
     }
 
     //Updates the level of the player writing on the usersList file
-    private void updateUserLevelInFile(User user) throws IOException {
+    private static void updateUserLevelInFile(User user) throws IOException {
         //Appends new user data in UsersList.txt
         FileWriter fw = new FileWriter("src/UsersList.txt", true);
         PrintWriter pw = new PrintWriter(fw);
@@ -270,7 +272,7 @@ public class Menu extends JPanel {
     }
 
     //Updates userInfo label
-    private void updateUserInfoLabel(User user){
+    private static void updateUserInfoLabel(User user){
         userInfoLv.setText("Lv: " + user.getLevel()
                );
     }
@@ -396,7 +398,6 @@ public class Menu extends JPanel {
             case 1:
                 removeMe.setBackground(Color.green);
                 openCommands();
-                Gamestate.state = Gamestate.PLAYING;
                 levelHandler.loadNextLevel();
                 break;
 
@@ -450,6 +451,10 @@ public class Menu extends JPanel {
         super.paintComponent(g);
 
         g.drawImage(background, 0, 0, null);
+    }
+
+    public static User getUser(){
+        return user;
     }
 
     public static int getNumLevel(){

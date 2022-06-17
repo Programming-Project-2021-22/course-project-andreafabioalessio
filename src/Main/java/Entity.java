@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 
@@ -203,7 +204,15 @@ public abstract class Entity {
         //14240
         if(x>=14084){
             playSFX(1);
-            win = true;
+
+            User user = Menu.getUser();
+            
+            try {
+                Menu.updateUserLevelInArray(user);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
             try {
                 TimeUnit.SECONDS.sleep(2);
             } catch (InterruptedException e) {

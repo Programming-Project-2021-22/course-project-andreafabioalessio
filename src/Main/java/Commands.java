@@ -25,6 +25,8 @@ public class Commands extends JPanel {
         play.setBackground(Color.BLACK);
         play.setBorderPainted(false);
 
+        play.addActionListener(e-> Gamestate.state = Gamestate.PLAYING);
+
         ImageIcon backIcon = new ImageIcon(getClass().getResource("Images/back-button2.png"));
         ImageIcon backIconHovered = new ImageIcon(getClass().getResource("Images/back-button-hovered2.png"));
 

@@ -9,6 +9,7 @@ public class User {
         this.password = password;
         this.level = level;
     }
+
     public String getUsername() {
         return username;
     }
