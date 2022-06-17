@@ -13,8 +13,6 @@ public class Menu extends JPanel {
     private final JPanel dot1, dot2, dot3, dot4, dots;
     private static User user;
 
-    JButton removeMe;
-
     public Menu (JFrame window, User user) throws IOException {
         window.setTitle("Menù");
 
@@ -155,22 +153,6 @@ public class Menu extends JPanel {
         panel.add(forward);
         panel.add(dots);
         panel.add(settingsButton);
-
-        /////////////////////////////TO BE REMOVED/////////////////////////////
-        removeMe = new JButton("Can I play this level?");
-        removeMe.setPreferredSize(new Dimension(170, 40));
-        removeMe.setSize(new Dimension(20, 20));
-        panel.add(removeMe);
-        panelLayout.putConstraint(SpringLayout.WEST, removeMe, 370, SpringLayout.WEST, panel);
-        panelLayout.putConstraint(SpringLayout.NORTH, removeMe, 50, SpringLayout.NORTH, panel);
-        removeMe.addActionListener(e->{
-            try {
-                updateUserLevelInArray(user);
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        });
-        ///////////////////////////////////////////////////////////////////////
 
         //User info upper right corner
         panelLayout.putConstraint(SpringLayout.EAST, userInfo, -30, SpringLayout.EAST, panel);
@@ -424,18 +406,15 @@ public class Menu extends JPanel {
     private void loadLevel(User user){
         switch (numLevel){
             case 1:
-                removeMe.setBackground(Color.green);
                 openCommands();
                 levelHandler.loadNextLevel();
                 break;
 
             case 2:
                 if(user.getLevel() < numLevel){
-                    removeMe.setBackground(Color.red);
                     throw new LevelTooLowError("Level locked, reach level " + numLevel + " to unlock it");
                 }
                 else{
-                    removeMe.setBackground(Color.green);
                     Gamestate.state = Gamestate.PLAYING;
                     levelHandler.loadNextLevel();
                 }
@@ -443,11 +422,9 @@ public class Menu extends JPanel {
 
             case 3:
                 if(user.getLevel() < numLevel){
-                    removeMe.setBackground(Color.red);
                     throw new LevelTooLowError("Level locked, reach level " + numLevel + " to unlock it");
                 }
                 else{
-                    removeMe.setBackground(Color.green);
                     Gamestate.state = Gamestate.PLAYING;
                     levelHandler.loadNextLevel();
                 }
@@ -455,11 +432,9 @@ public class Menu extends JPanel {
 
             case 4:
                 if(user.getLevel() < numLevel){
-                    removeMe.setBackground(Color.red);
                     throw new LevelTooLowError("Level locked, reach level " + numLevel + " to unlock it");
                 }
                 else{
-                    removeMe.setBackground(Color.green);
                     Gamestate.state = Gamestate.PLAYING;
                     levelHandler.loadNextLevel();
                 }
