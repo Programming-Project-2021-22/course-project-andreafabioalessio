@@ -30,13 +30,15 @@ Describe how to compile, package, and run your project here.
 To build the project, run:
 
 ```shell
+mvn compile
+```
+```shell
 mvn package
 ```
-
-To do X, run:
+To run the jar:
 
 ```
-mvn abc
+java -jar target/course-project-andreafabioalessio-1.0-SNAPSHOT-jar-with-dependencies.jar
 ```
 
 ## 4. Implementation
