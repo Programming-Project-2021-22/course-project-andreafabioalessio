@@ -23,9 +23,9 @@ public class Startup extends JPanel {
         Dimension loginButtonDimension = new Dimension(190, 75);
         Dimension signupButtonDimension = new Dimension(236, 75);
 
-        ImageIcon loginIcon = new ImageIcon(getClass().getResource("Images/login-button2.png"), "login button icon");
-        ImageIcon loginIconHovered = new ImageIcon(getClass().getResource("Images/login-button-hovered2.png"), "login button icon");
-        ImageIcon loginIconPressed = new ImageIcon(getClass().getResource("Images/login-button-pressed2.png"), "login button icon");
+        ImageIcon loginIcon = new ImageIcon(getClass().getResource("images/login-button2.png"), "login button icon");
+        ImageIcon loginIconHovered = new ImageIcon(getClass().getResource("images/login-button-hovered2.png"), "login button icon");
+        ImageIcon loginIconPressed = new ImageIcon(getClass().getResource("images/login-button-pressed2.png"), "login button icon");
 
         JButton loginButton = new JButton(loginIcon);
         loginButton.setRolloverIcon(loginIconHovered);
@@ -37,9 +37,9 @@ public class Startup extends JPanel {
         loginButton.setContentAreaFilled(false);
         loginButton.setBorderPainted(false);
 
-        ImageIcon signupIcon = new ImageIcon(getClass().getResource("Images/signup-button2.png"));
-        ImageIcon signupIconHovered = new ImageIcon(getClass().getResource("Images/signup-button-hovered2.png"));
-        ImageIcon signupIconPressed = new ImageIcon(getClass().getResource("Images/signup-button-pressed2.png"));
+        ImageIcon signupIcon = new ImageIcon(getClass().getResource("images/signup-button2.png"));
+        ImageIcon signupIconHovered = new ImageIcon(getClass().getResource("images/signup-button-hovered2.png"));
+        ImageIcon signupIconPressed = new ImageIcon(getClass().getResource("images/signup-button-pressed2.png"));
 
         JButton signupButton = new JButton(signupIcon);
         signupButton.setRolloverIcon(signupIconHovered);
@@ -143,7 +143,7 @@ public class Startup extends JPanel {
     @Override
     public void paintComponent(Graphics g){
         try {
-            InputStream i = Startup.class.getResourceAsStream("/Images/Startup-background-resized.png");
+            InputStream i = Startup.class.getResourceAsStream("/images/Startup-background-resized.png");
             background = ImageIO.read(i);
         } catch (IOException e) {
             e.printStackTrace();

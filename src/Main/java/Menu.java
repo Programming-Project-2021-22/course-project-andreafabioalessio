@@ -85,9 +85,9 @@ public class Menu extends JPanel {
 
         updateLevelGraphics(user);
 
-        ImageIcon forwardIcon = new ImageIcon(getClass().getResource("Images/forward-arrow2.png"));
-        ImageIcon forwardIconHovered = new ImageIcon(getClass().getResource("Images/forward-arrow-hovered2.png"));
-        ImageIcon forwardIconPressed = new ImageIcon(getClass().getResource("Images/forward-arrow-pressed2.png"));
+        ImageIcon forwardIcon = new ImageIcon(getClass().getResource("images/forward-arrow2.png"));
+        ImageIcon forwardIconHovered = new ImageIcon(getClass().getResource("images/forward-arrow-hovered2.png"));
+        ImageIcon forwardIconPressed = new ImageIcon(getClass().getResource("images/forward-arrow-pressed2.png"));
 
         JButton forward = new JButton(forwardIcon);
         forward.setBackground(Color.BLACK);
@@ -104,9 +104,9 @@ public class Menu extends JPanel {
             }
         });
 
-        ImageIcon backIcon = new ImageIcon(getClass().getResource("Images/back-arrow2.png"));
-        ImageIcon backIconHovered = new ImageIcon(getClass().getResource("Images/back-arrow-hovered2.png"));
-        ImageIcon backIconPressed = new ImageIcon(getClass().getResource("Images/back-arrow-pressed2.png"));
+        ImageIcon backIcon = new ImageIcon(getClass().getResource("images/back-arrow2.png"));
+        ImageIcon backIconHovered = new ImageIcon(getClass().getResource("images/back-arrow-hovered2.png"));
+        ImageIcon backIconPressed = new ImageIcon(getClass().getResource("images/back-arrow-pressed2.png"));
 
         JButton back = new JButton(backIcon);
         back.setBackground(Color.BLACK);
@@ -123,8 +123,8 @@ public class Menu extends JPanel {
             }
         });
 
-        ImageIcon settingsIcon = new ImageIcon(getClass().getResource("Images/settings-button2.png"));
-        ImageIcon settingsIconHovered = new ImageIcon(getClass().getResource("Images/settings-button-hovered2.png"));
+        ImageIcon settingsIcon = new ImageIcon(getClass().getResource("images/settings-button2.png"));
+        ImageIcon settingsIconHovered = new ImageIcon(getClass().getResource("images/settings-button-hovered2.png"));
 
         JButton settingsButton = new JButton(settingsIcon);
         settingsButton.setRolloverIcon(settingsIconHovered);
@@ -279,10 +279,10 @@ public class Menu extends JPanel {
         //Updates the level cover
         Dimension dotSelected = new Dimension(30, 10);
         Dimension dotUnselected = new Dimension(10, 10);
-        String imagePath = "LevelCovers/Lv" + numLevel + ".png";
+        String imagePath = "levelCovers/Lv" + numLevel + ".png";
 
         if(numLevel > user.getLevel()){
-            imagePath = "LevelCovers/Lv" + numLevel + "-locked.png";
+            imagePath = "levelCovers/Lv" + numLevel + "-locked.png";
 
         }
         InputStream i = Menu.class.getResourceAsStream(imagePath);
@@ -467,7 +467,7 @@ public class Menu extends JPanel {
     @Override
     public void paintComponent(Graphics g){
         try {
-            InputStream i = Menu.class.getResourceAsStream("/Images/Menu-background-resized.png");
+            InputStream i = Menu.class.getResourceAsStream("/images/Menu-background-resized.png");
             background = ImageIO.read(i);
         } catch (IOException e) {
             e.printStackTrace();

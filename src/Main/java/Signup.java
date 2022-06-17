@@ -40,9 +40,9 @@ public class Signup extends Registration {
         showPassword.addActionListener(e-> {passwordTField.setEchoChar(
                 showPassword.isSelected() ? '\u0000' : '\u2022');});
 
-        ImageIcon signupIcon = new ImageIcon(getClass().getResource("Images/signup-button3.png"));
-        ImageIcon signupIconHovered = new ImageIcon(getClass().getResource("Images/signup-button-hovered3.png"));
-        ImageIcon signupIconPressed = new ImageIcon(getClass().getResource("Images/signup-button-pressed3.png"));
+        ImageIcon signupIcon = new ImageIcon(getClass().getResource("images/signup-button3.png"));
+        ImageIcon signupIconHovered = new ImageIcon(getClass().getResource("images/signup-button-hovered3.png"));
+        ImageIcon signupIconPressed = new ImageIcon(getClass().getResource("images/signup-button-pressed3.png"));
 
         JButton signupButton = new JButton(signupIcon);
         signupButton.setRolloverIcon(signupIconHovered);
@@ -65,8 +65,8 @@ public class Signup extends Registration {
             }
         });
 
-        ImageIcon backIcon = new ImageIcon(getClass().getResource("Images/back-button2.png"));
-        ImageIcon backIconHovered = new ImageIcon(getClass().getResource("Images/back-button-hovered2.png"));
+        ImageIcon backIcon = new ImageIcon(getClass().getResource("images/back-button2.png"));
+        ImageIcon backIconHovered = new ImageIcon(getClass().getResource("images/back-button-hovered2.png"));
 
         JButton backButton = new JButton(backIcon);
         backButton.setRolloverIcon(backIconHovered);
@@ -78,8 +78,8 @@ public class Signup extends Registration {
         backButton.setBorderPainted(false);
         backButton.addActionListener(e -> super.goBackToStartup(window));
 
-        ImageIcon infoIcon = new ImageIcon(getClass().getResource("Images/infobutton-icon2.png"));
-        ImageIcon infoIconHovered = new ImageIcon(getClass().getResource("Images/infobutton-icon-hovered2.png"));
+        ImageIcon infoIcon = new ImageIcon(getClass().getResource("images/infobutton-icon2.png"));
+        ImageIcon infoIconHovered = new ImageIcon(getClass().getResource("images/infobutton-icon-hovered2.png"));
 
         JButton passwordInfo = new JButton(infoIcon);
         passwordInfo.setPreferredSize(new Dimension(25, 25));
@@ -301,7 +301,7 @@ public class Signup extends Registration {
     @Override
     public void paintComponent(Graphics g){
         try {
-            InputStream i = Signup.class.getResourceAsStream("Images/LoginSignup-background-resized.png");
+            InputStream i = Signup.class.getResourceAsStream("/images/LoginSignup-background-resized.png");
             background = ImageIO.read(i);
         } catch (IOException e) {
             e.printStackTrace();

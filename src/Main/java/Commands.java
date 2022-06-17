@@ -10,9 +10,9 @@ public class Commands extends JPanel {
     public Commands(JButton play){
         this.setPreferredSize(new Dimension(960, 720));
 
-        ImageIcon playIcon = new ImageIcon(getClass().getResource("Images/play-button2.png"));
-        ImageIcon playIconHovered = new ImageIcon(getClass().getResource("Images/play-button-hovered2.png"));
-        ImageIcon playIconPressed = new ImageIcon(getClass().getResource("Images/play-button-pressed2.png"));
+        ImageIcon playIcon = new ImageIcon(getClass().getResource("images/play-button2.png"));
+        ImageIcon playIconHovered = new ImageIcon(getClass().getResource("images/play-button-hovered2.png"));
+        ImageIcon playIconPressed = new ImageIcon(getClass().getResource("images/play-button-pressed2.png"));
 
         play.setIcon(playIcon);
         play.setRolloverIcon(playIconHovered);
@@ -23,8 +23,8 @@ public class Commands extends JPanel {
 
         play.addActionListener(e-> Gamestate.state = Gamestate.PLAYING);
 
-        ImageIcon backIcon = new ImageIcon(getClass().getResource("Images/back-button2.png"));
-        ImageIcon backIconHovered = new ImageIcon(getClass().getResource("Images/back-button-hovered2.png"));
+        ImageIcon backIcon = new ImageIcon(getClass().getResource("images/back-button2.png"));
+        ImageIcon backIconHovered = new ImageIcon(getClass().getResource("images/back-button-hovered2.png"));
 
         JButton back = new JButton(backIcon);
         back.setRolloverIcon(backIconHovered);
@@ -58,7 +58,7 @@ public class Commands extends JPanel {
     @Override
     public void paintComponent(Graphics g){
         try {
-            InputStream i = Commands.class.getResourceAsStream("/Images/commands.png");
+            InputStream i = Commands.class.getResourceAsStream("/images/commands.png");
             background = ImageIO.read(i);
         } catch (IOException e) {
             e.printStackTrace();

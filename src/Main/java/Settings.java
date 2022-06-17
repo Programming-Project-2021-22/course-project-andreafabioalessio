@@ -12,8 +12,8 @@ public class Settings extends JPanel {
     public Settings(){
         this.setPreferredSize(new Dimension(350, 350));
 
-        ImageIcon backIcon = new ImageIcon(getClass().getResource("Images/back-button2.png"));
-        ImageIcon backIconHovered = new ImageIcon(getClass().getResource("Images/back-button-hovered2.png"));
+        ImageIcon backIcon = new ImageIcon(getClass().getResource("images/back-button2.png"));
+        ImageIcon backIconHovered = new ImageIcon(getClass().getResource("images/back-button-hovered2.png"));
 
         JButton back = new JButton(backIcon);
         back.setRolloverIcon(backIconHovered);
@@ -25,11 +25,11 @@ public class Settings extends JPanel {
         back.setBorderPainted(false);
         back.addActionListener(e -> Gamestate.state = Gamestate.MAINMENU);
 
-        muteIcon = new ImageIcon(getClass().getResource("Images/mute2.png"));
-        muteIconHovered = new ImageIcon(getClass().getResource("Images/mute-hovered2.png"));
+        muteIcon = new ImageIcon(getClass().getResource("images/mute2.png"));
+        muteIconHovered = new ImageIcon(getClass().getResource("images/mute-hovered2.png"));
 
-        unmutedIcon = new ImageIcon(getClass().getResource("Images/unmuted2.png"));
-        unmutedIconHovered = new ImageIcon(getClass().getResource("Images/unmuted-hovered2.png"));
+        unmutedIcon = new ImageIcon(getClass().getResource("images/unmuted2.png"));
+        unmutedIconHovered = new ImageIcon(getClass().getResource("images/unmuted-hovered2.png"));
 
         mute = new JButton(unmutedIcon);
         mute.setRolloverIcon(unmutedIconHovered);
@@ -83,7 +83,7 @@ public class Settings extends JPanel {
     @Override
     public void paintComponent(Graphics g){
         try {
-            InputStream i = Settings.class.getResourceAsStream("/Images/settings-background.png");
+            InputStream i = Settings.class.getResourceAsStream("/images/settings-background.png");
             background = ImageIO.read(i);
         } catch (IOException e) {
             e.printStackTrace();

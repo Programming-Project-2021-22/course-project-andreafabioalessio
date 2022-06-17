@@ -40,9 +40,9 @@ public class Login extends Registration {
         showPassword.addActionListener(e-> {passwordTField.setEchoChar(
                 showPassword.isSelected() ? '\u0000' : '\u2022');});
 
-        ImageIcon loginIcon = new ImageIcon(getClass().getResource("/Images/login-button3.png"));
-        ImageIcon loginIconHovered = new ImageIcon(getClass().getResource("/Images/login-button-hovered3.png"));
-        ImageIcon loginIconPressed = new ImageIcon(getClass().getResource("/Images/login-button-pressed3.png"));
+        ImageIcon loginIcon = new ImageIcon(getClass().getResource("images/login-button3.png"), "login icon");
+        ImageIcon loginIconHovered = new ImageIcon(getClass().getResource("images/login-button-hovered3.png"), "login icon");
+        ImageIcon loginIconPressed = new ImageIcon(getClass().getResource("images/login-button-pressed3.png"), "login icon");
 
         JButton loginButton = new JButton(loginIcon);
         loginButton.setRolloverIcon(loginIconHovered);
@@ -66,8 +66,8 @@ public class Login extends Registration {
             }
         });
 
-        ImageIcon backIcon = new ImageIcon(getClass().getResource("Images/back-button2.png"));
-        ImageIcon backIconHovered = new ImageIcon(getClass().getResource("Images/back-button-hovered2.png"));
+        ImageIcon backIcon = new ImageIcon(getClass().getResource("images/back-button2.png"));
+        ImageIcon backIconHovered = new ImageIcon(getClass().getResource("images/back-button-hovered2.png"));
 
         JButton backButton = new JButton(backIcon);
         backButton.setRolloverIcon(backIconHovered);
@@ -193,7 +193,7 @@ public class Login extends Registration {
     @Override
     public void paintComponent(Graphics g){
         try {
-            InputStream i = Login.class.getResourceAsStream("/Images/LoginSignup-background-resized.png");
+            InputStream i = Login.class.getResourceAsStream("/images/LoginSignup-background-resized.png");
             background = ImageIO.read(i);
         } catch (IOException e) {
             e.printStackTrace();
