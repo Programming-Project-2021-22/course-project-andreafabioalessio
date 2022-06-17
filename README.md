@@ -13,7 +13,7 @@ were unlocked by the user and this can be accessed by a login page that appears 
 
 ### 1.1. Demo
 
-Add a link to a demo of your project.
+https://youtu.be/L-U0TyOmq9E
 
 ## 2. Authors
 
@@ -45,7 +45,7 @@ java -jar target/course-project-andreafabioalessio-1.0-SNAPSHOT-jar-with-depende
 
 ### 4.1. Architectural Overview
 
-Considering the complexity of this project, it's composed by many different parts.
+Considering the complexity of this project, it's composed by many parts.
 
 The project can be divided in two major parts, the Game and the Login/Signup. 
 The switch between these two parts is coordinated by a system called GameStates, which orchestrates the level load and the opening of the menu (and more..).
@@ -69,7 +69,7 @@ The switch between these two parts is coordinated by a system called GameStates,
   - import java.util.ArrayList;
   - import java.util.Scanner;
 
-- keyhandler to enable player movement
+- KeyHandler to enable player movement
 
   - import java.awt.event.KeyEvent;
   - import java.awt.event.KeyListener;
@@ -111,10 +111,10 @@ The switch between these two parts is coordinated by a system called GameStates,
 
 - **Technique 6**: Lambda expressions:
                     - Used in various classes to process button presses, for example
-                      - Login class: Lambda expression used to preocess the loginButton press
+                      - Login class: Lambda expression used to process the loginButton press
 
 - **Technique 7**: File I/O:
-                    - File I/O was used to store User's data inside of a .txt file, which was then used to instantiate Users.
+                    - File I/O was used to store User's data inside a .txt file, which was then used to instantiate Users.
 
 - **Technique 8**: Regular expression:
                     - Signup class: Regex used to check if the password matched the required criteria
@@ -145,29 +145,29 @@ we were able to implement.
 
 ### 5.2. Division of Responsibilities
 
-We all agree that the responsibilities division was mostly balanced and reflected the personal skills and inclinations of each group member. The concept behind the project was ideated by all three of us and so was for the design of the four levels. We devided the project into two main sections that were developed simultaneously:
+We all agree that the responsibilities' division was mostly balanced and reflected the personal skills and inclinations of each group member. The concept behind the project was ideated by all three of us and so was for the design of the four levels. We devided the project into two main sections that were developed simultaneously:
 
 - the "login and menu": Alessio Eritale
 - the "game" : Andrea Parodi & Fabio Marconi
 
 later the two sections converged in a single project with the creation of the level selector.
 
-- **Student 1:** I focused more on the player animation, the level creation and .....
+- **Fabio:** I focused more on the player class, the sprite animation, the level creation and the merging of all the git branches. 
 
-- **Student 2:** Fabio and I worked together on the game itself. I focused more on implementing the physics of the game, in particular on the gravity, collisions, winning and failing of the player, etc.
+- **Andrea:** Fabio and I worked together on the game itself. I focused more on implementing the physics of the game, in particular on the gravity, collisions, winning and failing of the player, etc.
 
-- **Student 3:** I focused more on the creation of the login and signup form, tests, the level menu, methods to save player's data and all the game graphics beside the level graphics and player sprites.
+- **Alessio:** I focused more on the creation of the login and signup form, tests, the level menu, methods to save player's data and all the game graphics beside the level graphics and player sprites.
 
 ### 5.3. Main Challenges
 
-- **Student 1:** The most difficult aspect in this project for me was to implement the units tests. The reason was X so I had to do Y and I achived Z.
+- **Student 1:** The most difficult aspect in this project for me was the collaboration with Andrea. We both had good but different ideas on how to implement different aspects of the game. But in the end we managed to support each other's ideas and come up with good solutions or alternatives.
 
-- **Student 2:** In general working with Fabio on the same classes wasn't always easy because we both had different ideas and perspective on how to implement the different aspects of the game, but after efforts we managed to produce a code that belong to both of us.
+- **Andrea:** In general working with Fabio on the same classes wasn't always easy because we both had different ideas and perspective on how to implement the different aspects of the game, but after efforts we managed to produce a code that belong to both of us.
 
-- **Student 3:** Creating the UI was not particularly hard, even though I learned a lot of new techniques. The hardest part for me was thinking about all the scenarios possible for the login and signup form, adding all the components necessary, and linking the various methods with scenarios happening during the game.
+- **Alessio:** Creating the UI was not particularly hard, even though I learned a lot of new techniques. The hardest part for me was thinking about all the scenarios possible for the login and signup form, adding all the components necessary, and linking the various methods with scenarios happening during the game.
 
 ### 5.4. Learning Outcomes
 
-- **Student 1:** I learned a new library called `xyz`!
+- **Student 1:** I learned a lot about how a Game gets developed, how the game loop works and primarily how difficult it is to organize the workload among the team. Now I can really appreciate every single game I will play in the future. Even if it has some bugs!
 - **Student 2:** I learned on how to work on the backend of a big and complex project and how to implement some aspects of game development, such as physics and collisions.
 - **Student 3:** I learned a lot about GUI, file input and output, and much more. I also learned how to use git better and the importance of team communication.
