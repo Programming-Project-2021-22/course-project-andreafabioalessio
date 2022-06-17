@@ -1,3 +1,6 @@
+import Exceptions.LevelLockedError;
+
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -412,7 +415,7 @@ public class Menu extends JPanel {
 
             case 2:
                 if(user.getLevel() < numLevel){
-                    throw new LevelTooLowError("Level locked, reach level " + numLevel + " to unlock it");
+                    throw new LevelLockedError("Level locked, reach level " + numLevel + " to unlock it");
                 }
                 else{
                     Gamestate.state = Gamestate.PLAYING;
@@ -422,7 +425,7 @@ public class Menu extends JPanel {
 
             case 3:
                 if(user.getLevel() < numLevel){
-                    throw new LevelTooLowError("Level locked, reach level " + numLevel + " to unlock it");
+                    throw new LevelLockedError("Level locked, reach level " + numLevel + " to unlock it");
                 }
                 else{
                     Gamestate.state = Gamestate.PLAYING;
@@ -432,7 +435,7 @@ public class Menu extends JPanel {
 
             case 4:
                 if(user.getLevel() < numLevel){
-                    throw new LevelTooLowError("Level locked, reach level " + numLevel + " to unlock it");
+                    throw new LevelLockedError("Level locked, reach level " + numLevel + " to unlock it");
                 }
                 else{
                     Gamestate.state = Gamestate.PLAYING;

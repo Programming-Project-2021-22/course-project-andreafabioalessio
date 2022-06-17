@@ -53,8 +53,6 @@ public abstract class Entity {
     protected boolean falling = false;
     protected boolean jumping = false;
 
-    public static boolean win = false;
-
     protected Rectangle2D.Float hitbox;
     public int[][] lvlData;
     public int scale = 3;
@@ -65,6 +63,7 @@ public abstract class Entity {
                              //        not to establish physics => -1 = sx; 0= center; 1=dx
 
     public Sound sound = new Sound();
+    public static boolean muted = false;
 
     //Constructor
     public Entity(int x, int y, int speed, int jumpStrength, int weight, Skin skin) {
@@ -86,8 +85,10 @@ public abstract class Entity {
      * @param x index of the sound that wants to be played. Refers to the array in the Sound class
      */
     public void playSFX(int x){
-        sound.setFile(x);
-        sound.play();
+        if(!muted){
+            sound.setFile(x);
+            sound.play();
+        }
     }
 
     public void stopMusic(){
@@ -226,7 +227,6 @@ public abstract class Entity {
      * teleports the player to the beginning of the level
      */
     public void teleportToBeginning(){
-        win = false;
         x = 200;
         y = 300;
         xAcc = 0;
@@ -241,7 +241,6 @@ public abstract class Entity {
         //14240
         if(x>=14084){
             playSFX(1);
-
             try {
                 Menu.updateUserAfterWin();
             } catch (IOException e) {

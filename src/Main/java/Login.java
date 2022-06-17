@@ -1,7 +1,9 @@
+import Exceptions.InvalidUsernameError;
+import Exceptions.WrongPasswordError;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -146,8 +148,8 @@ public class Login extends Registration {
      * @param passwordEntered: password provided by the player in textField
      * @return = true if the username and the password entered by the player match one of the User's username and password,
      *              false otherwise;
-     * @throws WrongPasswordError: if the password provided by the player does not match the one registered and associated to the username
-     * @throws InvalidUsernameError: if the username provided by the player is not registered
+     * @throws WrongPasswordError : if the password provided by the player does not match the one registered and associated to the username
+     * @throws InvalidUsernameError : if the username provided by the player is not registered
      */
     @Override
     protected boolean checkUserInArray(User[] userArray, String usernameEntered, String passwordEntered) throws WrongPasswordError, InvalidUsernameError {

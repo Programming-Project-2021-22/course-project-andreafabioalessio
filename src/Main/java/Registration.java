@@ -1,3 +1,6 @@
+import Exceptions.InvalidUsernameError;
+import Exceptions.WrongPasswordError;
+
 import javax.swing.*;
 import java.io.IOException;
 

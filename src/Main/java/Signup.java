@@ -1,3 +1,6 @@
+import Exceptions.InvalidPasswordError;
+import Exceptions.InvalidUsernameError;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -158,7 +161,14 @@ public class Signup extends Registration {
         add(errorPanel, constraints);
     }
 
-    //Processes the press of the signUpButton
+    /***
+     * Processes the press of the signUpButton by checking input values with methods listed below
+     * @param window: window on which elements will be painted on
+     * @param userArray: array containing all registered Users
+     * @param usernameEntered: username provided by the player in textField
+     * @param passwordEntered: password provided by the player in textField
+     * @throws IOException: thrown because "InvalidUsernameError()" and "InvalidPasswordError()" are children of the IOException class
+     */
     public void createButtonPress(JFrame window, User[] userArray, String usernameEntered, String passwordEntered) throws IOException {
 
         //Checks that the username field is not empty

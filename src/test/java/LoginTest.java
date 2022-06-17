@@ -1,7 +1,8 @@
 
+import Exceptions.InvalidUsernameError;
+import Exceptions.WrongPasswordError;
 import org.junit.jupiter.api.Test;
 import javax.swing.*;
-import java.io.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 

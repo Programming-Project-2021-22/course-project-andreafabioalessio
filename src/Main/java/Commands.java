@@ -19,9 +19,6 @@ public class Commands extends JPanel {
         play.setRolloverIcon(playIconHovered);
         play.setPressedIcon(playIconPressed);
 
-        play.setPreferredSize(new Dimension(103, 40));
-        play.setMinimumSize(new Dimension(103, 40));
-        play.setMaximumSize(new Dimension(103, 40));
         play.setBackground(Color.BLACK);
         play.setBorderPainted(false);
 

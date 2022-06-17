@@ -55,6 +55,9 @@ public class GameWindow {
         settingsWindow.setLocationRelativeTo(null);
 
         JButton play = new JButton("Play");
+        play.setPreferredSize(new Dimension(103,40));
+        play.setMinimumSize(new Dimension(103, 40));
+        play.setMaximumSize(new Dimension(103, 40));
         Commands c = new Commands(play);
         play.addActionListener(e-> Gamestate.state = Gamestate.PLAYING);
 

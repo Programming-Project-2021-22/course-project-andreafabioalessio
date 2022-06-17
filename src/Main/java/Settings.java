@@ -7,37 +7,71 @@ import java.io.InputStream;
 
 public class Settings extends JPanel {
     private Image background;
+    private ImageIcon muteIcon, muteIconHovered, unmutedIcon, unmutedIconHovered;
+    JButton mute;
 
     public Settings(){
         this.setPreferredSize(new Dimension(350, 350));
-        JButton back = new JButton("Back");
 
+        ImageIcon backIcon = new ImageIcon(getClass().getResource("Images/back-button2.png"));
+        ImageIcon backIconHovered = new ImageIcon(getClass().getResource("Images/back-button-hovered2.png"));
+
+        JButton back = new JButton(backIcon);
+        back.setRolloverIcon(backIconHovered);
+
+        back.setMinimumSize(new Dimension(92, 40));
+        back.setMaximumSize(new Dimension(92, 40));
+        back.setPreferredSize(new Dimension(92, 40));
+        back.setBackground(Color.BLACK);
+        back.setBorderPainted(false);
         back.addActionListener(e -> Gamestate.state = Gamestate.MAINMENU);
 
-        back.setPreferredSize(new Dimension(120, 30));
-        back.setMaximumSize(new Dimension(120, 30));
-        back.setForeground(new Color(205, 58, 218));
+        muteIcon = new ImageIcon(getClass().getResource("Images/mute2.png"));
+        muteIconHovered = new ImageIcon(getClass().getResource("Images/mute-hovered2.png"));
 
-        JButton mute = new JButton("Mute Music");
+        unmutedIcon = new ImageIcon(getClass().getResource("Images/unmuted2.png"));
+        unmutedIconHovered = new ImageIcon(getClass().getResource("Images/unmuted-hovered2.png"));
 
-        mute.setPreferredSize(new Dimension(120, 30));
-        mute.setMaximumSize(new Dimension(120, 30));
-        mute.setForeground(new Color(205, 58, 218));
+        mute = new JButton(unmutedIcon);
+        mute.setRolloverIcon(unmutedIconHovered);
+
+        mute.setMinimumSize(new Dimension(54, 50));
+        mute.setPreferredSize(new Dimension(54, 50));
+        mute.setMaximumSize(new Dimension(54, 50));
+        mute.setBorderPainted(false);
+        mute.setBackground(Color.BLACK);
+        mute.addActionListener(e -> {
+            changeMuteStatus();
+        });
 
         GridBagConstraints c = new GridBagConstraints();
         setLayout(new GridBagLayout());
 
-        c.gridy = 1;
-        add(Box.createRigidArea(new Dimension(0, 30)), c);
+        c.gridy = 0;
+        add(Box.createRigidArea(new Dimension(0, 45)), c);
 
-        c.gridy = 2;
+        c.gridy = 1;
         add(mute, c);
 
-        c.gridy = 3;
+        c.gridy = 2;
         add(Box.createRigidArea(new Dimension(0,30)), c);
 
-        c.gridy = 4;
+        c.gridy = 3;
         add(back, c);
+    }
+
+    private void changeMuteStatus() {
+        if(Entity.muted){
+            mute.setIcon(unmutedIcon);
+            mute.setRolloverIcon(unmutedIconHovered);
+            Entity.muted = false;
+        }
+
+        else if(!Entity.muted){
+            mute.setIcon(muteIcon);
+            mute.setRolloverIcon(muteIconHovered);
+            Entity.muted = true;
+        }
     }
 
     /***
