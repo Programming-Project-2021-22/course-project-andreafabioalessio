@@ -455,6 +455,7 @@ public class Menu extends JPanel {
         g.drawImage(background, 0, 0, null);
     }
 
+    //After a win, updates the level
     public static void updateUserAfterWin() throws IOException {
         updateUserLevelInArray(user);
     }

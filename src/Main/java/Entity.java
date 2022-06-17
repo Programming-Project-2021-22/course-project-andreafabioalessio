@@ -205,17 +205,11 @@ public abstract class Entity {
         if(x>=14084){
             playSFX(1);
 
-            //User user = Menu.getUser();
             try {
                 Menu.updateUserAfterWin();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-//            try {
-//                Menu.updateUserLevelInArray(user);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
 
             try {
                 TimeUnit.SECONDS.sleep(2);

@@ -5,7 +5,7 @@ public abstract class Registration extends JPanel {
 
     //Abstract method:
     // Checks if the username entered already exists or not in Signup and Login
-    protected abstract boolean checkUserInArray(User[] userArray, String usernameEntered);
+    protected abstract boolean checkUserInArray(User[] userArray, String usernameEntered, String passwordEntered) throws WrongPasswordError, InvalidUsernameError;
 
     //Concrete methods:
     //Processes the press of the back button and goes back to Startup page

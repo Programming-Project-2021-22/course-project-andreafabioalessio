@@ -53,7 +53,10 @@ public class Signup extends Registration {
 
         signupButton.addActionListener(e -> {
             try {
-                createButtonPress(window, userArray);
+                String passwordEntered = String.valueOf(passwordTField.getPassword());
+                String usernameEntered = usernameTField.getText().trim();
+
+                createButtonPress(window, userArray, usernameEntered, passwordEntered);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -156,9 +159,7 @@ public class Signup extends Registration {
     }
 
     //Processes the press of the signUpButton
-    private void createButtonPress(JFrame window, User[] userArray) throws IOException {
-        String usernameEntered = usernameTField.getText().trim();
-        String passwordEntered = String.valueOf(passwordTField.getPassword());
+    public void createButtonPress(JFrame window, User[] userArray, String usernameEntered, String passwordEntered) throws IOException {
 
         //Checks that the username field is not empty
         if(inputIsNull(usernameEntered)){
@@ -168,7 +169,7 @@ public class Signup extends Registration {
         }
 
         //Checks if the username is already taken
-        if(checkUserInArray(userArray, usernameEntered)){
+        if(checkUserInArray(userArray, usernameEntered, passwordEntered)){
             errorLabel.setText("<html><div style = 'text-align: center;'>" +
                     "Username already exists.<br/>" +
                     "Please select another one or login" +
@@ -187,7 +188,7 @@ public class Signup extends Registration {
             throw new InvalidPasswordError("Password is not of the right format");
         }
 
-        if (!checkUserInArray(userArray, usernameEntered)){
+        if (!checkUserInArray(userArray, usernameEntered, passwordEntered)){
             if(passwordIsRightFormat(passwordEntered)){
                 createUser(usernameEntered, passwordEntered, userArray, window);
             }
@@ -197,7 +198,7 @@ public class Signup extends Registration {
     //Abstract method implementation from the Registration class
     //Checks if the input username is not already taken
     @Override
-    protected boolean checkUserInArray(User[] userArray, String usernameEntered){
+    protected boolean checkUserInArray(User[] userArray, String usernameEntered, String passwordEntered){
         System.out.println("Checking if the username entered is not already taken:");
         for(User u : userArray){
             System.out.println("Username entered: " + usernameEntered + "; Username in array: " + u.getUsername() + ";");
@@ -209,8 +210,8 @@ public class Signup extends Registration {
     }
 
     //Checks that the input is not empty
-    private boolean inputIsNull (String passwordEntered){
-        return passwordEntered.equalsIgnoreCase("");
+    private boolean inputIsNull(String usernameEntered){
+        return usernameEntered.equalsIgnoreCase("");
     }
 
     //Checks if the password matches the regex
@@ -223,8 +224,8 @@ public class Signup extends Registration {
     }
 
     //Creates a User object with the given parameters
-    private void createUser(String us, String pa, User[] userArray, JFrame window) throws IOException {
-        User d = new User (us, pa, 1);
+    private void createUser(String usernameEntered, String passwordEntered, User[] userArray, JFrame window) throws IOException {
+        User d = new User (usernameEntered, passwordEntered, 1);
         addToFile(d);
 
         User[] temp = new User[userArray.length + 1];
@@ -233,7 +234,7 @@ public class Signup extends Registration {
         temp[temp.length - 1] = d;
         userArray = temp;
 
-        super.getUser(userArray, window, usernameTField.getText().trim());  //Gets user from array and starts menu window
+        super.getUser(userArray, window, usernameEntered);  //Gets user from array and starts menu window
     }
 
     //Adds the user data to the file

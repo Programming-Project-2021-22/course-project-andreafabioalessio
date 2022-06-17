@@ -54,8 +54,11 @@ public class Login extends Registration {
         loginButton.setBorderPainted(false);
         loginButton.addActionListener(e -> {
             try {
-                if(checkUserInArray(userArray, usernameTField.getText().trim())){
-                    getUser(userArray, window, usernameTField.getText().trim());
+                String passwordEntered = String.valueOf(passwordTField.getPassword());
+                String usernameEntered = usernameTField.getText().trim();
+
+                if(checkUserInArray(userArray, usernameEntered, passwordEntered)){
+                    getUser(userArray, window, usernameEntered);
                 }
             } catch (IOException ex) {
                 ex.printStackTrace();
@@ -137,12 +140,13 @@ public class Login extends Registration {
     //Abstract method implementation from the Registration class
     //Checks if a user with the same username entered exists or not
     @Override
-    protected boolean checkUserInArray(User[] userArray, String usernameEntered){
+    protected boolean checkUserInArray(User[] userArray, String usernameEntered, String passwordEntered) throws WrongPasswordError, InvalidUsernameError {
         boolean usernameFound = false;
-        String passwordEntered = String.valueOf(passwordTField.getPassword());
 
         for (int i = 0; i < userArray.length; ){
             User userCheck = userArray[i];
+            System.out.println("Entered: " + usernameEntered + " " + passwordEntered + "\n" +
+                    "Checking: " + userCheck.getUsername() + " " + userCheck.getPassword() + "\n");
             //Checks if username entered exists in the array
             if (usernameEntered.equalsIgnoreCase(userCheck.getUsername())) {
                 usernameFound = true;
@@ -155,17 +159,12 @@ public class Login extends Registration {
                 //Username matches, password doesn't
                 else {
                     errorLabel.setText("Wrong password");
-                    try {
-                        throw new WrongPasswordError("Password does not match username");
-                    } catch (WrongPasswordError e) {
-                        e.printStackTrace();
-                    }
-                    return false;
+
+                    throw new WrongPasswordError("Password does not match username");
                 }
             }
             else {
-                System.out.println("Entered: " + usernameEntered + " " + passwordEntered + "\n" +
-                        "Checking in array: " + userCheck.getUsername() + " " + userCheck.getPassword() + "\n");
+
                 i++; //checks next user in the array
             }
         }
@@ -173,11 +172,9 @@ public class Login extends Registration {
         //Username not found
         if (!usernameFound){
             errorLabel.setText("Username not found, please sign up first.");
-            try {
-                throw new InvalidUsernameError("Username not found in User List");
-            } catch (InvalidUsernameError e) {
-                e.printStackTrace();
-            }
+
+            throw new InvalidUsernameError("Username not found in User List");
+
         }
         return false;
     }
