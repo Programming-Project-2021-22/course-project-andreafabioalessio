@@ -1,6 +1,5 @@
 import Exceptions.InvalidUsernameError;
 import Exceptions.WrongPasswordError;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;

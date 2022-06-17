@@ -1,6 +1,5 @@
 import Exceptions.LevelLockedError;
 
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;

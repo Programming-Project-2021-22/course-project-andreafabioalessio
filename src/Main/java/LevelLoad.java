@@ -1,11 +1,8 @@
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.Objects;
+
 
 /***
  * Class that has methods that load the level sprites
