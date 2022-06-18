@@ -160,7 +160,7 @@ later the two sections converged in a single project with the creation of the le
 
 ### 5.3. Main Challenges
 
-- **Student 1:** The most difficult aspect in this project for me was the collaboration with Andrea. We both had good but different ideas on how to implement different aspects of the game. But in the end we managed to support each other's ideas and come up with good solutions or alternatives.
+- **Fabio:** The most difficult aspect in this project for me was the collaboration with Andrea. We both had good but different ideas on how to implement different aspects of the game. But in the end we managed to support each other's ideas and come up with good solutions or alternatives.
 
 - **Andrea:** In general working with Fabio on the same classes wasn't always easy because we both had different ideas and perspective on how to implement the different aspects of the game, but after efforts we managed to produce a code that belong to both of us.
 
@@ -168,6 +168,6 @@ later the two sections converged in a single project with the creation of the le
 
 ### 5.4. Learning Outcomes
 
-- **Student 1:** I learned a lot about how a Game gets developed, how the game loop works and primarily how difficult it is to organize the workload among the team. Now I can really appreciate every single game I will play in the future. Even if it has some bugs!
-- **Student 2:** I learned on how to work on the backend of a big and complex project and how to implement some aspects of game development, such as physics and collisions.
-- **Student 3:** I learned a lot about GUI, file input and output, and much more. I also learned how to use git better and the importance of team communication.
+- **Fabio:** I learned a lot about how a Game gets developed, how the game loop works and primarily how difficult it is to organize the workload among the team. Now I can really appreciate every single game I will play in the future. Even if it has some bugs!
+- **Andrea:** I learned on how to work on the backend of a big and complex project and how to implement some aspects of game development, such as physics and collisions.
+- **Alessio:** I learned a lot about GUI, file input and output, and much more. I also learned how to use git better and the importance of team communication.
